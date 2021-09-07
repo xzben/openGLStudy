@@ -72,7 +72,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ReferencePath>$(ReferencePath)</ReferencePath>
     <LibraryPath>$(ProjectDir)\..\..\3rdlib\glfw\lib;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(ProjectDir)/../../3rdlib/glad/include/;$(ProjectDir)/../../3rd/glfw/include/;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)/../../3rdlib/glad/include/;$(ProjectDir)/../../3rd/glfw/include/;$(ProjectDir)/../../3rd/stb/;$(ProjectDir)/../../source/;$(IncludePath)</IncludePath>
     <ExecutablePath>$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -132,14 +132,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\3rdlib\glad\src\glad.c" />
+    <ClCompile Include="..\..\source\base\RenderNode.cpp" />
     <ClCompile Include="..\..\source\FileUtils.cpp" />
+    <ClCompile Include="..\..\source\image\Image.cpp" />
     <ClCompile Include="..\..\source\main.cpp" />
     <ClCompile Include="..\..\source\Shader.cpp" />
+    <ClCompile Include="..\..\source\test\RectItem.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\source\base\RenderNode.h" />
     <ClInclude Include="..\..\source\common.h" />
     <ClInclude Include="..\..\source\FileUtils.h" />
+    <ClInclude Include="..\..\source\image\Image.h" />
     <ClInclude Include="..\..\source\Shader.h" />
+    <ClInclude Include="..\..\source\test\RectItem.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

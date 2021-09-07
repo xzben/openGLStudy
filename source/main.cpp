@@ -2,6 +2,8 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include "Shader.h"
+#include "image/Image.h"
+#include "test/RectItem.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
@@ -19,13 +21,16 @@ void doDraw()
 	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 	
-	Shader shader("base_shader.vs", "base_shader.fs");
+	Shader shader("texture_shader.vs", "texture_shader.fs");
+	Image image1("wall.jpg");
+	Image image2("awesomeface.png");
 
 	float vertices[] = {
-	0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f,   // 右上角
-	0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f,  // 右下角
-	-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, // 左下角
-	-0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 1.0f,   // 左上角
+  //--- pos -------     ----- color ----   --- texture --
+	0.5f, 0.5f, 0.0f,	1.0f, 0.0f, 0.0f,  1.0f, 1.0f, // 右上角
+	0.5f, -0.5f, 0.0f,	0.0f, 1.0f, 0.0f,  1.0f, 0.0f,// 右下角
+	-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f,  0.0f, 0.0f,// 左下角
+	-0.5f, 0.5f, 0.0f,	1.0f, 1.0f, 1.0f,  0.0f, 1.0f// 左上角
 	};
 
 	unsigned int indices[] = { // 注意索引从0开始! 
@@ -51,12 +56,21 @@ void doDraw()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3*sizeof(float)));
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3*sizeof(float)));
 	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+	glEnableVertexAttribArray(2);
+
+	glActiveTexture(GL_TEXTURE0);
+	image1.render();
+	glActiveTexture(GL_TEXTURE1);
+	image2.render();
 
 	shader.use();
+	shader.setInt("texture1", 0);
+	shader.setInt("texture2", 1);
 
 	glBindVertexArray(VAO);
 	//可以配置绘制多边形的方式，  GL_LINE 绘线 GL_FILL 填充 
@@ -101,13 +115,28 @@ int main()
 	//设置窗口大小变化回调，主要重置窗口大小用
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
+
+	RectItem item;
+	Shader shader("texture_shader.vs", "texture_shader.fs");
+	Image image1("wall.jpg");
+	Image image2("awesomeface.png");
+
 	while (!glfwWindowShouldClose(window))
 	{
 		//处理键盘输入
 		processInput(window);
+		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT);
 
-		//执行绘制
-		doDraw();
+		glActiveTexture(GL_TEXTURE0);
+		image1.render();
+		glActiveTexture(GL_TEXTURE1);
+		image2.render();
+
+		shader.use();
+		shader.setInt("texture1", 0);
+		shader.setInt("texture2", 1);
+		item.render();
 
 		glfwPollEvents();
 		glfwSwapBuffers(window);

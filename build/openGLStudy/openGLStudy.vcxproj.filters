@@ -4,6 +4,15 @@
     <Filter Include="source">
       <UniqueIdentifier>{21b44cf1-ad46-45e2-ba7b-90b49fc772e7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\imag">
+      <UniqueIdentifier>{ce42419b-fd76-4d19-97e1-a7c8a1687954}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\base">
+      <UniqueIdentifier>{3a26b784-4902-4fa7-8cdc-ae7810ee27ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\test">
+      <UniqueIdentifier>{32c1d070-4f82-4501-a253-61ff5560ed95}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\3rdlib\glad\src\glad.c">
@@ -18,6 +27,15 @@
     <ClCompile Include="..\..\source\FileUtils.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\source\image\Image.cpp">
+      <Filter>source\imag</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\base\RenderNode.cpp">
+      <Filter>source\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\test\RectItem.cpp">
+      <Filter>source\test</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\source\Shader.h">
@@ -28,6 +46,15 @@
     </ClInclude>
     <ClInclude Include="..\..\source\FileUtils.h">
       <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\image\Image.h">
+      <Filter>source\imag</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\base\RenderNode.h">
+      <Filter>source\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\test\RectItem.h">
+      <Filter>source\test</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

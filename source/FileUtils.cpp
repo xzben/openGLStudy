@@ -85,6 +85,7 @@ bool FileUtils::getData(const std::string &filename, Data* data) {
 	data->resetSize(size);
 	size_t readsize = fread(data->buffer(), 1, size, fp);
 	fclose(fp);
+	data->setContentSize(readsize);
 
 	return true;
 }

@@ -7,3 +7,5 @@ cmake -S ..\..\..\3rd\glfw -B ./
 指定 vs版本
 cmake -S ..\..\..\3rd\glfw -B ./ -G "Visual Studio 12 2013"
 打开工程 GLFW.sln 工程文件，构建工程即可在src\debug 下获得 glfw.lib 库
+
+2、
