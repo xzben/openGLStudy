@@ -8,4 +8,4 @@ cmake -S ..\..\..\3rd\glfw -B ./
 cmake -S ..\..\..\3rd\glfw -B ./ -G "Visual Studio 12 2013"
 打开工程 GLFW.sln 工程文件，构建工程即可在src\debug 下获得 glfw.lib 库
 
-2、
+2、glm 数学库 https://glm.g-truc.net/0.9.9/index.html
