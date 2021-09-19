@@ -2,3 +2,5 @@
 build/openGLStudy/Debug/
 build/Debug/
 build/.vs/
+build/openGLStudy/x64/
+*.pdb
