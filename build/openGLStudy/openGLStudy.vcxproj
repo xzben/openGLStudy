@@ -22,13 +22,13 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{3A75AA92-F6D9-4D8F-8A06-5C71AB6419AF}</ProjectGuid>
     <RootNamespace>openGLStudy</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -72,7 +72,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ReferencePath>$(ReferencePath)</ReferencePath>
     <LibraryPath>$(ProjectDir)\..\..\3rdlib\glfw\lib;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(ProjectDir)/../../3rdlib/glad/include/;$(ProjectDir)/../../3rd/glfw/include/;$(ProjectDir)/../../3rd/stb/;$(ProjectDir)/../../source/;$(ProjectDir)/../../3rdlib\glfw\include;$(ProjectDir)/../../3rdlib\glfw\src;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)/../../3rdlib/glad/include/;$(ProjectDir)/../../3rd/glfw/include/;$(ProjectDir)/../../3rd/stb/;$(ProjectDir)/../../source/;$(ProjectDir)/../../3rdlib\glfw\include;$(ProjectDir)/../../3rdlib\glfw\src;$(ProjectDir)/../../source/game;$(ProjectDir)/../../source/engine;$(IncludePath)</IncludePath>
     <ExecutablePath>$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -138,20 +138,55 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\3rdlib\glad\src\glad.c" />
-    <ClCompile Include="..\..\source\base\RenderNode.cpp" />
-    <ClCompile Include="..\..\source\FileUtils.cpp" />
-    <ClCompile Include="..\..\source\image\Image.cpp" />
+    <ClCompile Include="..\..\source\engine\base\Application.cpp" />
+    <ClCompile Include="..\..\source\engine\base\Component.cpp" />
+    <ClCompile Include="..\..\source\engine\base\Node.cpp" />
+    <ClCompile Include="..\..\source\engine\base\Object.cpp" />
+    <ClCompile Include="..\..\source\engine\base\Scene.cpp" />
+    <ClCompile Include="..\..\source\engine\base\SceneManager.cpp" />
+    <ClCompile Include="..\..\source\engine\base\Shader.cpp" />
+    <ClCompile Include="..\..\source\engine\render\image\ImageComponent.cpp" />
+    <ClCompile Include="..\..\source\engine\render\RenderableComponent.cpp" />
+    <ClCompile Include="..\..\source\engine\render\RenderMesh.cpp" />
+    <ClCompile Include="..\..\source\engine\render\Texture.cpp" />
+    <ClCompile Include="..\..\source\engine\test\RectItem.cpp" />
+    <ClCompile Include="..\..\source\engine\utils\FileUtils.cpp" />
+    <ClCompile Include="..\..\source\engine\window\Window.cpp" />
+    <ClCompile Include="..\..\source\game\AppDeleget.cpp" />
+    <ClCompile Include="..\..\source\game\test\TestRect.cpp" />
+    <ClCompile Include="..\..\source\game\test\TestScene.cpp" />
+    <ClCompile Include="..\..\source\game\test\TestTriangle.cpp" />
     <ClCompile Include="..\..\source\main.cpp" />
-    <ClCompile Include="..\..\source\Shader.cpp" />
-    <ClCompile Include="..\..\source\test\RectItem.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\source\base\RenderNode.h" />
-    <ClInclude Include="..\..\source\common.h" />
-    <ClInclude Include="..\..\source\FileUtils.h" />
-    <ClInclude Include="..\..\source\image\Image.h" />
-    <ClInclude Include="..\..\source\Shader.h" />
-    <ClInclude Include="..\..\source\test\RectItem.h" />
+    <ClInclude Include="..\..\source\engine\base\Application.h" />
+    <ClInclude Include="..\..\source\engine\base\Component.h" />
+    <ClInclude Include="..\..\source\engine\base\Node.h" />
+    <ClInclude Include="..\..\source\engine\base\Object.h" />
+    <ClInclude Include="..\..\source\engine\base\Scene.h" />
+    <ClInclude Include="..\..\source\engine\base\SceneManager.h" />
+    <ClInclude Include="..\..\source\engine\base\Shader.h" />
+    <ClInclude Include="..\..\source\engine\common.h" />
+    <ClInclude Include="..\..\source\engine\math\Mat3.h" />
+    <ClInclude Include="..\..\source\engine\math\Mat4.h" />
+    <ClInclude Include="..\..\source\engine\math\math.h" />
+    <ClInclude Include="..\..\source\engine\math\Rect.h" />
+    <ClInclude Include="..\..\source\engine\math\Size.h" />
+    <ClInclude Include="..\..\source\engine\math\Vec2.h" />
+    <ClInclude Include="..\..\source\engine\math\Vec3.h" />
+    <ClInclude Include="..\..\source\engine\math\Vec4.h" />
+    <ClInclude Include="..\..\source\engine\render\config.h" />
+    <ClInclude Include="..\..\source\engine\render\image\ImageComponent.h" />
+    <ClInclude Include="..\..\source\engine\render\RenderableComponent.h" />
+    <ClInclude Include="..\..\source\engine\render\RenderMesh.h" />
+    <ClInclude Include="..\..\source\engine\render\Texture.h" />
+    <ClInclude Include="..\..\source\engine\test\RectItem.h" />
+    <ClInclude Include="..\..\source\engine\utils\FileUtils.h" />
+    <ClInclude Include="..\..\source\engine\window\Window.h" />
+    <ClInclude Include="..\..\source\game\AppDeleget.h" />
+    <ClInclude Include="..\..\source\game\test\TestRect.h" />
+    <ClInclude Include="..\..\source\game\test\TestScene.h" />
+    <ClInclude Include="..\..\source\game\test\TestTriangle.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

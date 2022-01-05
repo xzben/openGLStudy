@@ -45,8 +45,8 @@
     <ClCompile Include="..\..\3rdlib\glad\src\glad.c">
       <Filter>source\engine</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\source\game\AppDeleget.cpp">
-      <Filter>source\game</Filter>
+    <ClCompile Include="..\..\source\main.cpp">
+      <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\source\engine\base\Application.cpp">
       <Filter>source\engine\base</Filter>
@@ -60,6 +60,27 @@
     <ClCompile Include="..\..\source\engine\base\Object.cpp">
       <Filter>source\engine\base</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\source\engine\base\Scene.cpp">
+      <Filter>source\engine\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\engine\base\SceneManager.cpp">
+      <Filter>source\engine\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\engine\base\Shader.cpp">
+      <Filter>source\engine\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\engine\render\RenderableComponent.cpp">
+      <Filter>source\engine\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\engine\render\RenderMesh.cpp">
+      <Filter>source\engine\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\engine\render\Texture.cpp">
+      <Filter>source\engine\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\engine\render\image\ImageComponent.cpp">
+      <Filter>source\engine\render\imag</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\source\engine\test\RectItem.cpp">
       <Filter>source\engine\test</Filter>
     </ClCompile>
@@ -69,50 +90,20 @@
     <ClCompile Include="..\..\source\engine\window\Window.cpp">
       <Filter>source\engine\window</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\source\engine\base\Shader.cpp">
-      <Filter>source\engine\base</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\source\engine\base\Scene.cpp">
-      <Filter>source\engine\base</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\source\engine\base\SceneManager.cpp">
-      <Filter>source\engine\base</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\source\main.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\source\engine\render\RenderMesh.cpp">
-      <Filter>source\engine\render</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\source\engine\render\config.h">
-      <Filter>source\engine\render</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\source\engine\render\image\ImageComponent.cpp">
-      <Filter>source\engine\render\imag</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\source\game\test\TestTriangle.cpp">
-      <Filter>source\game\test</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\source\engine\render\RenderableComponent.cpp">
-      <Filter>source\engine\render</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\source\game\test\TestScene.cpp">
-      <Filter>source\game\test</Filter>
+    <ClCompile Include="..\..\source\game\AppDeleget.cpp">
+      <Filter>source\game</Filter>
     </ClCompile>
     <ClCompile Include="..\..\source\game\test\TestRect.cpp">
       <Filter>source\game\test</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\source\engine\math\Vec4.h">
-      <Filter>source\engine\math</Filter>
+    <ClCompile Include="..\..\source\game\test\TestScene.cpp">
+      <Filter>source\game\test</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\source\engine\render\Texture.cpp">
-      <Filter>source\engine\render</Filter>
+    <ClCompile Include="..\..\source\game\test\TestTriangle.cpp">
+      <Filter>source\game\test</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\source\game\AppDeleget.h">
-      <Filter>source\game</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\source\engine\base\Application.h">
       <Filter>source\engine\base</Filter>
     </ClInclude>
@@ -124,6 +115,54 @@
     </ClInclude>
     <ClInclude Include="..\..\source\engine\base\Object.h">
       <Filter>source\engine\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\engine\base\Scene.h">
+      <Filter>source\engine\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\engine\base\SceneManager.h">
+      <Filter>source\engine\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\engine\base\Shader.h">
+      <Filter>source\engine\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\engine\math\Mat3.h">
+      <Filter>source\engine\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\engine\math\Mat4.h">
+      <Filter>source\engine\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\engine\math\math.h">
+      <Filter>source\engine\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\engine\math\Rect.h">
+      <Filter>source\engine\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\engine\math\Size.h">
+      <Filter>source\engine\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\engine\math\Vec2.h">
+      <Filter>source\engine\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\engine\math\Vec3.h">
+      <Filter>source\engine\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\engine\math\Vec4.h">
+      <Filter>source\engine\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\engine\render\config.h">
+      <Filter>source\engine\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\engine\render\RenderableComponent.h">
+      <Filter>source\engine\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\engine\render\RenderMesh.h">
+      <Filter>source\engine\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\engine\render\Texture.h">
+      <Filter>source\engine\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\engine\render\image\ImageComponent.h">
+      <Filter>source\engine\render\imag</Filter>
     </ClInclude>
     <ClInclude Include="..\..\source\engine\test\RectItem.h">
       <Filter>source\engine\test</Filter>
@@ -137,78 +176,17 @@
     <ClInclude Include="..\..\source\engine\common.h">
       <Filter>source\engine</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\source\engine\base\Shader.h">
-      <Filter>source\engine\base</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\source\engine\base\Scene.h">
-      <Filter>source\engine\base</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\source\engine\base\SceneManager.h">
-      <Filter>source\engine\base</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\source\engine\render\RenderMesh.h">
-      <Filter>source\engine\render</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\source\engine\render\image\ImageComponent.h">
-      <Filter>source\engine\render\imag</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\source\game\test\TestTriangle.h">
-      <Filter>source\game\test</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\source\engine\render\RenderableComponent.h">
-      <Filter>source\engine\render</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\source\game\test\TestScene.h">
-      <Filter>source\game\test</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\source\engine\math\Vec2.h">
-      <Filter>source\engine\math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\source\engine\math\Vec3.h">
-      <Filter>source\engine\math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\source\engine\math\Size.h">
-      <Filter>source\engine\math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\source\engine\math\Rect.h">
-      <Filter>source\engine\math</Filter>
+    <ClInclude Include="..\..\source\game\AppDeleget.h">
+      <Filter>source\game</Filter>
     </ClInclude>
     <ClInclude Include="..\..\source\game\test\TestRect.h">
       <Filter>source\game\test</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\source\engine\math\math.h">
-      <Filter>source\engine\math</Filter>
+    <ClInclude Include="..\..\source\game\test\TestScene.h">
+      <Filter>source\game\test</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\source\engine\render\Texture.h">
-      <Filter>source\engine\render</Filter>
+    <ClInclude Include="..\..\source\game\test\TestTriangle.h">
+      <Filter>source\game\test</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\source\engine\math\Mat3.h">
-      <Filter>source\engine\math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\source\engine\math\Mat4.h">
-      <Filter>source\engine\math</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\..\Resources\awesomeface.png">
-      <Filter>Resources</Filter>
-    </Image>
-    <Image Include="..\..\Resources\wall.jpg">
-      <Filter>Resources</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\Resources\base_shader.fs">
-      <Filter>Resources</Filter>
-    </None>
-    <None Include="..\..\Resources\base_shader.vs">
-      <Filter>Resources</Filter>
-    </None>
-    <None Include="..\..\Resources\texture_shader.fs">
-      <Filter>Resources</Filter>
-    </None>
-    <None Include="..\..\Resources\texture_shader.vs">
-      <Filter>Resources</Filter>
-    </None>
   </ItemGroup>
 </Project>
