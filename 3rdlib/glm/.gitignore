@@ -52,7 +52,3 @@ Makefile
 # local build(s)
 build*
 
-/.vs
-/.vscode
-/CMakeSettings.json
-.DS_Store
