@@ -40,6 +40,9 @@
     <Filter Include="Resources\test">
       <UniqueIdentifier>{09c30f5d-4047-41a9-b1b3-bfbe10044791}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\engine\event">
+      <UniqueIdentifier>{2b164901-1a14-4025-8fc3-8962e1295f01}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\3rdlib\glad\src\glad.c">
@@ -101,6 +104,12 @@
     </ClCompile>
     <ClCompile Include="..\..\source\game\test\TestTriangle.cpp">
       <Filter>source\game\test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\engine\event\EventDispatcher.cpp">
+      <Filter>source\engine\event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\engine\render\RenderContainor.cpp">
+      <Filter>source\engine\render</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -187,6 +196,15 @@
     </ClInclude>
     <ClInclude Include="..\..\source\game\test\TestTriangle.h">
       <Filter>source\game\test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\engine\define.h">
+      <Filter>source\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\engine\event\EventDispatcher.h">
+      <Filter>source\engine\event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\engine\render\RenderContainor.h">
+      <Filter>source\engine\render</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

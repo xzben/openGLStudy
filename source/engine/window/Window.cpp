@@ -63,8 +63,7 @@ bool Window::init()
 		return false;
 	}
 
-	//指定窗口大小
-	glViewport(0, 0, m_width, m_heigth);
+	this->handleWindowSizeChange(this->m_width, this->m_heigth);
 
 	//设置窗口大小变化回调，主要重置窗口大小用
 	glfwSetFramebufferSizeCallback((GLFWwindow*)m_window, Window::resize_callback);
@@ -76,6 +75,8 @@ void Window::handleWindowSizeChange(float width, float height) {
 	this->m_width = width;
 	this->m_heigth = height;
 	glViewport(0, 0, width, height);
+
+	Application::getInstance()->setFrameSize(width, height);
 }
 
 void Window::mainLoop()

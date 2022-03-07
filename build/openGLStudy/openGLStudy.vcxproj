@@ -145,8 +145,10 @@
     <ClCompile Include="..\..\source\engine\base\Scene.cpp" />
     <ClCompile Include="..\..\source\engine\base\SceneManager.cpp" />
     <ClCompile Include="..\..\source\engine\base\Shader.cpp" />
+    <ClCompile Include="..\..\source\engine\event\EventDispatcher.cpp" />
     <ClCompile Include="..\..\source\engine\render\image\ImageComponent.cpp" />
     <ClCompile Include="..\..\source\engine\render\RenderableComponent.cpp" />
+    <ClCompile Include="..\..\source\engine\render\RenderContainor.cpp" />
     <ClCompile Include="..\..\source\engine\render\RenderMesh.cpp" />
     <ClCompile Include="..\..\source\engine\render\Texture.cpp" />
     <ClCompile Include="..\..\source\engine\test\RectItem.cpp" />
@@ -167,6 +169,8 @@
     <ClInclude Include="..\..\source\engine\base\SceneManager.h" />
     <ClInclude Include="..\..\source\engine\base\Shader.h" />
     <ClInclude Include="..\..\source\engine\common.h" />
+    <ClInclude Include="..\..\source\engine\define.h" />
+    <ClInclude Include="..\..\source\engine\event\EventDispatcher.h" />
     <ClInclude Include="..\..\source\engine\math\Mat3.h" />
     <ClInclude Include="..\..\source\engine\math\Mat4.h" />
     <ClInclude Include="..\..\source\engine\math\math.h" />
@@ -178,6 +182,7 @@
     <ClInclude Include="..\..\source\engine\render\config.h" />
     <ClInclude Include="..\..\source\engine\render\image\ImageComponent.h" />
     <ClInclude Include="..\..\source\engine\render\RenderableComponent.h" />
+    <ClInclude Include="..\..\source\engine\render\RenderContainor.h" />
     <ClInclude Include="..\..\source\engine\render\RenderMesh.h" />
     <ClInclude Include="..\..\source\engine\render\Texture.h" />
     <ClInclude Include="..\..\source\engine\test\RectItem.h" />

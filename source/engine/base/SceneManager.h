@@ -2,23 +2,18 @@
 #define __2021_12_30_SCENE_MANAGER_H__
 
 #include "common.h"
+#include "render/RenderContainor.h"
 
 class Scene;
 class RenderableComponent;
 
-class SceneManager 
+class SceneManager : public RenderContainor
 {
 private:
 	static SceneManager* s_instance;
 public:
 	static SceneManager* getInstance();
 protected:
-	friend class RenderableComponent;
-
-	std::vector<RenderableComponent*> m_renderComps;
-
-	void addRenderComp(RenderableComponent* com);
-	void removeRenderComp(RenderableComponent* com);
 	Scene* m_scene;
 public:
 	SceneManager();
@@ -26,6 +21,6 @@ public:
 
 	Scene* getCurScene();
 	void changeScene(Scene* scene);
-	void render();
+	virtual void render() override;
 };
 #endif//__2021_12_30_SCENE_MANAGER_H__

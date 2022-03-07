@@ -5,6 +5,7 @@
 #include <cassert>
 
 #include "math/math.h"
+#include "define.h"
 
 typedef unsigned int  uint;
 typedef unsigned char byte;

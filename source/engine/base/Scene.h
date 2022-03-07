@@ -3,12 +3,12 @@
 
 #include "common.h"
 #include "base/Node.h"
+#include "render/RenderContainor.h"
 
-class Scene : public Node
+class Scene : public Node, public RenderContainor
 {
 protected:
 	Size m_size;
-
 	void setSize(const Size& size) {
 		this->m_size = size;
 	}

@@ -14,12 +14,13 @@ private:
 
 	std::vector<Node*> m_childrens;
 	std::vector<Component*> m_components;
+	POSITION m_pos;
 	Node* m_parent;
 	bool m_start;
 	bool m_pause;
 protected:
-	void doLoad();
-	void doStart();
+	void doLoad();  //构造对象完毕就会执行
+	void doStart();  //所在scene切入渲染开始触发
 	void doPause();
 	void doResume();
 	void doStop();
@@ -30,6 +31,26 @@ public:
 	 virtual ~Node();
 
 	Component* addComponent(Component* com);
+
+	template<typename ComType>
+	ComType* getComponent()
+	{
+		for (auto it = m_components.begin(); it != m_components.end() ; it++)
+		{
+			ComType* com = dynamic_cast<ComType*>(*it);
+
+			if (com != nullptr)
+			{
+				return com;
+			}
+		}
+	}
+
+	template<typename ComType>
+	ComType* addComponent()
+	{
+		return  dynamic_cast<ComType*>(this->addComponent(new ComType()));
+	}
 
 	void setParent(Node* node);
 	void removeFromParent();

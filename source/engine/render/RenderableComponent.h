@@ -3,8 +3,12 @@
 
 #include "base/Component.h"
 
+class RenderContainor;
+
 class RenderableComponent : public Component 
 {
+private:
+	RenderContainor* m_containor;
 public:
 	RenderableComponent();
 	virtual ~RenderableComponent();

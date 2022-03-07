@@ -24,22 +24,6 @@ SceneManager::~SceneManager()
 
 }
 
-void SceneManager::addRenderComp(RenderableComponent* com)
-{
-	this->m_renderComps.push_back(com);
-}
-
-void SceneManager::removeRenderComp(RenderableComponent* com)
-{
-	for (auto it = m_renderComps.begin(); it != this->m_renderComps.end(); it++)
-	{
-		if (com == *it) {
-			this->m_renderComps.erase(it);
-			break;
-		}
-	}
-}
-
 void SceneManager::changeScene(Scene* scene) 
 {
 	if (scene == nullptr) return;
@@ -61,8 +45,6 @@ Scene* SceneManager::getCurScene()
 
 void SceneManager::render()
 {
-	for (auto it = m_renderComps.begin(); it != m_renderComps.end(); it++)
-	{
-		(*it)->render();
-	}
+	RenderContainor::render();
+	this->m_scene->render();
 }

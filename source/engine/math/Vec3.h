@@ -12,7 +12,7 @@ public:
 	TYPENAME z;
 public:
 	Vec3() {
-
+		x = y = z = 0;
 	}
 
 	Vec3(TYPENAME x, TYPENAME y, TYPENAME z)
