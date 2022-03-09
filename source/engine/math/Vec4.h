@@ -26,5 +26,6 @@ public:
 
 typedef Vec4<float>		fVec4;
 typedef Vec4<int>		iVec4;
+typedef Vec4<short>		RGBA;
 
 #endif//__2022_01_05_MATH_VEC4_H__

@@ -2,7 +2,6 @@
 #include "utils/FileUtils.h"
 #include <glad/glad.h>
 
-
 Shader::Shader(const std::string& vertextPath, const std::string& fragmentPath) 
 	: m_id(-1)
 {
@@ -15,7 +14,7 @@ void Shader::init(const std::string& vertextPath, const std::string& fragmentPat
 	std::string fsource = FileUtils::getInstance()->getString(fragmentPath);
 
 	int  success;
-	char infoLog[512];
+	char infoLog[GL_ERROR_MSG_SIZE];
 
 	uint vertexShader, fragmentShader;
 	vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -26,7 +25,7 @@ void Shader::init(const std::string& vertextPath, const std::string& fragmentPat
 	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
 	if (!success)
 	{
-		glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
+		glGetShaderInfoLog(vertexShader, GL_ERROR_MSG_SIZE, NULL, infoLog);
 		std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
 		return;
 	}
@@ -38,7 +37,7 @@ void Shader::init(const std::string& vertextPath, const std::string& fragmentPat
 	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
 	if (!success)
 	{
-		glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
+		glGetShaderInfoLog(vertexShader, GL_ERROR_MSG_SIZE, NULL, infoLog);
 		std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
 		return;
 	}
@@ -49,6 +48,15 @@ void Shader::init(const std::string& vertextPath, const std::string& fragmentPat
 	glLinkProgram(this->m_id);
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
+
+	glGetProgramiv(this->m_id, GL_LINK_STATUS, &success);
+	if (!success) {
+		glGetProgramInfoLog(this->m_id, GL_ERROR_MSG_SIZE, NULL, infoLog);
+		std::cout << "ERROR::SHADER::LINK PROGRAM ERROR\n" << infoLog << std::endl;
+		return;
+	}
+
+
 }
 
 Shader::~Shader() 

@@ -146,6 +146,7 @@
     <ClCompile Include="..\..\source\engine\base\SceneManager.cpp" />
     <ClCompile Include="..\..\source\engine\base\Shader.cpp" />
     <ClCompile Include="..\..\source\engine\event\EventDispatcher.cpp" />
+    <ClCompile Include="..\..\source\engine\render\base\Mesh.cpp" />
     <ClCompile Include="..\..\source\engine\render\image\ImageComponent.cpp" />
     <ClCompile Include="..\..\source\engine\render\RenderableComponent.cpp" />
     <ClCompile Include="..\..\source\engine\render\RenderContainor.cpp" />
@@ -179,6 +180,7 @@
     <ClInclude Include="..\..\source\engine\math\Vec2.h" />
     <ClInclude Include="..\..\source\engine\math\Vec3.h" />
     <ClInclude Include="..\..\source\engine\math\Vec4.h" />
+    <ClInclude Include="..\..\source\engine\render\base\Mesh.h" />
     <ClInclude Include="..\..\source\engine\render\config.h" />
     <ClInclude Include="..\..\source\engine\render\image\ImageComponent.h" />
     <ClInclude Include="..\..\source\engine\render\RenderableComponent.h" />

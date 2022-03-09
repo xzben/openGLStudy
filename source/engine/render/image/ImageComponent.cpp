@@ -85,7 +85,7 @@ void ImageComponent::render()
 {
 	m_texture->use();
 	m_shader->use();
-	m_shader->setInt("ourTexture", 0);
+	m_shader->setInt("mainTexture", 0);
 	glBindVertexArray(m_vao);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);

@@ -72,5 +72,7 @@ public:
 	}
 };
 
+typedef Mat3<float> fMat3;
+typedef Mat3<int> iMat3;
 
 #endif//__2022_01_05_MATRIX_3_3_H__

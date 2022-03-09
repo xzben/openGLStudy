@@ -43,6 +43,9 @@
     <Filter Include="source\engine\event">
       <UniqueIdentifier>{2b164901-1a14-4025-8fc3-8962e1295f01}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\engine\render\base">
+      <UniqueIdentifier>{c68f5632-c3c5-4fc6-8e00-58bd3dea1359}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\3rdlib\glad\src\glad.c">
@@ -110,6 +113,9 @@
     </ClCompile>
     <ClCompile Include="..\..\source\engine\render\RenderContainor.cpp">
       <Filter>source\engine\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\engine\render\base\Mesh.cpp">
+      <Filter>source\engine\render\base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -205,6 +211,9 @@
     </ClInclude>
     <ClInclude Include="..\..\source\engine\render\RenderContainor.h">
       <Filter>source\engine\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\engine\render\base\Mesh.h">
+      <Filter>source\engine\render\base</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

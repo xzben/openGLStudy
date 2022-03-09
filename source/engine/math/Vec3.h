@@ -57,5 +57,6 @@ public:
 typedef Vec3<float>		fVec3;
 typedef Vec3<int>		iVec3;
 typedef Vec3<float>		POSITION;
+typedef Vec3<short>		RGB;
 
 #endif//__2022_01_04_VEC3_H__
