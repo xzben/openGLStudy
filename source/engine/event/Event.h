@@ -13,6 +13,7 @@ enum class EventType
 	TOUCH,  //触摸事件
 	KEYBOARD, //键盘事件
 	MOUSE, //鼠标事件
+
 	CUSTOM = 100, //自定义事件
 };
 
@@ -27,6 +28,7 @@ public:
 
 	inline bool isStop() { return this->m_stop; }
 	void stop() { this->m_stop = true; }
+	EventType& getType() { return this->m_type;  }
 };
 
 class EventTouch : public Event
@@ -50,7 +52,7 @@ public:
 class EventCustom : public Event
 {
 public:
-	ListenerID m_listenerId;
+	ListenerID listenerId;
 	void* customData;
 
 public:
@@ -58,6 +60,10 @@ public:
 	virtual ~EventCustom() {};
 };
 
+class EventMouse : public Event
+{
+
+};
 class EventListener
 {
 public:
@@ -73,6 +79,20 @@ public:
 	EventListener(EventType type, CALLFUNC func);
 	EventListener(EventType type, ListenerID Id, CALLFUNC func);
 	virtual ~EventListener();
+
+
+	void setOrder(const int order) { m_order = order; }
+	void setEnable(const bool enable) { m_enable = enable; }
+	void setRegister(const bool reg) { m_register = reg;  }
+
+	void setListenerId(const ListenerID id) { listenerId = id; }
+
+	const ListenerID& getListenerId() { return listenerId; }
+	int  getOrder() { return m_order; }
+	bool isEnable() { return m_enable; }
+	bool isRegister() { return m_register; }
+
+	void doCall(Event* event);
 };
 
 #endif//__2022_03_08_EVENT_H__

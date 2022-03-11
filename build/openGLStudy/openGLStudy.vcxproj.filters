@@ -117,6 +117,9 @@
     <ClCompile Include="..\..\source\engine\render\base\Mesh.cpp">
       <Filter>source\engine\render\base</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\source\engine\event\Event.cpp">
+      <Filter>source\engine\event</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\source\engine\base\Application.h">
@@ -214,6 +217,9 @@
     </ClInclude>
     <ClInclude Include="..\..\source\engine\render\base\Mesh.h">
       <Filter>source\engine\render\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\engine\event\Event.h">
+      <Filter>source\engine\event</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

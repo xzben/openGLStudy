@@ -28,7 +28,7 @@ EventKeyboard::EventKeyboard(int key)
 
 EventCustom::EventCustom(ListenerID listenerId, void* customData)
 	:Event(EventType::CUSTOM),
-	m_listenerId(listenerId),
+	listenerId(listenerId),
 	customData(customData)
 {
 
@@ -42,9 +42,12 @@ EventListener::EventListener(EventType type, CALLFUNC func)
 
 
 EventListener::EventListener(EventType type, ListenerID Id, CALLFUNC func)
-	:type(type)
-	,callback(func)
-	,listenerId(Id)
+	: type(type)
+	, callback(func)
+	, listenerId(Id)
+	, m_register(false)
+	, m_enable(false)
+	, m_order(0)
 {
 
 }
@@ -52,4 +55,9 @@ EventListener::EventListener(EventType type, ListenerID Id, CALLFUNC func)
 EventListener::~EventListener() 
 {
 
+}
+
+void EventListener::doCall(Event* event) 
+{
+	this->callback(event);
 }
