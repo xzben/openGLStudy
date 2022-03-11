@@ -74,9 +74,19 @@ bool Window::init()
 void Window::handleWindowSizeChange(float width, float height) {
 	this->m_width = width;
 	this->m_heigth = height;
+
+	//0, 0 代表左下角位置
 	glViewport(0, 0, width, height);
 
 	Application::getInstance()->setFrameSize(width, height);
+}
+
+void Window::process_input()
+{
+	GLFWwindow* win = (GLFWwindow*)m_window;
+	//int key = glfwGetKey(win, GLFW_KEY_ESCAPE);
+	//if (key == GLFW_PRESS)
+	//	glfwSetWindowShouldClose(win, true);
 }
 
 void Window::mainLoop()
@@ -84,16 +94,26 @@ void Window::mainLoop()
 	float lasttime = glfwGetTime();
 	while (!glfwWindowShouldClose((GLFWwindow*)m_window))
 	{
+		//获取当前时间
 		float curtime = glfwGetTime();
 		float offset = curtime - lasttime;
 		lasttime = curtime;
 		
 		Application::getInstance()->setLastTime(lasttime);
 
-		if (Application::getInstance()->update(offset))
+		//update推动时间，当达到一帧时间时则会触发渲染流程手机渲染命令
+		//并且 交换缓冲区显示
+		if (Application::getInstance()->shiftTime(offset))
 		{
+			process_input();
+
+			Application::getInstance()->update();
+
 			Application::getInstance()->render();
+
+			//交换缓冲去屏幕渲染
 			glfwSwapBuffers((GLFWwindow*)m_window);
+			//触发事件收集
 			glfwPollEvents();
 		}
 		else

@@ -20,6 +20,7 @@ public:
 	virtual ~SceneManager();
 
 	Scene* getCurScene();
+	void update(float dt);
 	void changeScene(Scene* scene);
 	virtual void render() override;
 };

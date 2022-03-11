@@ -12,6 +12,7 @@ private:
 public:
 	static Window* getInstance();
 	static void resize_callback(GLFWwindow* win, int width, int height);
+	
 protected:
 
 	float m_width;
@@ -26,6 +27,7 @@ public:
 protected:
 	bool init();
 	void handleWindowSizeChange(float width, float height);
+	void process_input();
 
 
 };

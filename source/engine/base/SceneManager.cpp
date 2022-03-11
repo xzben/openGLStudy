@@ -43,8 +43,16 @@ Scene* SceneManager::getCurScene()
 	return m_scene;
 }
 
+void SceneManager::update(float dt)
+{
+	if (this->m_scene) {
+		this->m_scene->doUpdate(dt);
+	}
+}
+
 void SceneManager::render()
 {
 	RenderContainor::render();
-	this->m_scene->render();
+	if(this->m_scene)
+		this->m_scene->render();
 }

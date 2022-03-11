@@ -39,7 +39,9 @@ public:
 	void setLastTime( float lastime) { this->m_lasttime = lastime; }
 	float getLastTime() { return this->m_lasttime;  }
 
-	bool update(float offsettime);
+	//Æ«ÒÆÊ±²î
+	bool shiftTime(float offsettime);
+	bool update();
 	void render();
 	virtual void onAppLauchFinish() = 0;
 	virtual void onAppPause() = 0;

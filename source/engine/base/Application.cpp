@@ -27,10 +27,10 @@ Application* Application::getInstance() {
 	return s_instance;
 }
 
-bool Application::update(float offsettime) 
+bool Application::shiftTime(float offsettime) 
 {
 	this->m_offsetCount += offsettime;
-	if (this->m_offsetCount >= this->m_fps) 
+	if (this->m_offsetCount >= this->m_fps)
 	{
 		this->m_lastDt = this->m_offsetCount;
 		this->m_offsetCount = 0.0f;
@@ -38,6 +38,14 @@ bool Application::update(float offsettime)
 		return true;
 	}
 
+	return false;
+}
+
+bool Application::update() 
+{
+	float dt = this->m_lastDt;
+
+	SceneManager::getInstance()->update(dt);
 	return false;
 }
 

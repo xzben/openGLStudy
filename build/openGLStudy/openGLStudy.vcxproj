@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -145,6 +145,7 @@
     <ClCompile Include="..\..\source\engine\base\Scene.cpp" />
     <ClCompile Include="..\..\source\engine\base\SceneManager.cpp" />
     <ClCompile Include="..\..\source\engine\base\Shader.cpp" />
+    <ClCompile Include="..\..\source\engine\event\Event.cpp" />
     <ClCompile Include="..\..\source\engine\event\EventDispatcher.cpp" />
     <ClCompile Include="..\..\source\engine\render\base\Mesh.cpp" />
     <ClCompile Include="..\..\source\engine\render\image\ImageComponent.cpp" />
@@ -171,6 +172,7 @@
     <ClInclude Include="..\..\source\engine\base\Shader.h" />
     <ClInclude Include="..\..\source\engine\common.h" />
     <ClInclude Include="..\..\source\engine\define.h" />
+    <ClInclude Include="..\..\source\engine\event\Event.h" />
     <ClInclude Include="..\..\source\engine\event\EventDispatcher.h" />
     <ClInclude Include="..\..\source\engine\math\Mat3.h" />
     <ClInclude Include="..\..\source\engine\math\Mat4.h" />
