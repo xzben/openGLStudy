@@ -1,5 +1,4 @@
-#version 330 core
-out vec4 FragColor;
+#import<common/fs_head.fs>
 
 in vec4 vertexColor;
 

@@ -30,11 +30,13 @@ Application* Application::getInstance() {
 bool Application::shiftTime(float offsettime) 
 {
 	this->m_offsetCount += offsettime;
+	
 	if (this->m_offsetCount >= this->m_fps)
 	{
 		this->m_lastDt = this->m_offsetCount;
 		this->m_offsetCount = 0.0f;
-
+		this->m_timer.x = this->m_lastDt;
+		this->m_timer.y += this->m_lastDt;
 		return true;
 	}
 
@@ -104,10 +106,10 @@ void Application::updateDrawSize()
 
 	if (way == ResolutionFit::AUTO_FIT) {
 		if (scaled > scalef) {
-			way == ResolutionFit::FIXED_HEIGHT;
+			way = ResolutionFit::FIXED_HEIGHT;
 		}
 		else {
-			way == ResolutionFit::FIXED_WIDTH;
+			way = ResolutionFit::FIXED_WIDTH;
 		}
 	}
 

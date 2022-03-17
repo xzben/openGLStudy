@@ -1,6 +1,5 @@
-#version 330 core
+#import<common/fs_head.fs>
 
-out vec4 FragColor;
 in vec3 ourColor;
 
 void main()

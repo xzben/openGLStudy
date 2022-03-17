@@ -2,7 +2,7 @@
 #define __2021_12_29_COMPONENT_H__
 
 #include "base/Object.h"
-
+#include "math/Mat4.h"
 
 class Node;
 

@@ -1,6 +1,17 @@
+/*
+	行向量，列向量
+
+	行向量只能和矩阵左乘   Vec*Mat
+
+	列向量只能和矩阵右乘   Mat*Vec
+
+	
+*/
 #ifndef __2022_01_05_MATH_VEC4_H__
 #define __2022_01_05_MATH_VEC4_H__
 
+
+//列向量
 template<class TYPENAME>
 class Vec4
 {

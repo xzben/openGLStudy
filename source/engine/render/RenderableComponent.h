@@ -4,6 +4,10 @@
 #include "base/Component.h"
 
 class RenderContainor;
+class Mesh;
+class Shader;
+class Texture;
+struct SubTexture;
 
 class RenderableComponent : public Component 
 {
@@ -23,5 +27,6 @@ public:
 	virtual void update(float dt) override;
 	virtual void onDestroy() override;
 
+	virtual void doDraw(Mesh* mesh, Shader* shader = nullptr, Texture* tex = nullptr, SubTexture* texs = nullptr, int subTextCount = 0);
 };
 #endif//__RENDER_NODE_2021_09_07_H__

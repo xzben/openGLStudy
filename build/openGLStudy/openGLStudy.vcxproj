@@ -147,6 +147,9 @@
     <ClCompile Include="..\..\source\engine\base\Shader.cpp" />
     <ClCompile Include="..\..\source\engine\event\Event.cpp" />
     <ClCompile Include="..\..\source\engine\event\EventDispatcher.cpp" />
+    <ClCompile Include="..\..\source\engine\math\MathUtil.cpp" />
+    <ClCompile Include="..\..\source\engine\math\MathUtil.h" />
+    <ClCompile Include="..\..\source\engine\math\quaternion.cpp" />
     <ClCompile Include="..\..\source\engine\render\base\Mesh.cpp" />
     <ClCompile Include="..\..\source\engine\render\image\ImageComponent.cpp" />
     <ClCompile Include="..\..\source\engine\render\RenderableComponent.cpp" />
@@ -172,11 +175,13 @@
     <ClInclude Include="..\..\source\engine\base\Shader.h" />
     <ClInclude Include="..\..\source\engine\common.h" />
     <ClInclude Include="..\..\source\engine\define.h" />
+    <ClInclude Include="..\..\source\engine\define\shader_define.h" />
     <ClInclude Include="..\..\source\engine\event\Event.h" />
     <ClInclude Include="..\..\source\engine\event\EventDispatcher.h" />
     <ClInclude Include="..\..\source\engine\math\Mat3.h" />
     <ClInclude Include="..\..\source\engine\math\Mat4.h" />
     <ClInclude Include="..\..\source\engine\math\math.h" />
+    <ClInclude Include="..\..\source\engine\math\quaternion.h" />
     <ClInclude Include="..\..\source\engine\math\Rect.h" />
     <ClInclude Include="..\..\source\engine\math\Size.h" />
     <ClInclude Include="..\..\source\engine\math\Vec2.h" />

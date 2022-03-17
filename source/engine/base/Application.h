@@ -2,6 +2,7 @@
 #define __2021_12_29_APPLICATION_H__
 
 #include "common.h"
+#include "math/math.h"
 
 class Application
 {
@@ -24,6 +25,11 @@ protected:
 	void setFrameSize(const float& width, const float& height);
 	void setFrameSize(const Size& frameSize);
 	void updateDrawSize();
+protected:
+	fVec3 m_timer;
+
+	friend class Shader;
+	const fVec3& getShaderTimer() { return m_timer; }
 public:
 	Application();
 	virtual ~Application();

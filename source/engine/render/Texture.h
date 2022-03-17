@@ -6,6 +6,8 @@
 #include "base/Object.h"
 #include "utils/FileUtils.h"
 
+
+
 class Texture : public Object
 {
 protected:
@@ -32,5 +34,11 @@ public:
 	int getWidth() { return this->m_width; }
 	int getHeight() { return this->m_height; }
 	int getChannels() { return this->m_channels; }
+};
+
+struct SubTexture
+{
+	std::string name;
+	Texture* tex;
 };
 #endif//__2022_01_05_TEXTURE_H__

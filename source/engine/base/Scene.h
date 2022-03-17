@@ -4,6 +4,7 @@
 #include "common.h"
 #include "base/Node.h"
 #include "render/RenderContainor.h"
+#include "math/math.h"
 
 class Scene : public Node, public RenderContainor
 {

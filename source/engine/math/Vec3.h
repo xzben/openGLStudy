@@ -1,7 +1,8 @@
 #ifndef __2022_01_04_VEC3_H__
 #define __2022_01_04_VEC3_H__
 
-#include <math.h>
+#include <cmath>
+#include "define.h"
 
 template<class TYPENAME>
 class Vec3
@@ -22,6 +23,13 @@ public:
 		this->z = z;
 	}
 
+	Vec3(const Vec3<TYPENAME>& other)
+	{
+		this->x = other.x;
+		this->y = other.y;
+		this->z = other.z;
+	}
+
 	void operator+(const TYPENAME v) {
 		this->x += v;
 		this->y += v;
@@ -34,14 +42,33 @@ public:
 		this->z -= v;
 	}
 
-	TYPENAME getLen() {
-		return sqrt(x * x + y * y + z * z);
+	void normalize() 
+	{
+		float n = x * x + y * y + z * z;
+		if (n == 1) return;
+
+		n = std::sqrt(n);
+
+		if (n < MATH_TOLERANCE)
+			return;
+
+		n = 1.0f / n;
+
+		x *= n;
+		y *= n;
+		z *= n;
 	}
 
+	TYPENAME getLen() {
+		return std::sqrt(x * x + y * y + z * z);
+	}
+
+	//点乘 V1*V2 = |V1||V2|cos@
 	TYPENAME dot(const Vec3<TYPENAME>& rvalue) {
 		return x* rvalue.x + y * rvalue.y + z * rvalue.z;
 	}
 
+	//差乘 V1xV2 = V3 V3 与 V1 V2 都垂直
 	Vec3<TYPENAME> cross(const Vec3<TYPENAME>& rvalue) {
 		Vec3<TYPENAME> resutl;
 

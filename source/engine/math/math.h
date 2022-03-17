@@ -6,5 +6,9 @@
 #include "math/Vec2.h"
 #include "math/Vec3.h"
 #include "math/Vec4.h"
+#include "math/Mat3.h"
+#include "math/Mat4.h"
+#include "math/quaternion.h"
+#include "math/MathUtil.h"
 
 #endif//__2022_01_05_MATH_H__

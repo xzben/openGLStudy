@@ -2,6 +2,9 @@
 #include "base/SceneManager.h"
 #include "render/RenderContainor.h"
 #include "base/Scene.h"
+#include "base/Shader.h"
+#include "render/Texture.h"
+#include "render/base/Mesh.h"
 
 RenderableComponent::RenderableComponent()
 	: m_containor(nullptr)
@@ -54,4 +57,29 @@ void RenderableComponent::update(float dt)
 void RenderableComponent::onDestroy() 
 {
 
+}
+
+void RenderableComponent::doDraw(Mesh* mesh, Shader* shader /* = nullptr */, Texture* tex /* = nullptr */, SubTexture* texs /* = nullptr */, int subTextCount /* = 0 */)
+{
+	if (tex) {
+		tex->use(SHADER_MAIN_TEXTURE_INDEX);
+	}
+
+	if (shader) {
+		shader->use();
+		shader->initCommonUniform(this->m_node);
+		shader->setInt(SHADER_MAIN_TEXTURE_NAME, SHADER_MAIN_TEXTURE_INDEX);
+
+		//лМ╪свснфюМ
+		for (int i = 0; i < subTextCount; i++)
+		{
+			SubTexture* subtex = texs + i;
+			subtex->tex->use(i + 1);
+			shader->setInt(subtex->name.c_str(), i + 1);
+		}
+	}
+
+	mesh->draw();
+
+	if (shader) shader->unuse();
 }

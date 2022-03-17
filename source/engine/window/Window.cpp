@@ -109,6 +109,11 @@ void Window::mainLoop()
 
 			Application::getInstance()->update();
 
+			glDepthMask(true);
+			glClearColor(0, 0, 0, 1);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+			glDepthMask(false);
 			Application::getInstance()->render();
 
 			//╫╩╩╩╩╨ЁЕх╔фад╩Джх╬

@@ -5,17 +5,20 @@
 #include "common.h"
 #include "render/config.h"
 #include "render/RenderableComponent.h"
+#include "math/Mat4.h"
 
 class Texture;
 class Shader;
+class Mesh;
 
 class ImageComponent : public RenderableComponent {
 protected:
 	Texture* m_texture;
 	VAO_HANDLE m_vao;
 	Shader* m_shader;
+	Mesh* m_mesh;
 public:
-	virtual void render();
+	virtual void render() override;
 	ImageComponent(const std::string& filename);
 	ImageComponent();
 	~ImageComponent();

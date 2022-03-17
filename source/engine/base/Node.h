@@ -4,20 +4,28 @@
 #include <vector>
 #include "base/Object.h"
 #include "common.h"
+#include "math/math.h"
 
 class Component;
 
 class Node : Object
 {
-private:
-	CREATE_FUNC(Node);
-
+protected:
 	std::vector<Node*> m_childrens;
 	std::vector<Component*> m_components;
+	
 	POSITION m_pos;
+	fVec3 m_scale;
+	fVec3 m_rotation;
+
+	fMat4 m_matModel;  //节点的模型矩阵
+
 	Node* m_parent;
 	bool m_start;
 	bool m_pause;
+protected:
+	friend class Shader;
+	const fMat4& getShaderModel() { return m_matModel; }
 protected:
 	void doLoad();  //构造对象完毕就会执行
 	void doStart();  //所在scene切入渲染开始触发
@@ -27,6 +35,7 @@ protected:
 	void doDestroy();
 	void doUpdate(float dt);
 public:
+	CREATE_FUNC(Node);
 	 Node();
 	 virtual ~Node();
 

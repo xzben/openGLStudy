@@ -46,6 +46,12 @@
     <Filter Include="source\engine\render\base">
       <UniqueIdentifier>{c68f5632-c3c5-4fc6-8e00-58bd3dea1359}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\engine\define">
+      <UniqueIdentifier>{6f3962ea-1e67-4cd1-9dc1-fe0110734c17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3rd">
+      <UniqueIdentifier>{998f9c31-be7b-4d78-801e-8a744e028cf8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\3rdlib\glad\src\glad.c">
@@ -119,6 +125,15 @@
     </ClCompile>
     <ClCompile Include="..\..\source\engine\event\Event.cpp">
       <Filter>source\engine\event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\engine\math\MathUtil.cpp">
+      <Filter>source\engine\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\engine\math\MathUtil.h">
+      <Filter>source\engine\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\engine\math\quaternion.cpp">
+      <Filter>source\engine\math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -220,6 +235,12 @@
     </ClInclude>
     <ClInclude Include="..\..\source\engine\event\Event.h">
       <Filter>source\engine\event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\engine\define\shader_define.h">
+      <Filter>source\engine\define</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\engine\math\quaternion.h">
+      <Filter>source\engine\math</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

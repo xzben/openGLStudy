@@ -4,8 +4,8 @@
 #include <vector>
 #include <cassert>
 
-#include "math/math.h"
 #include "define.h"
+#include "define/shader_define.h"
 
 typedef unsigned int  uint;
 typedef unsigned char byte;
@@ -13,17 +13,7 @@ typedef unsigned int  GL_HANDLE;
 
 #define GL_ERROR_MSG_SIZE 512  //openGL 错误信息日志buff size
 
-#define SHADER_POS_NAME		"aPos"
-#define SHADER_POS_INDEX	0
-
-#define SHADER_COLOR_NAME	"aColor"
-#define SHADER_COLOR_INDEX	1
-
-#define SHADER_TEXCOORD_NAME "aTexCoord"
-#define SHADER_TEXCOORD__INDEX 2
-
-#define SHADER_MAIN_TEXTURE_INDEX 0
-#define SHADER_MAIN_TEXTURE_NAME "mainTexture"
+#define PI 3.14159265359
 
 #if CC_DISABLE_ASSET
 	#define CC_ASSET( cond )
