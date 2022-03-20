@@ -33,6 +33,13 @@ fMat4 MathUtil::scale(const float& x, const float& y, const float& z)
 		0, 0, 0, 1);
 }
 
+const fMat4& MathUtil::IdentityMat4()
+{
+	static fMat4 identity;
+
+	return identity;
+}
+
 fMat4 MathUtil::rotation(const fVec3& rot)
 {
 	return rotation(rot.x, rot.y, rot.z);
@@ -211,4 +218,32 @@ bool MathUtil::decompose(const fMat4& mat, fVec3* sc, Quaternion* rot, fVec3* tr
 	}
 
 	return true;
+}
+
+
+//
+fMat4 MathUtil::lookAt(fVec3 pos, fVec3 target, fVec3 up)
+{
+	//根据 摄像机的位置和目标点计算摄像机的方向向量
+	fVec3 direct = pos - target;
+	direct.normalize();
+	// 根据上向量 和 方向向量 叉乘 得到 与之两两垂直的右向量
+	fVec3 cameraRight = up.cross(direct);
+	cameraRight.normalize();
+
+	//根据方向向量和右向量计算得到 两两相互垂直的 摄像机的上向量，至此三个相互垂直的坐标系统 x,y,z 三个轴向量都得到了
+	fVec3 cameraUp = direct.cross(cameraRight);
+	cameraUp.normalize();
+
+	fVec3& R = cameraRight;
+	fVec3& U = cameraUp;
+	fVec3& D = direct;
+	fVec3& P = pos;
+
+	fMat4 view(	R.x, R.y, R.z, -R.x * P.x - R.y * P.y - R.z * P.z,
+				U.x, U.y, U.z, -U.x * P.x - U.y * P.y - U.z * P.z,
+				D.x, D.y, D.z, -D.x * P.x - D.y * P.y - D.z * P.z,
+				  0,   0,   0, 1);
+
+	return view;
 }

@@ -42,6 +42,16 @@ public:
 		this->z -= v;
 	}
 
+	Vec3 operator-(const Vec3& v)
+	{
+		Vec3 result;
+		result.x = this->x - v.x;
+		result.y = this->y - v.y;
+		result.z = this->z - v.z;
+
+		return result;
+	}
+
 	void normalize() 
 	{
 		float n = x * x + y * y + z * z;

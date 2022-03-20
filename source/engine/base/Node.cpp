@@ -5,6 +5,11 @@ Node::Node()
 	: m_parent(nullptr)
 	, m_start(false)
 	, m_pause(false)
+	, m_dirtyMat(true)
+	, m_scale(1, 1, 1)
+	, m_pos(0,0, 0)
+	, m_rotation(0, 0, 0)
+	, m_groupmask((uint)GroupMask::DEFAULT)
 {
 
 }
@@ -16,6 +21,32 @@ Node::~Node()
 	this->doDestroy();
 }
 
+bool Node::updateSelfModelMat()
+{
+	if (!this->m_dirtyMat) return false;
+	this->m_dirtyMat = false;
+
+	this->m_localMat = MathUtil::translate(this->m_pos)*MathUtil::rotation(this->m_rotation) * MathUtil::scale(this->m_scale);
+	
+	return true;
+}
+void Node::updateWorlModelMat(const fMat4& parentTrans, bool parentDirty)
+{
+	if(updateSelfModelMat()){
+		this->m_matModel = parentTrans * this->m_localMat;
+		parentDirty = true;
+	}
+
+	for (auto itor = this->m_childrens.begin(); itor != this->m_childrens.end(); itor++)
+	{
+		(*itor)->updateWorlModelMat(this->m_matModel, parentDirty);
+	}
+}
+
+const fMat4& Node::getShaderModel()
+{
+	return m_matModel;
+}
 
 Component* Node::addComponent(Component* com)
 {
@@ -167,4 +198,138 @@ void Node::doUpdate(float dt)
 	}
 
 	this->update(dt);
+}
+
+void Node::setPosition(const POSITION& pos)
+{
+	setPosition(pos.x, pos.y, pos.z);
+}
+
+void Node::setPosition(float x, float y, float z)
+{
+	this->m_pos.x = x;
+	this->m_pos.y = y;
+	this->m_pos.z = z;
+
+	m_dirtyMat = true;
+}
+
+void Node::setPositionX(float x)
+{
+	this->m_pos.x = x;
+	m_dirtyMat = true;
+}
+void Node::setPositionY(float y)
+{
+	this->m_pos.y = y;
+	m_dirtyMat = true;
+}
+void Node::setPositionZ(float z)
+{
+	this->m_pos.z = z;
+	m_dirtyMat = true;
+}
+
+void Node::setRotation(const fVec3& rot)
+{
+	setRotation(rot.x, rot.y, rot.z);
+}
+
+void Node::setRotation(float x, float y, float z)
+{
+	this->m_rotation.x = x;
+	this->m_rotation.y = y;
+	this->m_rotation.z = z;
+
+	m_dirtyMat = true;
+}
+
+void Node::setRotationX(float x)
+{
+	this->m_rotation.x = x;
+	m_dirtyMat = true;
+}
+void Node::setRotationY(float y)
+{
+	this->m_rotation.y = y;
+	m_dirtyMat = true;
+}
+
+void Node::setRotationZ(float z)
+{
+	this->m_rotation.z = z;
+	m_dirtyMat = true;
+}
+
+void Node::setScale(const fVec3& scale)
+{
+	setScale(scale.x, scale.y, scale.z);
+}
+
+void Node::setScale(float x, float y, float z)
+{
+	this->m_scale.x = x;
+	this->m_scale.y = y;
+	this->m_scale.z = z;
+
+	m_dirtyMat = true;
+}
+
+void Node::setScale(float scale)
+{
+	setScale(scale, scale, scale);
+}
+
+const POSITION& Node::getPosition()
+{
+	return m_pos;
+}
+
+const fVec3& Node::getRotation()
+{
+	return m_rotation;
+}
+
+const fVec3& Node::getScale()
+{
+	return m_scale;
+}
+
+float Node::getPositionX()
+{
+	return m_pos.x;
+}
+float Node::getPositionY()
+{
+	return m_pos.y;
+}
+float Node::getPositionZ()
+{
+	return m_pos.z;
+}
+
+float Node::getRotationX()
+{
+	return m_rotation.x;
+}
+float Node::getRotationY()
+{
+	return m_rotation.y;
+}
+float Node::getRotationZ()
+{
+	return m_rotation.z;
+}
+
+float Node::getScaleX()
+{
+	return m_scale.x;
+}
+float Node::getScaleY()
+{
+	return m_scale.y;
+}
+float Node::getScaleZ()
+{
+	return m_scale.z;
 }

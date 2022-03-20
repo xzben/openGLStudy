@@ -135,6 +135,9 @@
     <ClCompile Include="..\..\source\engine\math\quaternion.cpp">
       <Filter>source\engine\math</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\source\engine\base\Camera.cpp">
+      <Filter>source\engine\base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\source\engine\base\Application.h">
@@ -241,6 +244,9 @@
     </ClInclude>
     <ClInclude Include="..\..\source\engine\math\quaternion.h">
       <Filter>source\engine\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\engine\base\Camera.h">
+      <Filter>source\engine\base</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

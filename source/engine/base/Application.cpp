@@ -1,5 +1,6 @@
 #include "base/Application.h"
 #include "base/SceneManager.h"
+#include "event/EventDispatcher.h"
 #include <GLFW/glfw3.h>
 #include <iostream>
 
@@ -14,6 +15,7 @@ Application::Application()
 	this->m_resolutionSize.height = 0.f;
 	this->m_resolutionSize.width = 0.f;
 
+	this->m_dispatcher = new EventDispatcher();
 	CC_ASSET(s_instance == nullptr);
 	s_instance = this;
 }
@@ -128,4 +130,21 @@ void Application::updateDrawSize()
 		break;
 	}
 	}
+}
+
+
+void Application::dispatchKeyboard(int key, int action)
+{
+	EventKeyboard evt(key);
+	this->m_dispatcher->dispatchKeyboard(&evt);
+}
+
+void Application::dispatchTouch()
+{
+
+}
+
+void Application::dispatchMouse()
+{
+
 }

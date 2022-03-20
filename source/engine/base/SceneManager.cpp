@@ -53,6 +53,11 @@ void SceneManager::update(float dt)
 void SceneManager::render()
 {
 	RenderContainor::render();
-	if(this->m_scene)
+	if (this->m_scene)
+	{
+		const fMat4& identity = MathUtil::IdentityMat4();
+		this->m_scene->updateWorlModelMat(identity, false);
 		this->m_scene->render();
+	}
+		
 }

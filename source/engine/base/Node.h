@@ -18,14 +18,19 @@ protected:
 	fVec3 m_scale;
 	fVec3 m_rotation;
 
-	fMat4 m_matModel;  //节点的模型矩阵
+	bool m_dirtyMat;
+	fMat4 m_localMat;  //节点本地坐标系的变换
+	fMat4 m_matModel;  //节点从父节点一直继承下来的变换
 
 	Node* m_parent;
 	bool m_start;
 	bool m_pause;
+	uint m_groupmask;
 protected:
 	friend class Shader;
-	const fMat4& getShaderModel() { return m_matModel; }
+	const fMat4& getShaderModel();
+	bool updateSelfModelMat();
+	void updateWorlModelMat(const fMat4& parentTrans, bool parentDirty);
 protected:
 	void doLoad();  //构造对象完毕就会执行
 	void doStart();  //所在scene切入渲染开始触发
@@ -38,6 +43,35 @@ public:
 	CREATE_FUNC(Node);
 	 Node();
 	 virtual ~Node();
+
+	 void setPosition(const POSITION& pos);
+	 void setPosition(float x, float y, float z);
+	 void setPositionX(float x);
+	 void setPositionY(float y);
+	 void setPositionZ(float z);
+	 void setRotation(const fVec3& rot);
+	 void setRotation(float x, float y, float z);
+	 void setRotationX(float x);
+	 void setRotationY(float y);
+	 void setRotationZ(float z);
+	 void setScale(const fVec3& scale);
+	 void setScale(float x, float y, float z);
+	 void setScale(float sclae);
+
+	 const POSITION& getPosition();
+	 float getPositionX();
+	 float getPositionY();
+	 float getPositionZ();
+
+	 const fVec3& getRotation();
+	 float getRotationX();
+	 float getRotationY();
+	 float getRotationZ();
+
+	 const fVec3& getScale();
+	 float getScaleX();
+	 float getScaleY();
+	 float getScaleZ();
 
 	Component* addComponent(Component* com);
 

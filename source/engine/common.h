@@ -33,7 +33,8 @@ typedef unsigned int  GL_HANDLE;
 #define CREATE_FUNC( CLS_NAME ) \
 	static CLS_NAME* create(){ \
 		CLS_NAME* obj = new CLS_NAME(); \
-		obj->doLoad(); \
+		if(obj) \
+			obj->doLoad(); \
 		return obj; \
 	}
 

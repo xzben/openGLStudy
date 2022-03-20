@@ -139,6 +139,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\3rdlib\glad\src\glad.c" />
     <ClCompile Include="..\..\source\engine\base\Application.cpp" />
+    <ClCompile Include="..\..\source\engine\base\Camera.cpp" />
     <ClCompile Include="..\..\source\engine\base\Component.cpp" />
     <ClCompile Include="..\..\source\engine\base\Node.cpp" />
     <ClCompile Include="..\..\source\engine\base\Object.cpp" />
@@ -167,6 +168,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\source\engine\base\Application.h" />
+    <ClInclude Include="..\..\source\engine\base\Camera.h" />
     <ClInclude Include="..\..\source\engine\base\Component.h" />
     <ClInclude Include="..\..\source\engine\base\Node.h" />
     <ClInclude Include="..\..\source\engine\base\Object.h" />

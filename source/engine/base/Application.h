@@ -4,6 +4,8 @@
 #include "common.h"
 #include "math/math.h"
 
+class EventDispatcher;
+
 class Application
 {
 protected:
@@ -21,6 +23,7 @@ protected:
 	Size m_frameSize;
 	Size m_drawSize;
 
+	EventDispatcher* m_dispatcher;
 	friend class Window;
 	void setFrameSize(const float& width, const float& height);
 	void setFrameSize(const Size& frameSize);
@@ -53,6 +56,10 @@ public:
 	virtual void onAppPause() = 0;
 	virtual void onAppResume() = 0;
 	virtual void onAppExit() = 0;
+
+	void dispatchKeyboard(int key, int action);
+	void dispatchTouch();
+	void dispatchMouse();
 };
 
 

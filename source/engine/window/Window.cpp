@@ -32,6 +32,26 @@ void Window::resize_callback(GLFWwindow* win, int width, int height)
 	Window::getInstance()->handleWindowSizeChange(width, height);
 }
 
+void Window::keypress_callback(GLFWwindow* win, int key, int scancode, int action, int mods)
+{
+	Window::getInstance()->handleKeyboardPress(key, scancode, action, mods);
+}
+
+void Window::mouse_callback(GLFWwindow* win, int button, int action, int mods)
+{
+	Window::getInstance()->handleMouse(button, action, mods);
+}
+
+void Window::cursorpos_callback(GLFWwindow* win, double x, double y)
+{
+	Window::getInstance()->handleCursorpos(x, y);
+}
+
+void Window::cursorenter_callback(GLFWwindow* win, int entered)
+{
+	Window::getInstance()->handleCursorenter(entered == GLFW_TRUE);
+}
+
 bool Window::init()
 {
 	//初始化 glfw
@@ -67,6 +87,10 @@ bool Window::init()
 
 	//设置窗口大小变化回调，主要重置窗口大小用
 	glfwSetFramebufferSizeCallback((GLFWwindow*)m_window, Window::resize_callback);
+	glfwSetKeyCallback((GLFWwindow*)m_window, Window::keypress_callback);
+	glfwSetMouseButtonCallback((GLFWwindow*)m_window, Window::mouse_callback);
+	glfwSetCursorPosCallback((GLFWwindow*)m_window, Window::cursorpos_callback);
+	glfwSetCursorEnterCallback((GLFWwindow*)m_window, Window::cursorenter_callback);
 
 	return true;
 }
@@ -81,12 +105,24 @@ void Window::handleWindowSizeChange(float width, float height) {
 	Application::getInstance()->setFrameSize(width, height);
 }
 
-void Window::process_input()
+void Window::handleKeyboardPress(int key, int scancode, int action, int mods)
 {
-	GLFWwindow* win = (GLFWwindow*)m_window;
-	//int key = glfwGetKey(win, GLFW_KEY_ESCAPE);
-	//if (key == GLFW_PRESS)
-	//	glfwSetWindowShouldClose(win, true);
+	Application::getInstance()->dispatchKeyboard(key, action);
+}
+
+void Window::handleMouse(int button, int action, int mods)
+{
+
+}
+
+void Window::handleCursorpos(double x, double y)
+{
+
+}
+
+void Window::handleCursorenter(bool enter)
+{
+
 }
 
 void Window::mainLoop()
@@ -105,14 +141,12 @@ void Window::mainLoop()
 		//并且 交换缓冲区显示
 		if (Application::getInstance()->shiftTime(offset))
 		{
-			process_input();
-
 			Application::getInstance()->update();
 
 			glDepthMask(true);
 			glClearColor(0, 0, 0, 1);
+			glEnable(GL_DEPTH_TEST);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
 			glDepthMask(false);
 			Application::getInstance()->render();
 
