@@ -24,9 +24,9 @@ ImageComponent::ImageComponent()
 
 ImageComponent::~ImageComponent() 
 {
-	DELETE_OBJ(this->m_mesh);
-	this->m_texture->delRef();
-	this->m_shader->delRef();
+	SAFE_DEL_REF(this->m_mesh);
+	SAFE_DEL_REF(this->m_texture);
+	SAFE_DEL_REF(this->m_shader);
 }
 
 bool ImageComponent::init(const std::string& filename)
@@ -37,10 +37,10 @@ bool ImageComponent::init(const std::string& filename)
 		return false;
 
 	float vertices[IMAGE_VERTICLE_SIZE] = {
-		-0.25f, -0.25f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, // вСоб╫г
-		0.25f, -0.25f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, // сроб╫г
-		0.25f, 0.25f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, // срио╫г
-		-0.25f, 0.25f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, // вСио╫г
+		-0.25f, -0.25f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // вСоб╫г
+		0.25f, -0.25f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, // сроб╫г
+		0.25f, 0.25f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, // срио╫г
+		-0.25f, 0.25f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f, // вСио╫г
 	};
 
 	unsigned int indices[] = {

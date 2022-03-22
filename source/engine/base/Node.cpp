@@ -32,6 +32,7 @@ bool Node::updateSelfModelMat()
 	
 	return true;
 }
+
 void Node::updateWorlModelMat(const fMat4& parentTrans, bool parentDirty)
 {
 	if(updateSelfModelMat()){
@@ -200,6 +201,30 @@ void Node::doUpdate(float dt)
 	}
 
 	this->update(dt);
+}
+
+void Node::setColor(Color&& color)
+{
+	m_color = color;
+	updateDrawColor(m_parentColor);
+}
+
+void Node::setColor(Color& color)
+{
+	m_color = color;
+	updateDrawColor(m_parentColor);
+}
+
+void Node::updateDrawColor(const Color& parentColor)
+{
+	this->m_parentColor = parentColor;
+	this->m_drawColor = this->m_parentColor * this->m_color;
+
+
+	for (auto itor = this->m_childrens.begin(); itor != this->m_childrens.end(); itor++)
+	{
+		(*itor)->updateDrawColor(this->m_drawColor);
+	}
 }
 
 void Node::setPosition(const POSITION& pos)

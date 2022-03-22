@@ -151,6 +151,11 @@ void Shader::setVec4(const std::string& name, const fVec4& value) const {
 	glUniform4f(glGetUniformLocation(this->m_id, name.c_str()), value.x, value.y, value.z, value.w);
 }
 
+void Shader::setColor(const std::string& name, const Color& value) const
+{
+	glUniform4f(glGetUniformLocation(this->m_id, name.c_str()), value.r, value.g, value.b, value.a);
+}
+
 void Shader::setMat3(const std::string& name, const fMat3& value)const {
 
 	glUniformMatrix3fv(
@@ -179,6 +184,8 @@ void Shader::initCommonUniform(Node* node)
 	setMat4(SHADER_COMMON_UNIFORM_VIEW, view);
 	setMat4(SHADER_COMMON_UNIFORM_PROJECTION, projection);
 	setMat4(SHADER_COMMON_UNIFORM_MVP, mvp);
+
+	setColor(SHADER_UNIFORM_COLOR, node->getDrawColor());
 }
 
 END_NAMESPACE

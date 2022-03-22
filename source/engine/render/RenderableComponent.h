@@ -20,7 +20,6 @@ public:
 	virtual ~RenderableComponent();
 
 	virtual void render() = 0;
-
 	virtual void onLoad() override;
 	virtual void start() override;
 	virtual void onPause() override;
@@ -30,6 +29,8 @@ public:
 	virtual void onDestroy() override;
 
 	virtual void doDraw(Mesh* mesh, Shader* shader = nullptr, Texture* tex = nullptr, SubTexture* texs = nullptr, int subTextCount = 0);
+	//渲染过程中留给各个类handle 处理自己需要做的shader 传参操作
+	virtual void setShaderUniforms(Shader* shader);
 };
 
 END_NAMESPACE

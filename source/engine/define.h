@@ -20,9 +20,10 @@ enum class GroupMask : unsigned int{
 	DEFAULT = 0xffffffff, // 默认全部都
 };
 
-#define DELETE_OBJ( pointer ) do{ if(pointer != nullptr) delete pointer; pointer = nullptr; }while(false);
-#define DELETE_ARRAY_OBJ( pointer ) do{ if(pointer != nullptr) delete[] pointer; pointer = nullptr; }while(false);
+#define DELETE_OBJ( pointer ) do{ if(pointer != nullptr) delete pointer; pointer = nullptr; }while(false)
+#define DELETE_ARRAY_OBJ( pointer ) do{ if(pointer != nullptr) delete[] pointer; pointer = nullptr; }while(false)
 
+#define SAFE_DEL_REF( pointer ) do{ if(pointer != nullptr) pointer->delRef(); pointer = nullptr; } while(false)
 
 #define MATH_FLOAT_SMALL            1.0e-37f
 #define MATH_TOLERANCE              2e-37f

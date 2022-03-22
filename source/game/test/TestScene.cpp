@@ -4,6 +4,9 @@
 #include "render/image/ImageComponent.h"
 #include "base/Application.h"
 #include "math/MathUtil.h"
+#include "render/Color.h"
+
+USING_NAMESPACE;
 
 TestScene::TestScene() 
 {

@@ -2,27 +2,29 @@
 #include "render/Texture.h"
 #include "render/base/Mesh.h"
 #include "base/Shader.h"
+#include "resource/ResourceManager.h"
 
 BoxRender::BoxRender()
 	: m_texture(nullptr)
 	, m_mesh(nullptr)
-	, m_shader(nullptr)
 {
-	this->m_texture = new Texture();
 	this->m_mesh = new Mesh();
-	this->m_shader = new Shader("image_shader.vs", "image_shader.fs");
+	this->m_shader = ResourceManager::getInstance()->getBuiltinShader(OGS::BuiltInShader::IMAGE_SHADER);
 }
 
 BoxRender::~BoxRender()
 {
-
+	SAFE_DEL_REF(this->m_shader);
+	SAFE_DEL_REF(this->m_texture);
+	SAFE_DEL_REF(this->m_mesh);
 }
 
-const int IMAGE_VERTICLE_SIZE = 4 * 8;
+const int IMAGE_VERTICLE_SIZE = 8 * 8;
 
 bool BoxRender::init()
 {
-	if (!this->m_texture->init("container.jpg"))
+	this->m_texture = ResourceManager::getInstance()->loadTexture("container.jpg");
+	if (this->m_texture == nullptr)
 		return false;
 
 	float vertices[IMAGE_VERTICLE_SIZE] = {

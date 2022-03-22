@@ -10,6 +10,7 @@
 #include "common.h"
 #include "math/math.h"
 #include "base/Object.h"
+#include "render/Color.h"
 
 BEGIN_NAMESPACE
 
@@ -35,6 +36,7 @@ public:
 	void setVec4(const std::string& name, const fVec4& value) const;
 	void setMat3(const std::string& name, const fMat3& value)const;
 	void setMat4(const std::string& name, const fMat4& value)const;
+	void setColor(const std::string& name, const Color& value) const;
 	
 
 };

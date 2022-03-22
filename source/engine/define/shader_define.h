@@ -20,5 +20,6 @@
 
 #define SHADER_COMMON_UNIFORM_TIMER "cc_timer"		// fvec3  x == 当前累计时间 y == 当前 dt 时间
 
+#define SHADER_UNIFORM_COLOR "uColor"  //每个节点都会设置一个颜色值与 顶点颜色值是不同的，这个color是公共的作用在所有顶点上的颜色变化
 
 #endif//__2022_03_16_SHADER_DEFINE_H__

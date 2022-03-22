@@ -70,7 +70,10 @@ void RenderableComponent::doDraw(Mesh* mesh, Shader* shader /* = nullptr */, Tex
 	if (shader) {
 		shader->use();
 		shader->initCommonUniform(this->m_node);
-		shader->setInt(SHADER_MAIN_TEXTURE_NAME, SHADER_MAIN_TEXTURE_INDEX);
+		if(tex)
+			shader->setInt(SHADER_MAIN_TEXTURE_NAME, SHADER_MAIN_TEXTURE_INDEX);
+
+		setShaderUniforms(shader);
 
 		//Ìí¼Ó×ÓÎÆÀí
 		for (int i = 0; i < subTextCount; i++)
@@ -84,6 +87,11 @@ void RenderableComponent::doDraw(Mesh* mesh, Shader* shader /* = nullptr */, Tex
 	mesh->draw();
 
 	if (shader) shader->unuse();
+}
+
+void RenderableComponent::setShaderUniforms(Shader* shader)
+{
+
 }
 
 END_NAMESPACE

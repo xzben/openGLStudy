@@ -5,6 +5,7 @@
 #include "base/Object.h"
 #include "common.h"
 #include "math/math.h"
+#include "render/Color.h"
 
 BEGIN_NAMESPACE
 
@@ -19,8 +20,12 @@ protected:
 	POSITION m_pos;
 	fVec3 m_scale;
 	fVec3 m_rotation;
+	Color m_color;
+	Color m_parentColor;
+	Color m_drawColor;
 
 	bool m_dirtyMat;
+	
 	fMat4 m_localMat;  //节点本地坐标系的变换
 	fMat4 m_matModel;  //节点从父节点一直继承下来的变换
 
@@ -31,8 +36,12 @@ protected:
 protected:
 	friend class Shader;
 	const fMat4& getShaderModel();
+	const Color& getDrawColor() { return m_drawColor; }
+
 	bool updateSelfModelMat();
 	void updateWorlModelMat(const fMat4& parentTrans, bool parentDirty);
+	void updateDrawColor(const Color& parentColor);
+
 protected:
 	void doLoad();  //构造对象完毕就会执行
 	void doStart();  //所在scene切入渲染开始触发
@@ -46,6 +55,9 @@ public:
 	 Node();
 	 virtual ~Node();
 
+	 void setColor(Color& color);
+	 void setColor(Color&& color);
+	 const Color& getColor() { return m_color; }
 	 void setPosition(const POSITION& pos);
 	 virtual void setPosition(float x, float y, float z);
 	 void setPositionX(float x);

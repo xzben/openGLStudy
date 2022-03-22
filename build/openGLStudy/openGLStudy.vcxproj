@@ -195,6 +195,7 @@
     <ClInclude Include="..\..\source\engine\math\Vec3.h" />
     <ClInclude Include="..\..\source\engine\math\Vec4.h" />
     <ClInclude Include="..\..\source\engine\render\base\Mesh.h" />
+    <ClInclude Include="..\..\source\engine\render\Color.h" />
     <ClInclude Include="..\..\source\engine\render\config.h" />
     <ClInclude Include="..\..\source\engine\render\image\ImageComponent.h" />
     <ClInclude Include="..\..\source\engine\render\Material.h" />

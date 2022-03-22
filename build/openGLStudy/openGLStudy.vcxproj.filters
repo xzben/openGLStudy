@@ -275,5 +275,8 @@
     <ClInclude Include="..\..\source\engine\resource\ResourceManager.h">
       <Filter>source\engine\resource</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\source\engine\render\Color.h">
+      <Filter>source\engine\render</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
