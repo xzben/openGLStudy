@@ -17,11 +17,11 @@ TestScene::~TestScene()
 
 void TestScene::onLoad()
 {
-	this->addComponent(new ImageComponent("wall.jpg"));
+	this->addComponent(new ImageComponent("container.jpg"));
 }
 
 void TestScene::update(float dt)
 {
 	m_count += dt;
-	setRotationX(-45);
+	//setRotationX(-45);
 }

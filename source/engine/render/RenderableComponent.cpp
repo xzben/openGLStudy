@@ -6,6 +6,8 @@
 #include "render/Texture.h"
 #include "render/base/Mesh.h"
 
+BEGIN_NAMESPACE
+
 RenderableComponent::RenderableComponent()
 	: m_containor(nullptr)
 {
@@ -83,3 +85,5 @@ void RenderableComponent::doDraw(Mesh* mesh, Shader* shader /* = nullptr */, Tex
 
 	if (shader) shader->unuse();
 }
+
+END_NAMESPACE

@@ -1,6 +1,8 @@
 #include "Mesh.h"
 #include <glad/glad.h>
 
+BEGIN_NAMESPACE
+
 const int VERTICLE_SIZE = 8;
 
 Mesh::Mesh()
@@ -80,3 +82,5 @@ void Mesh::draw()
 	glDrawElements(GL_TRIANGLES, m_indicesCount, GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
 }
+
+END_NAMESPACE

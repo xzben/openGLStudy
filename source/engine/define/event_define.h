@@ -1,7 +1,6 @@
 #ifndef __2022_03_21_EVENT_DEFINE_H__
 #define __2022_03_21_EVENT_DEFINE_H__
 
-
 enum class TouchStatus {
 	TOUCH_BEGAN,
 	TOUCH_MOVE,

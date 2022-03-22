@@ -1,5 +1,7 @@
 #include "Object.h"
 
+BEGIN_NAMESPACE
+
 Object::Object() 
 	:m_refCount(1)
 {
@@ -27,3 +29,5 @@ void Object::delRef()
 		delete this;
 	}
 }
+
+END_NAMESPACE

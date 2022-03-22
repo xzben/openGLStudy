@@ -2,7 +2,10 @@
 #define __2022_01_04_VEC3_H__
 
 #include <cmath>
+#include "common.h"
 #include "define.h"
+
+BEGIN_NAMESPACE
 
 template<class TYPENAME>
 class Vec3
@@ -98,5 +101,7 @@ typedef Vec3<float>		fVec3;
 typedef Vec3<int>		iVec3;
 typedef Vec3<float>		POSITION;
 typedef Vec3<short>		RGB;
+
+END_NAMESPACE
 
 #endif//__2022_01_04_VEC3_H__

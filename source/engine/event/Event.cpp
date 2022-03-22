@@ -1,5 +1,7 @@
 #include "Event.h"
 
+BEGIN_NAMESPACE
+
 Event::Event(EventType type)
 	:m_stop(false)
 	, m_type(type)
@@ -75,3 +77,5 @@ void EventListener::doCall(Event* event)
 {
 	this->callback(event);
 }
+
+END_NAMESPACE

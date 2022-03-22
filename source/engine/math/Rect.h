@@ -1,6 +1,10 @@
 #ifndef __2022_01_04_MATH_RECT_H__
 #define __2022_01_04_MATH_RECT_H__
 
+#include "common.h"
+
+BEGIN_NAMESPACE
+
 class Rect
 {
 public:
@@ -18,4 +22,7 @@ public:
 		this->height = height;
 	}
 };
+
+END_NAMESPACE
+
 #endif//__2022_01_04_MATH_RECT_H__

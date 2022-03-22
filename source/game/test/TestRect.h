@@ -4,7 +4,9 @@
 #include "render/RenderableComponent.h"
 #include "render/config.h"
 
-class Shader;
+class OGS::Shader;
+
+USING_NAMESPACE;
 
 class TestRect : public RenderableComponent
 {

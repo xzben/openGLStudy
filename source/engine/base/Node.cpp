@@ -1,6 +1,8 @@
 #include "Node.h"
 #include "base/Component.h"
 
+BEGIN_NAMESPACE
+
 Node::Node()
 	: m_parent(nullptr)
 	, m_start(false)
@@ -340,3 +342,5 @@ float Node::getScaleZ()
 {
 	return m_scale.z;
 }
+
+END_NAMESPACE

@@ -1,6 +1,8 @@
 #include "EventDispatcher.h"
 #include <algorithm>
 
+BEGIN_NAMESPACE
+
 EventDispatcher::EventDispatcher()
 {
 
@@ -121,3 +123,5 @@ void EventDispatcher::dispatchCustomEvent(EventCustom* event)
 		(*it)->doCall(event);
 	}
 }
+
+END_NAMESPACE

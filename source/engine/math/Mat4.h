@@ -16,6 +16,8 @@
 #include "Vec4.h"
 #include "Vec3.h"
 
+BEGIN_NAMESPACE
+
 //ÁÐÖ÷Ðò¾ØÕó
 template<class TYPENAME>
 class Mat4
@@ -149,5 +151,7 @@ public:
 
 typedef Mat4<float> fMat4;
 typedef Mat4<int> iMat4;
+
+END_NAMESPACE
 
 #endif//__2022_01_05_MATRIX_4_4_H__

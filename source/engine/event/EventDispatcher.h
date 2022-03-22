@@ -7,6 +7,8 @@
 #include "common.h"
 #include "event/Event.h"
 
+BEGIN_NAMESPACE
+
 class Object;
 
 typedef std::vector<EventListener*> EventListenerArray;
@@ -35,5 +37,7 @@ public:
 	void dispatchMouse(EventMouse* event);
 	void dispatchCustomEvent(EventCustom* event);
 };
+
+END_NAMESPACE
 
 #endif//__2022_01_06_EVENT_DISPATCHER_H__

@@ -1,6 +1,8 @@
 #include "RenderContainor.h"
 #include "RenderableComponent.h"
 
+BEGIN_NAMESPACE
+
 void RenderContainor::addRenderComp(RenderableComponent* com)
 {
 	this->m_renderComps.push_back(com);
@@ -24,3 +26,5 @@ void RenderContainor::render()
 		(*it)->render();
 	}
 }
+
+END_NAMESPACE

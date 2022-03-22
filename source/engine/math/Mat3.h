@@ -3,6 +3,8 @@
 
 #include "Vec3.h"
 
+BEGIN_NAMESPACE
+
 template<class TYPENAME>
 class Mat3
 {
@@ -84,4 +86,5 @@ public:
 typedef Mat3<float> fMat3;
 typedef Mat3<int> iMat3;
 
+END_NAMESPACE
 #endif//__2022_01_05_MATRIX_3_3_H__

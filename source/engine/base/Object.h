@@ -3,15 +3,20 @@
 
 #include "common.h"
 
-class Object 
+BEGIN_NAMESPACE
+
+class Object
 {
 protected:
 	int m_refCount;
 public:
 	Object();
 	virtual ~Object();
-	
+
 	void addRef();
 	void delRef();
 };
+
+END_NAMESPACE
+
 #endif//__2021_12_29_OBJECT_H__

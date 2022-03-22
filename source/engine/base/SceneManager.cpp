@@ -3,6 +3,8 @@
 #include "base/Node.h"
 #include "render/RenderableComponent.h"
 
+BEGIN_NAMESPACE
+
 SceneManager* SceneManager::s_instance = nullptr;
 
 SceneManager* SceneManager::getInstance() {
@@ -61,3 +63,5 @@ void SceneManager::render()
 	}
 		
 }
+
+END_NAMESPACE

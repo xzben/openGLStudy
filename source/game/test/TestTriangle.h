@@ -4,8 +4,9 @@
 #include "render/RenderableComponent.h"
 #include "render/config.h"
 
+class OGS::Shader;
 
-class Shader;
+USING_NAMESPACE;
 
 class TestTriangle : public RenderableComponent
 {

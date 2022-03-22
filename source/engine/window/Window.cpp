@@ -7,6 +7,8 @@
 #include <thread>
 #include "base/Application.h"
 
+BEGIN_NAMESPACE
+
 Window* Window::s_instance = nullptr;
 
 Window* Window::getInstance() {
@@ -179,3 +181,5 @@ void Window::mainLoop()
 	}
 	glfwTerminate();
 }
+
+END_NAMESPACE

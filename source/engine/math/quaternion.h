@@ -2,7 +2,9 @@
 #define __2022_03_17_QUATERNION_H__
 #include "math/Vec3.h"
 #include "math/Mat4.h"
+#include "common.h"
 
+BEGIN_NAMESPACE
 class Quaternion
 {
 public:
@@ -44,4 +46,7 @@ public:
 	void slerp(float q1x, float q1y, float q1z, float q1w, float q2x, float q2y, float q2z, float q2w, float t, float* dstx, float* dsty, float* dstz, float* dstw);
 	void slerpForSquad(const Quaternion& q1, const Quaternion& q2, float t, Quaternion* dst);
 };
+
+END_NAMESPACE
+
 #endif//__2022_03_17_QUATERNION_H__

@@ -5,6 +5,8 @@
 #include "common.h"
 #include "math/Mat4.h"
 
+BEGIN_NAMESPACE
+
 class Camera : public Node
 {
 public:
@@ -53,4 +55,5 @@ public:
 	const fMat4& getViewProjectMatrix();
 };
 
+END_NAMESPACE
 #endif//__2022_03_18_CAMERA_H__

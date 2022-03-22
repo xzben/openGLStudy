@@ -2,6 +2,8 @@
 #include "window/Window.h"
 #include "math/Vec3.h"
 
+BEGIN_NAMESPACE
+
 Camera* Camera::createOrthographic(float zoomX, float zoomY, float nearPlane, float farPlane)
 {
 	Camera* obj = new Camera();
@@ -142,3 +144,5 @@ void Camera::setRotation(float x, float y, float z)
 	Node::setRotation(x, y, z);
 	m_viewDirty = true;
 }
+
+END_NAMESPACE

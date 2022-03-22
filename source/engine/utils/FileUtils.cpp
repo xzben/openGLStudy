@@ -4,6 +4,8 @@
 #include <sstream>
 #include <iostream>
 
+BEGIN_NAMESPACE
+
 #define BUFFER_SIZE_BLOCK  1024
 
 Data::Data() 
@@ -94,3 +96,5 @@ std::string FileUtils::getfullpath(const std::string& filename)
 {
 	return "../../Resources/"+filename;
 }
+
+END_NAMESPACE

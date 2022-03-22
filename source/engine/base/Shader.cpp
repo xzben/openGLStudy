@@ -5,6 +5,7 @@
 #include "base/Application.h"
 #include <regex>
 
+BEGIN_NAMESPACE
 
 struct replace_data {
 	std::string::const_iterator begin;
@@ -52,6 +53,12 @@ Shader::Shader(const std::string& vertextPath, const std::string& fragmentPath)
 	: m_id(-1)
 {
 	this->init(vertextPath, fragmentPath);
+}
+
+Shader::Shader(const std::string& filepath)
+	: m_id(-1)
+{
+	this->init(filepath + ".vs", filepath + ".fs");
 }
 
 void Shader::init(const std::string& vertextPath, const std::string& fragmentPath) 
@@ -173,3 +180,5 @@ void Shader::initCommonUniform(Node* node)
 	setMat4(SHADER_COMMON_UNIFORM_PROJECTION, projection);
 	setMat4(SHADER_COMMON_UNIFORM_MVP, mvp);
 }
+
+END_NAMESPACE

@@ -52,6 +52,9 @@
     <Filter Include="3rd">
       <UniqueIdentifier>{998f9c31-be7b-4d78-801e-8a744e028cf8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\engine\resource">
+      <UniqueIdentifier>{e1289fa7-6ddd-4206-af2a-088907aa749d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\3rdlib\glad\src\glad.c">
@@ -137,6 +140,15 @@
     </ClCompile>
     <ClCompile Include="..\..\source\engine\base\Camera.cpp">
       <Filter>source\engine\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\game\test\BoxRender.cpp">
+      <Filter>source\game\test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\engine\render\Material.cpp">
+      <Filter>source\engine\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\engine\resource\ResourceManager.cpp">
+      <Filter>source\engine\resource</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -253,6 +265,15 @@
     </ClInclude>
     <ClInclude Include="..\..\source\engine\define\math_define.h">
       <Filter>source\engine\define</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\game\test\BoxRender.h">
+      <Filter>source\game\test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\engine\render\Material.h">
+      <Filter>source\engine\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\engine\resource\ResourceManager.h">
+      <Filter>source\engine\resource</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

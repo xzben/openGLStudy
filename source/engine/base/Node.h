@@ -6,6 +6,8 @@
 #include "common.h"
 #include "math/math.h"
 
+BEGIN_NAMESPACE
+
 class Component;
 
 class Node : Object
@@ -112,4 +114,7 @@ public:
 	virtual void onDestroy() {};
 	virtual void update(float dt) {};
 };
+
+END_NAMESPACE
+
 #endif // !__NODE_2021_12_29_H__

@@ -4,6 +4,8 @@
 #include "common.h"
 #include <string>
 
+BEGIN_NAMESPACE
+
 class Data {
 	friend class FileUtils;
 private:
@@ -47,4 +49,6 @@ public:
 	std::string getString(const std::string &filename);
 	std::string getfullpath(const std::string& filename);
 };
+
+END_NAMESPACE
 #endif //__FILE_UTILS_2021_09_06_H__ 

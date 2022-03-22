@@ -4,6 +4,8 @@
 #include "common.h"
 #include "math/math.h"
 
+BEGIN_NAMESPACE
+
 class EventDispatcher;
 
 class Application
@@ -62,6 +64,7 @@ public:
 	void dispatchMouse(int key, bool press);
 };
 
+END_NAMESPACE
 
 #endif//__2021_12_29_APPLICATION_H__
 

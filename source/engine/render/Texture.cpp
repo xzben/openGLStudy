@@ -3,6 +3,8 @@
 #include "Texture.h"
 #include <glad/glad.h>
 
+BEGIN_NAMESPACE
+
 Texture::Texture() 
 	: m_texture(0)
 {
@@ -178,3 +180,5 @@ void Texture::use(int index)
 	glActiveTexture(GL_TEXTURE0 + index);
 	glBindTexture(GL_TEXTURE_2D, this->m_texture);
 }
+
+END_NAMESPACE

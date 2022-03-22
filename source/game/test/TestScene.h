@@ -3,6 +3,7 @@
 
 #include "base/Scene.h"
 #include "common.h"
+USING_NAMESPACE;
 
 class TestScene : public Scene
 {

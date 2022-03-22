@@ -4,6 +4,8 @@
 #include "common.h"
 #include "render/RenderContainor.h"
 
+BEGIN_NAMESPACE
+
 class Scene;
 class RenderableComponent;
 
@@ -24,4 +26,7 @@ public:
 	void changeScene(Scene* scene);
 	virtual void render() override;
 };
+
+END_NAMESPACE
+
 #endif//__2021_12_30_SCENE_MANAGER_H__

@@ -3,6 +3,8 @@
 
 #include "base/Component.h"
 
+BEGIN_NAMESPACE
+
 class RenderContainor;
 class Mesh;
 class Shader;
@@ -29,4 +31,6 @@ public:
 
 	virtual void doDraw(Mesh* mesh, Shader* shader = nullptr, Texture* tex = nullptr, SubTexture* texs = nullptr, int subTextCount = 0);
 };
+
+END_NAMESPACE
 #endif//__RENDER_NODE_2021_09_07_H__

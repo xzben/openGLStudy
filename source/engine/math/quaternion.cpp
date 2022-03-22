@@ -4,6 +4,7 @@
 #include <cmath>
 #include <cstring>
 
+BEGIN_NAMESPACE
 
 void Quaternion::createFromAxisAngle(const fVec3& axis, float angle, Quaternion* dst)
 {
@@ -347,3 +348,5 @@ void Quaternion::slerpForSquad(const Quaternion& q1, const Quaternion& q2, float
 	dst->z = (q1.z * r1 + q2.z * r2);
 	dst->w = (q1.w * r1 + q2.w * r2);
 }
+
+END_NAMESPACE

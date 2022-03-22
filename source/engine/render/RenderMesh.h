@@ -1,6 +1,8 @@
 #include "render/RenderableComponent.h"
 #include "render/config.h"
 
+BEGIN_NAMESPACE
+
 class RenderMesh : public RenderableComponent
 {
 protected:
@@ -11,3 +13,5 @@ public:
 	virtual ~RenderMesh();
 	virtual void render() override;
 };
+
+END_NAMESPACE

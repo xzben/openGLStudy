@@ -5,6 +5,8 @@
 #include "common.h"
 #include <string>
 
+BEGIN_NAMESPACE
+
 typedef std::string ListenerID;
 
 
@@ -101,5 +103,7 @@ public:
 
 	void doCall(Event* event);
 };
+
+END_NAMESPACE
 
 #endif//__2022_03_08_EVENT_H__

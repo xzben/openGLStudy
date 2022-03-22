@@ -4,6 +4,8 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 
+BEGIN_NAMESPACE
+
 Application* Application::s_instance = nullptr;
 
 Application::Application() 
@@ -151,3 +153,5 @@ void Application::dispatchMouse(int key, bool press)
 
 	this->m_dispatcher->dispatchMouse(&evt);
 }
+
+END_NAMESPACE

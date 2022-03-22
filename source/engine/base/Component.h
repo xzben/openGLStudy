@@ -4,12 +4,14 @@
 #include "base/Object.h"
 #include "math/Mat4.h"
 
+BEGIN_NAMESPACE
+
 class Node;
 
 class Component : Object
 {
 public:
-	enum Status {
+	enum class Status {
 		ENABLE = 0,
 		VISIBLE = 1,
 
@@ -53,5 +55,7 @@ public:
 	virtual void stop() {};
 	virtual void onDestroy() {};
 };
+
+END_NAMESPACE
 
 #endif//__2021_12_29_COMPONENT_H__

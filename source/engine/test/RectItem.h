@@ -3,6 +3,8 @@
 #include "render/RenderableComponent.h"
 #include "common.h"
 
+USING_NAMESPACE;
+
 class RectItem : public RenderableComponent {
 private:
 	uint m_va;

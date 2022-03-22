@@ -7,14 +7,16 @@
 #include "render/RenderableComponent.h"
 #include "math/Mat4.h"
 
+BEGIN_NAMESPACE
+
 class Texture;
 class Shader;
 class Mesh;
 
-class ImageComponent : public RenderableComponent {
+class ImageComponent : public RenderableComponent 
+{
 protected:
 	Texture* m_texture;
-	VAO_HANDLE m_vao;
 	Shader* m_shader;
 	Mesh* m_mesh;
 public:
@@ -29,4 +31,6 @@ public:
 	int getHeight();
 	int getChannels();
 };
+
+END_NAMESPACE
 #endif//__IMAGE_2021_09_07_H__

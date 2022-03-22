@@ -6,6 +6,8 @@
 #include "render/RenderContainor.h"
 #include "math/math.h"
 
+BEGIN_NAMESPACE
+
 class Scene : public Node, public RenderContainor
 {
 protected:
@@ -24,4 +26,7 @@ public:
 	Scene();
 	virtual ~Scene();
 };
+
+END_NAMESPACE
+
 #endif//__2021_12_30_SCENE_H__

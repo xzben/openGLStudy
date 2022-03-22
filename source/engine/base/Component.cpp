@@ -2,8 +2,12 @@
 #include "base/Node.h"
 #include "base/Application.h"
 
+BEGIN_NAMESPACE
+
 Component::Component() 
-	:m_node(nullptr)
+	: m_node(nullptr)
+	, m_enable(false)
+	, m_status(0)
 {
 }
 
@@ -15,16 +19,16 @@ Component::~Component()
 void Component::setStatusBit(bool enable, Status status) 
 {
 	if (enable) {
-		this->m_status |= 1 << status;
+		this->m_status |= 1 << (int)status;
 	}
 	else {
-		this->m_status &= ~(1 << status);
+		this->m_status &= ~(1 << (int)status);
 	}
 }
 
 bool Component::getStatusBit(Status status)
 {
-	return (this->m_status & (1 << status));
+	return (this->m_status & (1 << (int)status));
 }
 
 void Component::setEnable(bool enable) {
@@ -83,3 +87,5 @@ void Component::doUpdate(float dt)
 {
 	this->update(dt);
 }
+
+END_NAMESPACE

@@ -3,6 +3,8 @@
 
 #include "base/Application.h"
 
+USING_NAMESPACE;
+
 class AppDeleget : Application
 {
 public:

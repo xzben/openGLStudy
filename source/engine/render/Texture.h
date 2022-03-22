@@ -7,6 +7,7 @@
 #include "utils/FileUtils.h"
 
 
+BEGIN_NAMESPACE
 
 class Texture : public Object
 {
@@ -41,4 +42,6 @@ struct SubTexture
 	std::string name;
 	Texture* tex;
 };
+
+END_NAMESPACE
 #endif//__2022_01_05_TEXTURE_H__

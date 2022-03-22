@@ -1,8 +1,11 @@
 #ifndef __2022_03_09_MESH_H__
 #define __2022_03_09_MESH_H__
 #include "common.h"
+#include "base/Object.h"
 
-class Mesh
+BEGIN_NAMESPACE
+
+class Mesh : public Object
 {
 protected:
 	GL_HANDLE m_vao;   //顶点数组对象
@@ -17,9 +20,18 @@ protected:
 public:
 	Mesh();
 
+	//禁止拷贝对象
+	Mesh(const Mesh&) = delete;
+	Mesh(Mesh&&) = delete;
+	Mesh& operator=(const Mesh&) = delete;
+	Mesh& operator=(Mesh&&) = delete;
+
 	virtual void setup(float* vertices, int verticlesCount, uint* indices, int indicesCount);
 	virtual ~Mesh();
 
 	virtual void draw();
 };
+
+END_NAMESPACE
+
 #endif // !__2022_03_09_MESH_H__

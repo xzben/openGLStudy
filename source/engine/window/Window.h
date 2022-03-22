@@ -6,6 +6,8 @@
 
 class GLFWwindow;
 
+BEGIN_NAMESPACE
+
 class Window
 {
 private:
@@ -39,6 +41,8 @@ protected:
 	void handleCursorpos(double x, double y);
 	void handleCursorenter(bool enter);
 };
+
+END_NAMESPACE
 
 #endif//__2021_12_29_WINDOW_H__
 

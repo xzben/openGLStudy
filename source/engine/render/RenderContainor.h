@@ -4,6 +4,8 @@
 #include "common.h"
 #include "math/Mat4.h"
 
+BEGIN_NAMESPACE
+
 class RenderableComponent;
 
 class RenderContainor
@@ -15,4 +17,7 @@ public:
 	void addRenderComp(RenderableComponent* com);
 	void removeRenderComp(RenderableComponent* com);
 };
+
+END_NAMESPACE
+
 #endif//__2022_03_07_RENDER_CONTAINOR_H__

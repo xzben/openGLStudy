@@ -9,10 +9,13 @@
 
 #include "common.h"
 #include "math/math.h"
+#include "base/Object.h"
+
+BEGIN_NAMESPACE
 
 class Node;
 
-class Shader 
+class Shader : public Object
 {
 public:
 	void initCommonUniform(Node* node);
@@ -21,6 +24,7 @@ protected:
 public:
 	uint m_id;
 	Shader(const std::string& vertextPath, const std::string& fragmentPath);
+	Shader(const std::string& filepath);
 	virtual ~Shader();
 	void use();
 	void unuse();
@@ -34,5 +38,7 @@ public:
 	
 
 };
+
+END_NAMESPACE
 
 #endif // !__SHADER_2021_09_06_H__

@@ -3,6 +3,8 @@
 #include <cmath>
 #include "common.h"
 
+BEGIN_NAMESPACE
+
 fMat4 MathUtil::translate(const fVec3& mov)
 {
 	return translate(mov.x, mov.y, mov.z);
@@ -83,7 +85,7 @@ fMat4 MathUtil::rotation(const Quaternion& q)
 	dst.m_data[14] = 0.0f;
 	dst.m_data[15] = 1.0f;
 
-	return std::move(dst);
+	return (dst);
 
 }
 
@@ -247,7 +249,7 @@ fMat4 MathUtil::lookAt(const fVec3& pos, const fVec3& target, const fVec3& up)
 				D.x, D.y, D.z, -D.x * P.x - D.y * P.y - D.z * P.z,
 				  0,   0,   0, 1);
 
-	return std::move(view);
+	return view;
 }
 
 fMat4 MathUtil::cameraLookAt(const fVec3& pos, const fVec3& rot, const fVec3& up)
@@ -274,7 +276,7 @@ fMat4 MathUtil::cameraLookAt(const fVec3& pos, const fVec3& rot, const fVec3& up
 		D.x, D.y, D.z, -D.x * P.x - D.y * P.y - D.z * P.z,
 		0, 0, 0, 1);
 
-	return std::move(view);
+	return view;
 }
 
 
@@ -304,7 +306,7 @@ fMat4 MathUtil::createPerspective(float fieldOfView, float aspectRatio, float zN
 	result.m_data[11] = -1.0f;
 	result.m_data[14] = -2.0f * zFarPlane * zNearPlane * f_n;
 
-	return std::move(result);
+	return (result);
 }
 
 fMat4 MathUtil::createOrthographic(float width, float height, float zNearPlane, float zFarPlane)
@@ -333,5 +335,7 @@ fMat4 MathUtil::createOrthographicOffCenter(float left, float right, float botto
 	result.m_data[14] = (zNearPlane + zFarPlane) / (zNearPlane - zFarPlane);
 	result.m_data[15] = 1;
 
-	return std::move(result);
+	return (result);
 }
+
+END_NAMESPACE

@@ -44,4 +44,10 @@ typedef unsigned int  GL_HANDLE;
 #define CCLOG( format, ...) fprintf(stdout, format, ##__VA_ARGS__ )
 #define CCLOGERROR( format, ...) fprintf(stderr, format, ##__VA_ARGS__ )
 
+
+#define BEGIN_NAMESPACE  namespace OGS{
+#define END_NAMESPACE }
+
+#define USING_NAMESPACE using namespace OGS
+
 #endif//__COMMON_2021_09_06_H__

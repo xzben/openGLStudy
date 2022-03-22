@@ -1,6 +1,10 @@
 #ifndef __2022_01_04_MATH_SIZE_H__
 #define __2022_01_04_MATH_SIZE_H__
 
+#include "common.h"
+
+BEGIN_NAMESPACE
+
 class Size
 {
 public:
@@ -13,4 +17,7 @@ public:
 		this->height = height;
 	}
 };
+
+END_NAMESPACE
+
 #endif//__2022_01_04_MATH_SIZE_H__

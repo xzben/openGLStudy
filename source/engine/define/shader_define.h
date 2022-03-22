@@ -20,4 +20,5 @@
 
 #define SHADER_COMMON_UNIFORM_TIMER "cc_timer"		// fvec3  x == 当前累计时间 y == 当前 dt 时间
 
+
 #endif//__2022_03_16_SHADER_DEFINE_H__
