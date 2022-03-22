@@ -216,18 +216,15 @@ void Node::setPosition(float x, float y, float z)
 
 void Node::setPositionX(float x)
 {
-	this->m_pos.x = x;
-	m_dirtyMat = true;
+	setPosition(x, this->m_pos.y, this->m_pos.z);
 }
 void Node::setPositionY(float y)
 {
-	this->m_pos.y = y;
-	m_dirtyMat = true;
+	setPosition(this->m_pos.x, y, this->m_pos.z);
 }
 void Node::setPositionZ(float z)
 {
-	this->m_pos.z = z;
-	m_dirtyMat = true;
+	setPosition(this->m_pos.x,this->m_pos.y, z);
 }
 
 void Node::setRotation(const fVec3& rot)
@@ -246,19 +243,16 @@ void Node::setRotation(float x, float y, float z)
 
 void Node::setRotationX(float x)
 {
-	this->m_rotation.x = x;
-	m_dirtyMat = true;
+	setRotation(x, this->m_rotation.y, this->m_rotation.z);
 }
 void Node::setRotationY(float y)
 {
-	this->m_rotation.y = y;
-	m_dirtyMat = true;
+	setRotation(this->m_rotation.x, y, this->m_rotation.z);
 }
 
 void Node::setRotationZ(float z)
 {
-	this->m_rotation.z = z;
-	m_dirtyMat = true;
+	setRotation(this->m_rotation.x, this->m_rotation.y, z);
 }
 
 void Node::setScale(const fVec3& scale)
@@ -273,6 +267,19 @@ void Node::setScale(float x, float y, float z)
 	this->m_scale.z = z;
 
 	m_dirtyMat = true;
+}
+
+void Node::setScaleX(float x)
+{
+	setScale(x, this->m_scale.y, this->m_scale.z);
+}
+void Node::setScaleY(float y)
+{
+	setScale(this->m_scale.x, y, this->m_scale.z);
+}
+void Node::setScaleZ(float z)
+{
+	setScale(this->m_scale.x, this->m_scale.y, z);
 }
 
 void Node::setScale(float scale)

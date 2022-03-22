@@ -2,6 +2,7 @@
 #define __2021_12_29_WINDOW_H__
 
 #include "common.h"
+#include "math/Size.h"
 
 class GLFWwindow;
 
@@ -17,20 +18,19 @@ public:
 	static void cursorpos_callback(GLFWwindow* win, double x, double y);
 	static void cursorenter_callback(GLFWwindow* win, int entered);
 protected:
-
-	float m_width;
-	float m_heigth;
+	Size m_winSize;
 	std::string m_name;
 	void* m_window;
-	float x, y;
-	int mouseStatus;
-
-
+	float m_lastMouseX;
+	float m_lastMouseY;
+	bool  m_mouseClicked;
 public:
 	Window(std::string name, float width, float height);
 	virtual ~Window();
 
 	void mainLoop();
+
+	const Size& getWinSize() { return m_winSize; }
 protected:
 	bool init();
 	void handleWindowSizeChange(float width, float height);

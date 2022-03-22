@@ -57,9 +57,9 @@ public:
 	virtual void onAppResume() = 0;
 	virtual void onAppExit() = 0;
 
-	void dispatchKeyboard(int key, int action);
-	void dispatchTouch();
-	void dispatchMouse();
+	void dispatchKeyboard(int key, bool press);
+	void dispatchTouch(TouchStatus status, float x, float y);
+	void dispatchMouse(int key, bool press);
 };
 
 

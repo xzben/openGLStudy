@@ -10,14 +10,13 @@
 Window* Window::s_instance = nullptr;
 
 Window* Window::getInstance() {
-	CC_ASSET(s_instance != nullptr);
+	CC_ASSERT(s_instance != nullptr);
 	return s_instance;
 }
 
 Window::Window(std::string name, float width, float height) 
 	: m_name(name)
-	, m_width(width)
-	, m_heigth(height)
+	, m_winSize(width, height)
 {
 	s_instance = this;
 	this->init();
@@ -70,7 +69,7 @@ bool Window::init()
 #endif
 
 	//创建窗口
-	m_window = glfwCreateWindow(m_width, m_heigth, m_name.c_str(), NULL, NULL);
+	m_window = glfwCreateWindow(m_winSize.width, m_winSize.height, m_name.c_str(), NULL, NULL);
 	if (m_window == NULL) {
 		glfwTerminate();
 		return false;
@@ -83,7 +82,7 @@ bool Window::init()
 		return false;
 	}
 
-	this->handleWindowSizeChange(this->m_width, this->m_heigth);
+	this->handleWindowSizeChange(this->m_winSize.width, this->m_winSize.height);
 
 	//设置窗口大小变化回调，主要重置窗口大小用
 	glfwSetFramebufferSizeCallback((GLFWwindow*)m_window, Window::resize_callback);
@@ -96,8 +95,8 @@ bool Window::init()
 }
 
 void Window::handleWindowSizeChange(float width, float height) {
-	this->m_width = width;
-	this->m_heigth = height;
+	this->m_winSize.width = width;
+	this->m_winSize.height = height;
 
 	//0, 0 代表左下角位置
 	glViewport(0, 0, width, height);
@@ -107,22 +106,40 @@ void Window::handleWindowSizeChange(float width, float height) {
 
 void Window::handleKeyboardPress(int key, int scancode, int action, int mods)
 {
-	Application::getInstance()->dispatchKeyboard(key, action);
+	Application::getInstance()->dispatchKeyboard(key, action == GLFW_PRESS);
 }
 
 void Window::handleMouse(int button, int action, int mods)
 {
+	//CCLOG("mouse button:%d action:%d mods:%d\r\n", button, action, mods);
+	switch (button)
+	{
+	case GLFW_MOUSE_BUTTON_1:
+	{
+		this->m_mouseClicked = action == GLFW_PRESS;
+		Application::getInstance()->dispatchTouch(this->m_mouseClicked ? TouchStatus::TOUCH_BEGAN : TouchStatus::TOUCH_END, this->m_lastMouseX, this->m_lastMouseY);
+		break;
+	}
+	}
 
+	Application::getInstance()->dispatchMouse(button, action == GLFW_PRESS);
 }
 
 void Window::handleCursorpos(double x, double y)
 {
+	//CCLOG("handleCursorpos x:%f y:%f\r\n", x, y);
 
+	this->m_lastMouseX = x;
+	this->m_lastMouseY = y;
+
+	if (this->m_mouseClicked) {
+		Application::getInstance()->dispatchTouch(TouchStatus::TOUCH_MOVE, x, y);
+	}
 }
 
 void Window::handleCursorenter(bool enter)
 {
-
+	//CCLOG("handleCursorenter enter:%d\r\n", enter ? 1 : 0);
 }
 
 void Window::mainLoop()

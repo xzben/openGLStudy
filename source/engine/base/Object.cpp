@@ -18,7 +18,7 @@ void Object::addRef()
 
 void Object::delRef() 
 {
-	CC_ASSET(m_refCount > 0);
+	CC_ASSERT(m_refCount > 0);
 
 	m_refCount--;
 

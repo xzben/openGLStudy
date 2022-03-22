@@ -11,10 +11,11 @@ Event::~Event() {
 
 }
 
-EventTouch::EventTouch(float x, float y)
-	:Event(EventType::TOUCH),
-	x(x),
-	y(y)
+EventTouch::EventTouch(TouchStatus status, float x, float y)
+	:Event(EventType::TOUCH)
+	, status(status)
+	, x(x)
+	, y(y)
 {
 
 }
@@ -22,6 +23,19 @@ EventTouch::EventTouch(float x, float y)
 EventKeyboard::EventKeyboard(int key)
 	:Event(EventType::KEYBOARD),
 	key(key)
+{
+
+}
+
+
+EventMouse::EventMouse(int key, bool press)
+	:Event(EventType::MOUSE)
+	, key(key)
+	, press(press)
+{
+
+}
+EventMouse::~EventMouse()
 {
 
 }

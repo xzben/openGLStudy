@@ -1,6 +1,7 @@
 #include "MathUtil.h"
 #include "quaternion.h"
 #include <cmath>
+#include "common.h"
 
 fMat4 MathUtil::translate(const fVec3& mov)
 {
@@ -82,7 +83,8 @@ fMat4 MathUtil::rotation(const Quaternion& q)
 	dst.m_data[14] = 0.0f;
 	dst.m_data[15] = 1.0f;
 
-	return dst;
+	return std::move(dst);
+
 }
 
 fMat4 MathUtil::rotation(const float& _rotationX, const float& _rotationY, const float& _rotationZ)
@@ -222,7 +224,7 @@ bool MathUtil::decompose(const fMat4& mat, fVec3* sc, Quaternion* rot, fVec3* tr
 
 
 //
-fMat4 MathUtil::lookAt(fVec3 pos, fVec3 target, fVec3 up)
+fMat4 MathUtil::lookAt(const fVec3& pos, const fVec3& target, const fVec3& up)
 {
 	//根据 摄像机的位置和目标点计算摄像机的方向向量
 	fVec3 direct = pos - target;
@@ -235,15 +237,101 @@ fMat4 MathUtil::lookAt(fVec3 pos, fVec3 target, fVec3 up)
 	fVec3 cameraUp = direct.cross(cameraRight);
 	cameraUp.normalize();
 
-	fVec3& R = cameraRight;
-	fVec3& U = cameraUp;
-	fVec3& D = direct;
-	fVec3& P = pos;
+	const fVec3& R = cameraRight;
+	const fVec3& U = cameraUp;
+	const fVec3& D = direct;
+	const fVec3& P = pos;
 
 	fMat4 view(	R.x, R.y, R.z, -R.x * P.x - R.y * P.y - R.z * P.z,
 				U.x, U.y, U.z, -U.x * P.x - U.y * P.y - U.z * P.z,
 				D.x, D.y, D.z, -D.x * P.x - D.y * P.y - D.z * P.z,
 				  0,   0,   0, 1);
 
-	return view;
+	return std::move(view);
+}
+
+fMat4 MathUtil::cameraLookAt(const fVec3& pos, const fVec3& rot, const fVec3& up)
+{
+	fVec3 direct(0, 0, -1);
+	direct = MathUtil::translate(pos) * MathUtil::rotation(rot) * direct;
+
+	direct.normalize();
+	
+	fVec3 cameraRight = up.cross(direct);
+	cameraRight.normalize();
+
+	//根据方向向量和右向量计算得到 两两相互垂直的 摄像机的上向量，至此三个相互垂直的坐标系统 x,y,z 三个轴向量都得到了
+	fVec3 cameraUp = direct.cross(cameraRight);
+	cameraUp.normalize();
+
+	const fVec3& R = cameraRight;
+	const fVec3& U = cameraUp;
+	const fVec3& D = direct;
+	const fVec3& P = pos;
+
+	fMat4 view(R.x, R.y, R.z, -R.x * P.x - R.y * P.y - R.z * P.z,
+		U.x, U.y, U.z, -U.x * P.x - U.y * P.y - U.z * P.z,
+		D.x, D.y, D.z, -D.x * P.x - D.y * P.y - D.z * P.z,
+		0, 0, 0, 1);
+
+	return std::move(view);
+}
+
+
+fMat4 MathUtil::createPerspective(float fieldOfView, float aspectRatio, float zNearPlane, float zFarPlane)
+{
+	CC_ASSERT(zNearPlane != zFarPlane);
+	fMat4 result;
+	float f_n = 1.0f / (zFarPlane - zNearPlane);
+	float theta = MATH_DEG_TO_RAD(fieldOfView) * 0.5f;
+	if (std::abs(std::fmod(theta, MATH_PIOVER2)) < MATH_EPSILON)
+	{
+		CCLOGERROR("Invalid field of view value (%f) causes attempted calculation tan(%f), which is undefined.", fieldOfView, theta);
+		return std::move(result);
+	}
+	float divisor = std::tan(theta);
+	CC_ASSERT(divisor);
+	float factor = 1.0f / divisor;
+
+	
+
+	memset(result.m_data, 0, MATRIX_SIZE);
+
+	CC_ASSERT(aspectRatio);
+	result.m_data[0] = (1.0f / aspectRatio) * factor;
+	result.m_data[5] = factor;
+	result.m_data[10] = (-(zFarPlane + zNearPlane)) * f_n;
+	result.m_data[11] = -1.0f;
+	result.m_data[14] = -2.0f * zFarPlane * zNearPlane * f_n;
+
+	return std::move(result);
+}
+
+fMat4 MathUtil::createOrthographic(float width, float height, float zNearPlane, float zFarPlane)
+{
+	float halfWidth = width / 2.0f;
+	float halfHeight = height / 2.0f;
+	return createOrthographicOffCenter(-halfWidth, halfWidth, -halfHeight, halfHeight, zNearPlane, zFarPlane);
+}
+
+fMat4 MathUtil::createOrthographicOffCenter(float left, float right, float bottom, float top, float zNearPlane, float zFarPlane)
+{
+	CC_ASSERT(right != left);
+	CC_ASSERT(top != bottom);
+	CC_ASSERT(zFarPlane != zNearPlane);
+
+	fMat4 result;
+
+	memset(result.m_data, 0, MATRIX_SIZE);
+
+	result.m_data[0] = 2 / (right - left);
+	result.m_data[5] = 2 / (top - bottom);
+	result.m_data[10] = 2 / (zNearPlane - zFarPlane);
+
+	result.m_data[12] = (left + right) / (left - right);
+	result.m_data[13] = (top + bottom) / (bottom - top);
+	result.m_data[14] = (zNearPlane + zFarPlane) / (zNearPlane - zFarPlane);
+	result.m_data[15] = 1;
+
+	return std::move(result);
 }

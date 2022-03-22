@@ -14,6 +14,7 @@
 #define __2022_01_05_MATRIX_4_4_H__
 
 #include "Vec4.h"
+#include "Vec3.h"
 
 //ÁÐÖ÷Ðò¾ØÕó
 template<class TYPENAME>
@@ -129,6 +130,18 @@ public:
 		result.y = m_data[1] * rvalue.x + m_data[5] * rvalue.y + m_data[9] * rvalue.z + m_data[13] * rvalue.w;
 		result.z = m_data[2] * rvalue.x + m_data[6] * rvalue.y + m_data[10] * rvalue.z + m_data[14] * rvalue.w;
 		result.w = m_data[3] * rvalue.x + m_data[7] * rvalue.y + m_data[11] * rvalue.z + m_data[15] * rvalue.w;
+
+		return result;
+	}
+
+	Vec3<TYPENAME> operator*(const Vec3<TYPENAME>& rvalue3) const {
+		Vec3<TYPENAME> result;
+		Vec4<TYPENAME> rvalue(rvalue3.x, rvalue3.y, rvalue3.z, 1);
+
+		result.x = m_data[0] * rvalue.x + m_data[4] * rvalue.y + m_data[8] * rvalue.z + m_data[12] * rvalue.w;
+		result.y = m_data[1] * rvalue.x + m_data[5] * rvalue.y + m_data[9] * rvalue.z + m_data[13] * rvalue.w;
+		result.z = m_data[2] * rvalue.x + m_data[6] * rvalue.y + m_data[10] * rvalue.z + m_data[14] * rvalue.w;
+		//result.w = m_data[3] * rvalue.x + m_data[7] * rvalue.y + m_data[11] * rvalue.z + m_data[15] * rvalue.w;
 
 		return result;
 	}

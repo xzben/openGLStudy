@@ -42,7 +42,7 @@ public:
 		this->z -= v;
 	}
 
-	Vec3 operator-(const Vec3& v)
+	Vec3<TYPENAME> operator-(const Vec3<TYPENAME>& v) const
 	{
 		Vec3 result;
 		result.x = this->x - v.x;
@@ -69,17 +69,20 @@ public:
 		z *= n;
 	}
 
-	TYPENAME getLen() {
+	TYPENAME getLen() const
+	{
 		return std::sqrt(x * x + y * y + z * z);
 	}
 
 	//点乘 V1*V2 = |V1||V2|cos@
-	TYPENAME dot(const Vec3<TYPENAME>& rvalue) {
+	TYPENAME dot(const Vec3<TYPENAME>& rvalue) const
+	{
 		return x* rvalue.x + y * rvalue.y + z * rvalue.z;
 	}
 
 	//差乘 V1xV2 = V3 V3 与 V1 V2 都垂直
-	Vec3<TYPENAME> cross(const Vec3<TYPENAME>& rvalue) {
+	Vec3<TYPENAME> cross(const Vec3<TYPENAME>& rvalue) const
+	{
 		Vec3<TYPENAME> resutl;
 
 		resutl.x = y * rvalue.z - z * rvalue.y;

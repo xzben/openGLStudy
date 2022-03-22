@@ -16,7 +16,7 @@ Application::Application()
 	this->m_resolutionSize.width = 0.f;
 
 	this->m_dispatcher = new EventDispatcher();
-	CC_ASSET(s_instance == nullptr);
+	CC_ASSERT(s_instance == nullptr);
 	s_instance = this;
 }
 
@@ -25,7 +25,7 @@ Application::~Application() {
 }
 
 Application* Application::getInstance() {
-	CC_ASSET(s_instance != nullptr);
+	CC_ASSERT(s_instance != nullptr);
 	return s_instance;
 }
 
@@ -133,18 +133,21 @@ void Application::updateDrawSize()
 }
 
 
-void Application::dispatchKeyboard(int key, int action)
+void Application::dispatchKeyboard(int key, bool press)
 {
 	EventKeyboard evt(key);
 	this->m_dispatcher->dispatchKeyboard(&evt);
 }
 
-void Application::dispatchTouch()
+void Application::dispatchTouch(TouchStatus status, float x, float y)
 {
-
+	EventTouch evt(status, x, y);
+	this->m_dispatcher->dispatchTouch(&evt);
 }
 
-void Application::dispatchMouse()
+void Application::dispatchMouse(int key, bool press)
 {
+	EventMouse evt(key, press);
 
+	this->m_dispatcher->dispatchMouse(&evt);
 }

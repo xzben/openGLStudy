@@ -177,6 +177,8 @@
     <ClInclude Include="..\..\source\engine\base\Shader.h" />
     <ClInclude Include="..\..\source\engine\common.h" />
     <ClInclude Include="..\..\source\engine\define.h" />
+    <ClInclude Include="..\..\source\engine\define\event_define.h" />
+    <ClInclude Include="..\..\source\engine\define\math_define.h" />
     <ClInclude Include="..\..\source\engine\define\shader_define.h" />
     <ClInclude Include="..\..\source\engine\event\Event.h" />
     <ClInclude Include="..\..\source\engine\event\EventDispatcher.h" />

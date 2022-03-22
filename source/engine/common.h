@@ -6,8 +6,11 @@
 
 #include "define.h"
 #include "define/shader_define.h"
+#include "define/event_define.h"
+#include "define/math_define.h"
 
 typedef unsigned int  uint;
+typedef unsigned char uint8;
 typedef unsigned char byte;
 typedef unsigned int  GL_HANDLE;
 
@@ -16,9 +19,9 @@ typedef unsigned int  GL_HANDLE;
 #define PI 3.14159265359
 
 #if CC_DISABLE_ASSET
-	#define CC_ASSET( cond )
+	#define CC_ASSERT( cond )
 #else
-	#define CC_ASSET( cond ) assert((cond))
+	#define CC_ASSERT( cond ) assert((cond))
 #endif
 
 #define PLAT_WIN		1
@@ -37,5 +40,8 @@ typedef unsigned int  GL_HANDLE;
 			obj->doLoad(); \
 		return obj; \
 	}
+
+#define CCLOG( format, ...) fprintf(stdout, format, ##__VA_ARGS__ )
+#define CCLOGERROR( format, ...) fprintf(stderr, format, ##__VA_ARGS__ )
 
 #endif//__COMMON_2021_09_06_H__

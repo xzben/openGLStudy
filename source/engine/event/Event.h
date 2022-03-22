@@ -2,6 +2,7 @@
 #define __2022_03_08_EVENT_H__
 
 #include <functional>
+#include "common.h"
 #include <string>
 
 typedef std::string ListenerID;
@@ -35,8 +36,9 @@ class EventTouch : public Event
 {
 public:
 	float x, y;
+	TouchStatus status;
 public:
-	EventTouch(float x, float y);
+	EventTouch(TouchStatus status, float x, float y);
 	virtual ~EventTouch() {};
 };
 
@@ -62,7 +64,12 @@ public:
 
 class EventMouse : public Event
 {
+public:
+	int key;
+	bool press;
 
+	EventMouse(int key, bool press);
+	virtual ~EventMouse();
 };
 class EventListener
 {

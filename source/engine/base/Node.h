@@ -45,17 +45,20 @@ public:
 	 virtual ~Node();
 
 	 void setPosition(const POSITION& pos);
-	 void setPosition(float x, float y, float z);
+	 virtual void setPosition(float x, float y, float z);
 	 void setPositionX(float x);
 	 void setPositionY(float y);
 	 void setPositionZ(float z);
 	 void setRotation(const fVec3& rot);
-	 void setRotation(float x, float y, float z);
+	 virtual void setRotation(float x, float y, float z);
 	 void setRotationX(float x);
 	 void setRotationY(float y);
 	 void setRotationZ(float z);
 	 void setScale(const fVec3& scale);
 	 void setScale(float x, float y, float z);
+	 void setScaleX(float x);
+	 void setScaleY(float y);
+	 void setScaleZ(float z);
 	 void setScale(float sclae);
 
 	 const POSITION& getPosition();

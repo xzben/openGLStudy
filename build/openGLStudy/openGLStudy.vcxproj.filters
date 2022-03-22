@@ -248,5 +248,11 @@
     <ClInclude Include="..\..\source\engine\base\Camera.h">
       <Filter>source\engine\base</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\source\engine\define\event_define.h">
+      <Filter>source\engine\define</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\engine\define\math_define.h">
+      <Filter>source\engine\define</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

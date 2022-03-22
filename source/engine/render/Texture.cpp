@@ -173,7 +173,7 @@ bool Texture::init(const std::string filename)
 
 void Texture::use(int index)
 {
-	CC_ASSET(index >= 0 && index <= 31);
+	CC_ASSERT(index >= 0 && index <= 31);
 	//ÉèÖÃÎÆÀíindex
 	glActiveTexture(GL_TEXTURE0 + index);
 	glBindTexture(GL_TEXTURE_2D, this->m_texture);
