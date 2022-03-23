@@ -50,8 +50,11 @@ void Mesh::setupGLData(float* vertices, int verticlesCount, uint* indices, int i
 	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
 	glBufferData(GL_ARRAY_BUFFER, verticlesCount *sizeof(float)* VERTICLE_SIZE, vertices, GL_STATIC_DRAW);
 
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ebo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicesCount * sizeof(uint), indices, GL_STATIC_DRAW);
+	if (indicesCount > 0)
+	{
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ebo);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicesCount * sizeof(uint), indices, GL_STATIC_DRAW);
+	}
 
 	//Ö¸¶¨pos ÊôÐÔ
 	glVertexAttribPointer(SHADER_POS_INDEX, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
@@ -76,10 +79,12 @@ void Mesh::setup(float* vertices, int verticlesCount, uint* indices, int indices
 
 void Mesh::draw()
 {
-	if (!this->m_setuped || this->m_verticesCount <= 0 || this->m_indicesCount <= 0) return;
+	if (!this->m_setuped || this->m_verticesCount <= 0) return;
+
+	int count = m_indicesCount > 0 ? m_indicesCount : m_verticesCount;
 
 	glBindVertexArray(m_vao);
-	glDrawElements(GL_TRIANGLES, m_indicesCount, GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
 }
 

@@ -30,7 +30,7 @@ protected:
 	fMat4 m_matModel;  //节点从父节点一直继承下来的变换
 
 	Node* m_parent;
-	bool m_start;
+	bool m_running;
 	bool m_pause;
 	uint m_groupmask;
 protected:
@@ -58,7 +58,7 @@ public:
 	 void setColor(Color& color);
 	 void setColor(Color&& color);
 	 const Color& getColor() { return m_color; }
-	 void setPosition(const POSITION& pos);
+	 virtual void setPosition(const POSITION& pos);
 	 virtual void setPosition(float x, float y, float z);
 	 void setPositionX(float x);
 	 void setPositionY(float y);

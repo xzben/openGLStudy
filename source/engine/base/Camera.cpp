@@ -56,14 +56,18 @@ bool Camera::initDefault(bool camera3d)
 {
 	const Size& size = Window::getInstance()->getWinSize();
 
-	if (camera3d) {
+	if (camera3d)
+	{
 		float zeye = size.height / 1.1566f;
 		initPerspective(60, size.width / size.height, 10, zeye + size.height / 2.0);
-		POSITION eye(size.width / 2, size.height / 2.0, zeye);
-		POSITION(size.width / 2, size.height / 2, 0.0f);
-		fVec3 up(0.0f, 1.0f, 0.0);
-
-		//this->setPosition(eye);
+		this->setRotation(-45, 0, 0);
+		this->setPosition(size.width / 2, size.height / 2.0, zeye);
+	}
+	else
+	{
+		initOrthographic(size.width, size.height, -1024, 1024);
+		setPosition(0, 0, 0);
+		setRotation(0, 0, 0);
 	}
 
 	return true;
@@ -119,23 +123,43 @@ void Camera::addGroup(uint mask)
 
 const fMat4& Camera::getViewProjectMatrix()
 {
-	if (m_viewDirty) {
-		m_matView = MathUtil::cameraLookAt(m_pos, m_rotation, m_up);
-	}
+	getViewMatrix();
 
-	if (m_viewDirty || m_projectDirty)
+	if (m_projectDirty)
 	{
 		m_matViewProjection = m_matProjection * m_matView;
-		m_viewDirty = false;
 		m_projectDirty = false;
 	}
 
 	return m_matViewProjection;
 }
 
+const fMat4& Camera::getViewMatrix()
+{
+	if (m_viewDirty) {
+		m_matView = MathUtil::cameraLookAt(m_pos, m_rotation, m_up);
+		m_matViewProjection = m_matProjection * m_matView;
+		m_viewDirty = false;
+		m_projectDirty = false;
+	}
+
+	return m_matView;
+}
+
+const fMat4& Camera::getProjectMatrix()
+{
+	return m_matProjection;
+}
+
 void Camera::setPosition(float x, float y, float z)
 {
 	Node::setPosition(x, y, z);
+	m_viewDirty = true;
+}
+
+void Camera::setPosition(const POSITION& pos)
+{
+	Node::setPosition(pos);
 	m_viewDirty = true;
 }
 

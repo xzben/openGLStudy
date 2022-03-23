@@ -4,6 +4,7 @@
 #include <functional>
 #include "common.h"
 #include <string>
+#include "math/Vec2.h"
 
 BEGIN_NAMESPACE
 
@@ -37,11 +38,13 @@ public:
 class EventTouch : public Event
 {
 public:
-	float x, y;
+	fVec2 pos;
+	fVec2 prePos;
 	TouchStatus status;
 public:
-	EventTouch(TouchStatus status, float x, float y);
+	EventTouch(TouchStatus status, const fVec2& pos);
 	virtual ~EventTouch() {};
+	fVec2 getDeltaPos() { return pos - prePos; }
 };
 
 class EventKeyboard : public Event
@@ -85,8 +88,8 @@ public:
 	bool		m_enable;
 	int			m_order; //”≈œ»º∂
 
-	EventListener(EventType type, CALLFUNC func);
-	EventListener(EventType type, ListenerID Id, CALLFUNC func);
+	EventListener(EventType type, const CALLFUNC& func);
+	EventListener(EventType type, ListenerID Id, const CALLFUNC& func);
 	virtual ~EventListener();
 
 

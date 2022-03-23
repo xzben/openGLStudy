@@ -16,6 +16,6 @@ protected:
 public:
 	TestRect();
 	virtual ~TestRect();
-	virtual void render() override;
+	virtual void render(Camera* cam) override;
 };
 #endif//__2022_01_05_TEST_RECT_H__

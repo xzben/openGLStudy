@@ -30,7 +30,7 @@ Window::~Window() {
 
 void Window::resize_callback(GLFWwindow* win, int width, int height)
 {
-	Window::getInstance()->handleWindowSizeChange(width, height);
+	Window::getInstance()->handleWindowSizeChange((float)width, (float)height);
 }
 
 void Window::keypress_callback(GLFWwindow* win, int key, int scancode, int action, int mods)
@@ -71,7 +71,7 @@ bool Window::init()
 #endif
 
 	//创建窗口
-	m_window = glfwCreateWindow(m_winSize.width, m_winSize.height, m_name.c_str(), NULL, NULL);
+	m_window = glfwCreateWindow((int)m_winSize.width, (int)m_winSize.height, m_name.c_str(), NULL, NULL);
 	if (m_window == NULL) {
 		glfwTerminate();
 		return false;
@@ -101,7 +101,7 @@ void Window::handleWindowSizeChange(float width, float height) {
 	this->m_winSize.height = height;
 
 	//0, 0 代表左下角位置
-	glViewport(0, 0, width, height);
+	glViewport(0, 0, (GLsizei)width, (GLsizei)height);
 
 	Application::getInstance()->setFrameSize(width, height);
 }
@@ -131,11 +131,11 @@ void Window::handleCursorpos(double x, double y)
 {
 	//CCLOG("handleCursorpos x:%f y:%f\r\n", x, y);
 
-	this->m_lastMouseX = x;
-	this->m_lastMouseY = y;
+	this->m_lastMouseX = (float)x;
+	this->m_lastMouseY = (float)y;
 
 	if (this->m_mouseClicked) {
-		Application::getInstance()->dispatchTouch(TouchStatus::TOUCH_MOVE, x, y);
+		Application::getInstance()->dispatchTouch(TouchStatus::TOUCH_MOVE, this->m_lastMouseX, this->m_lastMouseY);
 	}
 }
 
@@ -146,11 +146,11 @@ void Window::handleCursorenter(bool enter)
 
 void Window::mainLoop()
 {
-	float lasttime = glfwGetTime();
+	float lasttime = (float)glfwGetTime();
 	while (!glfwWindowShouldClose((GLFWwindow*)m_window))
 	{
 		//获取当前时间
-		float curtime = glfwGetTime();
+		float curtime = (float)glfwGetTime();
 		float offset = curtime - lasttime;
 		lasttime = curtime;
 		
@@ -162,11 +162,11 @@ void Window::mainLoop()
 		{
 			Application::getInstance()->update();
 
-			glDepthMask(true);
+		
 			glClearColor(0, 0, 0, 1);
 			glEnable(GL_DEPTH_TEST);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			glDepthMask(false);
+		
 			Application::getInstance()->render();
 
 			//交换缓冲去屏幕渲染

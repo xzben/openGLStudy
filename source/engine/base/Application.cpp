@@ -143,7 +143,10 @@ void Application::dispatchKeyboard(int key, bool press)
 
 void Application::dispatchTouch(TouchStatus status, float x, float y)
 {
-	EventTouch evt(status, x, y);
+	EventTouch evt(status, fVec2(x, y));
+	evt.prePos = m_preTouchPos;
+
+	m_preTouchPos = fVec2(x, y);
 	this->m_dispatcher->dispatchTouch(&evt);
 }
 
@@ -152,6 +155,16 @@ void Application::dispatchMouse(int key, bool press)
 	EventMouse evt(key, press);
 
 	this->m_dispatcher->dispatchMouse(&evt);
+}
+
+Camera* Application::getMainCamera()
+{
+	if (m_mainCamera == nullptr)
+	{
+		m_mainCamera = Camera::createDefault(false);
+	}
+
+	return m_mainCamera;
 }
 
 END_NAMESPACE

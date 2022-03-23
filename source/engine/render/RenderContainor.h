@@ -7,13 +7,14 @@
 BEGIN_NAMESPACE
 
 class RenderableComponent;
+class Camera;
 
 class RenderContainor
 {
 protected:
 	std::vector<RenderableComponent*> m_renderComps;
 public:
-	virtual void render();
+	virtual void render(Camera* cam);
 	void addRenderComp(RenderableComponent* com);
 	void removeRenderComp(RenderableComponent* com);
 };

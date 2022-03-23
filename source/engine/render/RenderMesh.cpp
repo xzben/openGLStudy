@@ -13,7 +13,7 @@ RenderMesh::~RenderMesh()
 
 }
 
-void RenderMesh::render()
+void RenderMesh::render(Camera* cam)
 {
 
 }

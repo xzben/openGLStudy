@@ -12,14 +12,22 @@ const int IMAGE_VERTICLE_SIZE = 4 * 8;
 ImageComponent::ImageComponent(const std::string& filename)
 	:ImageComponent()
 {
-	this->init(filename);
+	this->m_filename = filename;
 }
 
 ImageComponent::ImageComponent()
 	: m_texture(nullptr)
+	, m_filename("")
 {
 	this->m_mesh = new Mesh();
 	this->m_shader = ResourceManager::getInstance()->getBuiltinShader(BuiltInShader::IMAGE_SHADER);
+}
+
+void ImageComponent::onLoad()
+{
+	if (this->m_filename != "") {
+		this->init(m_filename);
+	}
 }
 
 ImageComponent::~ImageComponent() 
@@ -53,9 +61,9 @@ bool ImageComponent::init(const std::string& filename)
 	return true;
 }
 
-void ImageComponent::render()
+void ImageComponent::render(Camera* cam)
 {
-	this->doDraw(this->m_mesh, this->m_shader, this->m_texture);
+	this->doDraw(cam, this->m_mesh, this->m_shader, this->m_texture);
 }
 
 int ImageComponent::getWidth()

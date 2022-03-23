@@ -5,7 +5,7 @@ BEGIN_NAMESPACE
 
 Node::Node()
 	: m_parent(nullptr)
-	, m_start(false)
+	, m_running(false)
 	, m_pause(false)
 	, m_dirtyMat(true)
 	, m_scale(1, 1, 1)
@@ -68,7 +68,7 @@ void Node::addChild(Node* node)
 	node->setParent(this);
 	node->addRef();
 	this->m_childrens.push_back(node);
-	if (this->m_start) {
+	if (this->m_running) {
 		node->doStart();
 	}
 }
@@ -106,12 +106,14 @@ void Node::doLoad()
 	{
 		(*itor)->doLoad();
 	}
+
 	this->onLoad();
 }
 
 void Node::doStart()
 {
-	m_start = true;
+	if (m_running) return;
+	m_running = true;
 	for (auto itor = this->m_childrens.begin(); itor != this->m_childrens.end(); itor++)
 	{
 		(*itor)->doStart();
@@ -128,7 +130,9 @@ void Node::doStart()
 
 void Node::doResume()
 {
+	if (!m_pause) return;
 	m_pause = false;
+
 	for (auto itor = this->m_childrens.begin(); itor != this->m_childrens.end(); itor++)
 	{
 		(*itor)->doResume();
@@ -144,7 +148,8 @@ void Node::doResume()
 
 void Node::doPause()
 {
-	m_pause = true;
+	if (m_pause) return;
+	
 	for (auto itor = this->m_childrens.begin(); itor != this->m_childrens.end(); itor++)
 	{
 		(*itor)->doPause();
@@ -154,12 +159,14 @@ void Node::doPause()
 	{
 		(*itor)->doPause();
 	}
-
 	this->onPause();
+	m_pause = true;
 }
 
 void Node::doStop()
 {
+	if (!m_running) return;
+
 	for (auto itor = this->m_childrens.begin(); itor != this->m_childrens.end(); itor++)
 	{
 		(*itor)->doStop();
@@ -170,7 +177,7 @@ void Node::doStop()
 		(*itor)->doStop();
 	}
 	this->stop();
-	m_start = false;
+	m_running = false;
 }
 
 void Node::doDestroy()

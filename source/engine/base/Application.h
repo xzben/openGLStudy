@@ -3,6 +3,7 @@
 
 #include "common.h"
 #include "math/math.h"
+#include "base/Camera.h"
 
 BEGIN_NAMESPACE
 
@@ -20,12 +21,14 @@ protected:
 	float m_lastDt;
 	float m_fps;
 
+	fVec2 m_preTouchPos;
 	ResolutionFit m_fitway;
 	Size m_resolutionSize;
 	Size m_frameSize;
 	Size m_drawSize;
 
 	EventDispatcher* m_dispatcher;
+	Camera* m_mainCamera;
 	friend class Window;
 	void setFrameSize(const float& width, const float& height);
 	void setFrameSize(const Size& frameSize);
@@ -40,6 +43,7 @@ public:
 	virtual ~Application();
 	static Application* getInstance();
 
+	Camera* getMainCamera();
 	void setDesignResolution(float width, float height, ResolutionFit fit = ResolutionFit::AUTO_FIT);
 	const Size& getFrameSize();
 	const Size& getResolutionSize();
@@ -59,6 +63,7 @@ public:
 	virtual void onAppResume() = 0;
 	virtual void onAppExit() = 0;
 
+	EventDispatcher* getDispatcher() { return m_dispatcher; }
 	void dispatchKeyboard(int key, bool press);
 	void dispatchTouch(TouchStatus status, float x, float y);
 	void dispatchMouse(int key, bool press);

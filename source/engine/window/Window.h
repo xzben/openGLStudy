@@ -4,7 +4,7 @@
 #include "common.h"
 #include "math/Size.h"
 
-class GLFWwindow;
+struct GLFWwindow;
 
 BEGIN_NAMESPACE
 

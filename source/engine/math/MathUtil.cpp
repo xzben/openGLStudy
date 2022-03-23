@@ -254,7 +254,7 @@ fMat4 MathUtil::lookAt(const fVec3& pos, const fVec3& target, const fVec3& up)
 
 fMat4 MathUtil::cameraLookAt(const fVec3& pos, const fVec3& rot, const fVec3& up)
 {
-	fVec3 direct(0, 0, -1);
+	fVec3 direct(0.0f, 0.0f, -1.0f);
 	direct = MathUtil::translate(pos) * MathUtil::rotation(rot) * direct;
 
 	direct.normalize();
@@ -274,7 +274,7 @@ fMat4 MathUtil::cameraLookAt(const fVec3& pos, const fVec3& rot, const fVec3& up
 	fMat4 view(R.x, R.y, R.z, -R.x * P.x - R.y * P.y - R.z * P.z,
 		U.x, U.y, U.z, -U.x * P.x - U.y * P.y - U.z * P.z,
 		D.x, D.y, D.z, -D.x * P.x - D.y * P.y - D.z * P.z,
-		0, 0, 0, 1);
+		0.0f, 0.0f, 0.0f, 1.0f);
 
 	return view;
 }
@@ -333,7 +333,7 @@ fMat4 MathUtil::createOrthographicOffCenter(float left, float right, float botto
 	result.m_data[12] = (left + right) / (left - right);
 	result.m_data[13] = (top + bottom) / (bottom - top);
 	result.m_data[14] = (zNearPlane + zFarPlane) / (zNearPlane - zFarPlane);
-	result.m_data[15] = 1;
+	result.m_data[15] = 1.0f;
 
 	return (result);
 }

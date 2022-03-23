@@ -19,6 +19,16 @@ public:
 		this->x = x;
 		this->y = y;
 	}
+
+	Vec2<TYPENAME> operator- (const Vec2<TYPENAME> rvalue)
+	{
+		Vec2<TYPENAME> result;
+
+		result.x = x - rvalue.x;
+		result.y = y - rvalue.y;
+
+		return result;
+	}
 };
 
 

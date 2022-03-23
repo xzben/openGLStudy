@@ -15,11 +15,12 @@
 BEGIN_NAMESPACE
 
 class Node;
+class Camera;
 
 class Shader : public Object
 {
 public:
-	void initCommonUniform(Node* node);
+	void initCommonUniform(Camera* cam, Node* node);
 protected:
 	void init(const std::string& vertextPath, const std::string& fragmentPath);
 public:

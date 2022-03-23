@@ -16,9 +16,11 @@ protected:
 	Shader* m_shader;
 	Mesh* m_mesh;
 public:
+	CREATE_FUNC(BoxRender);
 	BoxRender();
 	virtual ~BoxRender();
-	virtual void render() override;
+	virtual void render(Camera* cam) override;
 	bool init();
+	virtual void onLoad() override;
 };
 #endif//__2022_03_22_BOX_RENDER_H__

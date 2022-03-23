@@ -30,8 +30,11 @@ typedef unsigned int  GL_HANDLE;
 #define PLAT_MAC		4
 
 
-#define CUR_PLAT		PLAT_WIN
-
+#ifdef __APPLE__
+	#define CUR_PLAT		PLAT_MAC
+#else
+	#define CUR_PLAT		PLAT_WIN
+#endif
 
 #define CREATE_FUNC( CLS_NAME ) \
 	static CLS_NAME* create(){ \

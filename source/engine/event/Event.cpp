@@ -13,11 +13,10 @@ Event::~Event() {
 
 }
 
-EventTouch::EventTouch(TouchStatus status, float x, float y)
+EventTouch::EventTouch(TouchStatus status, const fVec2& pos)
 	:Event(EventType::TOUCH)
 	, status(status)
-	, x(x)
-	, y(y)
+	, pos(pos)
 {
 
 }
@@ -50,14 +49,14 @@ EventCustom::EventCustom(ListenerID listenerId, void* customData)
 
 }
 
-EventListener::EventListener(EventType type, CALLFUNC func)
+EventListener::EventListener(EventType type, const CALLFUNC& func)
 	:EventListener(type, "", func)
 {
 
 }
 
 
-EventListener::EventListener(EventType type, ListenerID Id, CALLFUNC func)
+EventListener::EventListener(EventType type, ListenerID Id, const CALLFUNC& func)
 	: type(type)
 	, callback(func)
 	, listenerId(Id)

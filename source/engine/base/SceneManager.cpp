@@ -2,6 +2,7 @@
 #include "base/Scene.h"
 #include "base/Node.h"
 #include "render/RenderableComponent.h"
+#include "base/Application.h"
 
 BEGIN_NAMESPACE
 
@@ -54,14 +55,13 @@ void SceneManager::update(float dt)
 
 void SceneManager::render()
 {
-	RenderContainor::render();
-	if (this->m_scene)
-	{
-		const fMat4& identity = MathUtil::IdentityMat4();
-		this->m_scene->updateWorlModelMat(identity, false);
-		this->m_scene->render();
-	}
-		
+	if (this->m_scene == nullptr) return;
+
+	Camera* cam = Application::getInstance()->getMainCamera();
+	RenderContainor::render(cam);
+	const fMat4& identity = MathUtil::IdentityMat4();
+	this->m_scene->updateWorlModelMat(identity, false);
+	this->m_scene->render(cam);
 }
 
 END_NAMESPACE

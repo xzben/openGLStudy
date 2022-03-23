@@ -19,14 +19,17 @@ protected:
 	Texture* m_texture;
 	Shader* m_shader;
 	Mesh* m_mesh;
+	std::string m_filename;
 public:
-	virtual void render() override;
+	CREATE_FUNC(ImageComponent);
+	virtual void render(Camera* cam) override;
 	ImageComponent(const std::string& filename);
 	ImageComponent();
 	~ImageComponent();
 
 	bool init(const std::string& filename);
-	
+	virtual void onLoad() override;
+
 	int getWidth();
 	int getHeight();
 	int getChannels();

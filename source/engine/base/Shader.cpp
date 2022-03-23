@@ -3,6 +3,7 @@
 #include <glad/glad.h>
 #include "base//Node.h"
 #include "base/Application.h"
+#include "base/Camera.h"
 #include <regex>
 
 BEGIN_NAMESPACE
@@ -172,13 +173,13 @@ void Shader::setMat4(const std::string& name, const fMat4& value)const {
 		value.m_data);
 }
 
-void Shader::initCommonUniform(Node* node)
+void Shader::initCommonUniform(Camera* cam, Node* node)
 {
 	setVec3(SHADER_COMMON_UNIFORM_TIMER, Application::getInstance()->getShaderTimer());
 	const fMat4& model = node->getShaderModel();
-	const fMat4 view;
-	const fMat4 projection;;
-	const fMat4 mvp = projection*view* model;
+	const fMat4 view = cam->getViewMatrix();
+	const fMat4 projection = cam->getProjectMatrix();
+	const fMat4 mvp = cam->getViewProjectMatrix()*model;
 
 	setMat4(SHADER_COMMON_UNIFORM_MODEL, model);
 	setMat4(SHADER_COMMON_UNIFORM_VIEW, view);

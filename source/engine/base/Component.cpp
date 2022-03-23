@@ -9,6 +9,7 @@ Component::Component()
 	, m_enable(false)
 	, m_status(0)
 {
+
 }
 
 Component::~Component()

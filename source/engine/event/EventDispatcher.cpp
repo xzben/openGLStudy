@@ -22,44 +22,88 @@ void EventDispatcher::sortListeners(EventListenerArray* arr)
 	});
 }
 
-EventListenerArray* EventDispatcher::getEventListeners(const EventType& type)
+EventListenerArray* EventDispatcher::getEventListeners(const EventType& type, bool autoCreate /*= false*/)
 {
 	auto itor = this->m_events.find(type);
 
 	if (itor == this->m_events.end()) 
 	{
-		auto arry = new EventListenerArray();
-		this->m_events.insert(std::pair<EventType, EventListenerArray*>(type, arry));
+		if (autoCreate)
+		{
+			auto arry = new EventListenerArray();
+			this->m_events.insert(std::pair<EventType, EventListenerArray*>(type, arry));
 
-		return arry;
+			return arry;
+		}
+		else
+		{
+			return nullptr;
+		}
 	}
 
 	return itor->second;
 }
 
+
 void EventDispatcher::addEventListener(const EventType& type, EventListener* listener)
 {
-	auto arr = this->getEventListeners(type);
+	auto arr = this->getEventListeners(type, true);
 	arr->push_back(listener);
 	EventDispatcher::sortListeners(arr);
+}
+
+void EventDispatcher::removeEventListener(EventListener* listener)
+{
+	EventType type = listener->type;
+	EventListenerArray* arr = nullptr;
+
+	if (type == EventType::CUSTOM) 
+	{
+		ListenerID id = listener->getListenerId();
+		arr = getCustomEventListeners(id, false);
+	}
+	else
+	{
+		arr = this->getEventListeners(type, false);
+	}
+
+	for (auto it = arr->begin(); it != arr->end(); it++)
+	{
+		if (*it == listener) {
+			arr->erase(it);
+			break;
+		}
+	}
+}
+
+EventListenerArray* EventDispatcher::getCustomEventListeners(const ListenerID& id, bool autoCreate /*= false*/)
+{
+	auto itor = this->m_customEvents.find(id);
+
+	if (itor == this->m_customEvents.end())
+	{
+		if (autoCreate)
+		{
+			auto arry = new EventListenerArray();
+			this->m_customEvents.insert(std::pair<ListenerID, EventListenerArray*>(id, arry));
+
+			return arry;
+		}
+		else
+		{
+			return nullptr;
+		}
+
+	}
+
+	return itor->second;
 }
 
 void EventDispatcher::addCustomListener(ListenerID id, EventListener* listener)
 {
 	listener->setListenerId(id);
-	auto itor = this->m_customEvents.find(id);
-	EventListenerArray* arr = nullptr;
 
-
-	if (itor != this->m_customEvents.end())
-	{
-		arr = itor->second;
-	}
-	else
-	{
-		auto arr = new EventListenerArray();
-		this->m_customEvents.insert(std::pair<ListenerID, EventListenerArray*>(id, arr));
-	}
+	EventListenerArray* arr = this->getCustomEventListeners(id, true);
 	
 	if (nullptr != arr) {
 		arr->push_back(listener);
@@ -85,7 +129,8 @@ void EventDispatcher::addTouchListener(EventListener* listener)
 void EventDispatcher::dispatchEvent(Event* event)
 {
 	auto arr = this->getEventListeners(event->getType());
-	
+	if (arr == nullptr) return;
+
 	for (auto itor = arr->begin(); itor != arr->end(); itor++) 
 	{
 		(*itor)->doCall(event);

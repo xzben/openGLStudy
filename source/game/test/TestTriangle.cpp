@@ -39,7 +39,7 @@ TestTriangle::~TestTriangle()
 	delete m_shader;
 }
 
-void TestTriangle::render()
+void TestTriangle::render(Camera* cam)
 {
 	this->m_shader->use();
 	glBindVertexArray(m_vao);

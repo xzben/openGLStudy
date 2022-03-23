@@ -21,16 +21,18 @@ public:
 	EventDispatcher();
 	virtual ~EventDispatcher();
 
-	EventListenerArray* getEventListeners(const EventType& type);
+	EventListenerArray* getEventListeners(const EventType& type, bool autoCreate = false);
+	EventListenerArray* getCustomEventListeners(const ListenerID& id, bool autoCreate = false);
 	static void sortListeners(EventListenerArray* arr);
 
 	void addEventListener(const EventType& type, EventListener* listener);
+	void removeEventListener(EventListener* listener);
 
 	void addTouchListener(EventListener* listener);
 	void addKeyboardListener(EventListener* listener);
 	void addMouseListener(EventListener* listener);
 	void addCustomListener(ListenerID id, EventListener* listener);
-	
+		
 	void dispatchEvent(Event* event);
 	void dispatchTouch(EventTouch* event);
 	void dispatchKeyboard(EventKeyboard* event);

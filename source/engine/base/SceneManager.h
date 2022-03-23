@@ -24,7 +24,7 @@ public:
 	Scene* getCurScene();
 	void update(float dt);
 	void changeScene(Scene* scene);
-	virtual void render() override;
+	void render();
 };
 
 END_NAMESPACE
