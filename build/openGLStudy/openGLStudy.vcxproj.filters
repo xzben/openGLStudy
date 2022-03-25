@@ -55,6 +55,9 @@
     <Filter Include="source\engine\resource">
       <UniqueIdentifier>{e1289fa7-6ddd-4206-af2a-088907aa749d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\engine\light">
+      <UniqueIdentifier>{abe854ed-02a0-4067-a4f4-b85f2576663f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\3rdlib\glad\src\glad.c">
@@ -149,6 +152,9 @@
     </ClCompile>
     <ClCompile Include="..\..\source\engine\resource\ResourceManager.cpp">
       <Filter>source\engine\resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\engine\light\Light.cpp">
+      <Filter>source\engine\light</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -277,6 +283,9 @@
     </ClInclude>
     <ClInclude Include="..\..\source\engine\render\Color.h">
       <Filter>source\engine\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\engine\light\Light.h">
+      <Filter>source\engine\light</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

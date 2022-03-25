@@ -1,6 +1,7 @@
 #include "Camera.h"
 #include "window/Window.h"
 #include "math/Vec3.h"
+#include "math/MathUtil.h"
 
 BEGIN_NAMESPACE
 
@@ -138,7 +139,6 @@ const fMat4& Camera::getViewMatrix()
 	if (m_type == Camera::Type::PERSPECTIVE)
 	{
 		if (m_viewDirty) {
-			this->updateWorlModelMat(MathUtil::IdentityMat4(), false);
 			m_matView = this->m_matModel.inverse();
 			m_matViewProjection = m_matProjection * m_matView;
 			m_viewDirty = false;

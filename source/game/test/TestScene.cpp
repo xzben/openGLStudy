@@ -32,7 +32,7 @@ void TestScene::onLoad()
 	setColor(Color(1.f, 1.0f, 1.0f, 0.5f));
 
 
-	Camera* cam = Application::getInstance()->getMainCamera();
+	Camera* cam = this->getMainCamera();
 	
 	float step = 1;
 
@@ -52,7 +52,38 @@ void TestScene::onLoad()
 		CCLOG(" touch %f %f %f\r\n", rot.x, rot.y, rot.z);
 	});
 
+	float mvStep = 0.1;
+	EventListener* keyboardListner = new EventListener(EventType::KEYBOARD, [=](Event* event) {
+		EventKeyboard* evt = (EventKeyboard*)event;
+		POSITION curPos = cam->getPosition();
+		switch (evt->key)
+		{
+		case (int)Keyboard::KEY_W:
+		{
+			curPos.y += mvStep;
+			break;
+		}
+		case (int)Keyboard::KEY_S:
+		{
+			curPos.y -= mvStep;
+			break;
+		}
+		case (int)Keyboard::KEY_A:
+		{
+			curPos.x -= mvStep;
+			break;
+		}
+		case (int)Keyboard::KEY_D:
+		{
+			curPos.x += mvStep;
+			break;
+		}
+		}
+		cam->setPosition(curPos);
+	});
+
 	Application::getInstance()->getDispatcher()->addTouchListener(touchListener);
+	Application::getInstance()->getDispatcher()->addKeyboardListener(keyboardListner);
 }
 
 void TestScene::update(float dt)

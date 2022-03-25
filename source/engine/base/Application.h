@@ -3,7 +3,6 @@
 
 #include "common.h"
 #include "math/math.h"
-#include "base/Camera.h"
 
 BEGIN_NAMESPACE
 
@@ -28,7 +27,6 @@ protected:
 	Size m_drawSize;
 
 	EventDispatcher* m_dispatcher;
-	Camera* m_mainCamera;
 	friend class Window;
 	void setFrameSize(const float& width, const float& height);
 	void setFrameSize(const Size& frameSize);
@@ -43,7 +41,6 @@ public:
 	virtual ~Application();
 	static Application* getInstance();
 
-	Camera* getMainCamera();
 	void setDesignResolution(float width, float height, ResolutionFit fit = ResolutionFit::AUTO_FIT);
 	const Size& getFrameSize();
 	const Size& getResolutionSize();

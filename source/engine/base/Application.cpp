@@ -137,6 +137,8 @@ void Application::updateDrawSize()
 
 void Application::dispatchKeyboard(int key, bool press)
 {
+	if (!press) return;
+
 	EventKeyboard evt(key);
 	this->m_dispatcher->dispatchKeyboard(&evt);
 }
@@ -155,16 +157,6 @@ void Application::dispatchMouse(int key, bool press)
 	EventMouse evt(key, press);
 
 	this->m_dispatcher->dispatchMouse(&evt);
-}
-
-Camera* Application::getMainCamera()
-{
-	if (m_mainCamera == nullptr)
-	{
-		m_mainCamera = Camera::createDefault(true);
-	}
-
-	return m_mainCamera;
 }
 
 END_NAMESPACE

@@ -1,6 +1,19 @@
 #ifndef __2022_03_16_SHADER_DEFINE_H__
 #define __2022_03_16_SHADER_DEFINE_H__
 
+//用于标识顶点数据成员
+enum class VerticleMember
+{
+	POS = 1 << 0,
+	COLOR = 1 << 1,
+	TEXCOORD = 1 << 2,
+	NORMAL = 1 << 3,
+
+	POS_NORMAL = POS | NORMAL,
+	POS_COLOR_TEXCOORD = POS | COLOR | TEXCOORD,
+	POS_COLOR_TEXCOORD_NORMAL = POS | COLOR | TEXCOORD | NORMAL,
+};
+
 #define SHADER_POS_NAME		"aPos"
 #define SHADER_POS_INDEX	0
 
@@ -9,6 +22,9 @@
 
 #define SHADER_TEXCOORD_NAME "aTexCoord"
 #define SHADER_TEXCOORD_INDEX 2
+
+#define SHADER_NORMAL_NAME "aNormal"
+#define SHADER_NORMAL_INDEX 3
 
 #define SHADER_MAIN_TEXTURE_INDEX 0
 #define SHADER_MAIN_TEXTURE_NAME "mainTexture"

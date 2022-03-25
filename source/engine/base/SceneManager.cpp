@@ -2,7 +2,7 @@
 #include "base/Scene.h"
 #include "base/Node.h"
 #include "render/RenderableComponent.h"
-#include "base/Application.h"
+#include "math/MathUtil.h"
 
 BEGIN_NAMESPACE
 
@@ -57,11 +57,13 @@ void SceneManager::render()
 {
 	if (this->m_scene == nullptr) return;
 
-	Camera* cam = Application::getInstance()->getMainCamera();
-	RenderContainor::render(cam);
+	Camera* cam = this->m_scene->getMainCamera();
 	const fMat4& identity = MathUtil::IdentityMat4();
+
 	this->m_scene->updateWorlModelMat(identity, false);
 	this->m_scene->render(cam);
+
+	RenderContainor::render(cam);
 }
 
 END_NAMESPACE

@@ -5,6 +5,7 @@
 
 BEGIN_NAMESPACE
 
+
 fMat4 MathUtil::translate(const fVec3& mov)
 {
 	return translate(mov.x, mov.y, mov.z);

@@ -1,5 +1,6 @@
 #include "Node.h"
 #include "base/Component.h"
+#include "math/MathUtil.h"
 
 BEGIN_NAMESPACE
 

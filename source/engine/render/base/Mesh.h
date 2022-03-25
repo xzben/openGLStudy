@@ -16,7 +16,7 @@ protected:
 	int   m_verticesCount; //顶点数量
 	int   m_indicesCount; //索引数量
 protected:
-	void setupGLData(float* vertices, int verticlesCount, uint* indices, int indicesCount);
+	virtual void setupGLData(float* vertices, int verticlesCount, uint* indices, int indicesCount, VerticleMember vmembers);
 public:
 	Mesh();
 
@@ -26,7 +26,7 @@ public:
 	Mesh& operator=(const Mesh&) = delete;
 	Mesh& operator=(Mesh&&) = delete;
 
-	virtual void setup(float* vertices, int verticlesCount, uint* indices, int indicesCount);
+	virtual void setup(float* vertices, int verticlesCount, uint* indices, int indicesCount, VerticleMember vmembers = VerticleMember::POS_COLOR_TEXCOORD);
 	virtual ~Mesh();
 
 	virtual void draw();

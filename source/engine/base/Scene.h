@@ -5,12 +5,17 @@
 #include "base/Node.h"
 #include "render/RenderContainor.h"
 #include "math/math.h"
+#include "base/Camera.h"
+#include "light/Light.h"
 
 BEGIN_NAMESPACE
 
 class Scene : public Node, public RenderContainor
 {
 protected:
+	Camera* m_mainCamera;
+	Light* m_mainLight;
+
 	Size m_size;
 	void setSize(const Size& size) {
 		this->m_size = size;
@@ -25,6 +30,12 @@ public:
 	friend class SceneManager;
 	Scene();
 	virtual ~Scene();
+
+	Camera* getMainCamera();
+	Light* getMainLight();
+
+	virtual Camera* createMainCamera();
+	virtual Light* createMainLight();
 };
 
 END_NAMESPACE
