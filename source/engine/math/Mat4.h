@@ -84,19 +84,25 @@ public:
 
 	}
 
-	void operator+(const TYPENAME& val) {
+	Mat4 operator+(const TYPENAME& val) {
 		for (int i = 0; i < 16; i++)
 			m_data[i] += val;
+
+		return *this;
 	}
 
-	void operator-(const TYPENAME& val) {
+	Mat4 operator-(const TYPENAME& val) {
 		for (int i = 0; i < 16; i++)
 			m_data[i] -= val;
+		
+		return *this;
 	}
 
-	void operator*(const TYPENAME& val) {
+	Mat4 operator*(const TYPENAME& val) {
 		for (int i = 0; i < 16; i++)
 			m_data[i] *= val;
+		
+		return *this;
 	}
 
 	Mat4<TYPENAME> operator*(const Mat4<TYPENAME>& rvalue) const {
@@ -144,6 +150,52 @@ public:
 		result.y = m_data[1] * rvalue.x + m_data[5] * rvalue.y + m_data[9] * rvalue.z + m_data[13] * rvalue.w;
 		result.z = m_data[2] * rvalue.x + m_data[6] * rvalue.y + m_data[10] * rvalue.z + m_data[14] * rvalue.w;
 		//result.w = m_data[3] * rvalue.x + m_data[7] * rvalue.y + m_data[11] * rvalue.z + m_data[15] * rvalue.w;
+
+		return result;
+	}
+
+	Mat4<TYPENAME> inverse() const{
+		Mat4<TYPENAME> result;
+
+		TYPENAME a0 = m_data[0] * m_data[5] - m_data[1] * m_data[4];
+		TYPENAME a1 = m_data[0] * m_data[6] - m_data[2] * m_data[4];
+		TYPENAME a2 = m_data[0] * m_data[7] - m_data[3] * m_data[4];
+		TYPENAME a3 = m_data[1] * m_data[6] - m_data[2] * m_data[5];
+		TYPENAME a4 = m_data[1] * m_data[7] - m_data[3] * m_data[5];
+		TYPENAME a5 = m_data[2] * m_data[7] - m_data[3] * m_data[6];
+		TYPENAME b0 = m_data[8] * m_data[13] - m_data[9] * m_data[12];
+		TYPENAME b1 = m_data[8] * m_data[14] - m_data[10] * m_data[12];
+		TYPENAME b2 = m_data[8] * m_data[15] - m_data[11] * m_data[12];
+		TYPENAME b3 = m_data[9] * m_data[14] - m_data[10] * m_data[13];
+		TYPENAME b4 = m_data[9] * m_data[15] - m_data[11] * m_data[13];
+		TYPENAME b5 = m_data[10] * m_data[15] - m_data[11] * m_data[14];
+
+		TYPENAME det = a0 * b5 - a1 * b4 + a2 * b3 + a3 * b2 - a4 * b1 + a5 * b0;
+
+		if (std::abs(det) <= MATH_TOLERANCE)
+			return result;
+
+		result.m_data[0] = m_data[5] * b5 - m_data[6] * b4 + m_data[7] * b3;
+		result.m_data[1] = -m_data[1] * b5 + m_data[2] * b4 - m_data[3] * b3;
+		result.m_data[2] = m_data[13] * a5 - m_data[14] * a4 + m_data[15] * a3;
+		result.m_data[3] = -m_data[9] * a5 + m_data[10] * a4 - m_data[11] * a3;
+
+		result.m_data[4] = -m_data[4] * b5 + m_data[6] * b2 - m_data[7] * b1;
+		result.m_data[5] = m_data[0] * b5 - m_data[2] * b2 + m_data[3] * b1;
+		result.m_data[6] = -m_data[12] * a5 + m_data[14] * a2 - m_data[15] * a1;
+		result.m_data[7] = m_data[8] * a5 - m_data[10] * a2 + m_data[11] * a1;
+
+		result.m_data[8] = m_data[4] * b4 - m_data[5] * b2 + m_data[7] * b0;
+		result.m_data[9] = -m_data[0] * b4 + m_data[1] * b2 - m_data[3] * b0;
+		result.m_data[10] = m_data[12] * a4 - m_data[13] * a2 + m_data[15] * a0;
+		result.m_data[11] = -m_data[8] * a4 + m_data[9] * a2 - m_data[11] * a0;
+
+		result.m_data[12] = -m_data[4] * b3 + m_data[5] * b1 - m_data[6] * b0;
+		result.m_data[13] = m_data[0] * b3 - m_data[1] * b1 + m_data[2] * b0;
+		result.m_data[14] = -m_data[12] * a3 + m_data[13] * a1 - m_data[14] * a0;
+		result.m_data[15] = m_data[8] * a3 - m_data[9] * a1 + m_data[10] * a0;
+
+		result = result * (1/det);
 
 		return result;
 	}

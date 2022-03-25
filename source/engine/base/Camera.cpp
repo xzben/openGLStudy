@@ -58,15 +58,14 @@ bool Camera::initDefault(bool camera3d)
 
 	if (camera3d)
 	{
-		float zeye = size.height / 1.1566f;
-		initPerspective(60, size.width / size.height, 10, zeye + size.height / 2.0);
-		this->setRotation(-45, 0, 0);
-		this->setPosition(size.width / 2, size.height / 2.0, zeye);
+		initPerspective(60.0f, size.width / size.height, 0.1f, 100.0f);
+		this->setRotation(-60, 0, 0);
+		this->setPosition(0, 6.0, 3.0);
 	}
 	else
 	{
-		initOrthographic(size.width, size.height, -1024, 1024);
-		setPosition(0, 0, 0);
+		initOrthographic(10, 10, -7.5f, 7.5f);
+		setPosition(0, 0, 3.0);
 		setRotation(0, 0, 0);
 	}
 
@@ -98,8 +97,8 @@ bool Camera::initOrthographic(float zoomX, float zoomY, float nearPlane, float f
 	m_nearPlane = nearPlane;
 	m_farPlane = farPlane;
 
-	m_matProjection = MathUtil::createOrthographicOffCenter(0, m_zoom[0], 0, m_zoom[1], m_nearPlane, m_farPlane);
-
+	m_matProjection = MathUtil::createOrthographic(m_zoom[0], m_zoom[1], m_nearPlane, m_farPlane);
+	
 	m_projectDirty = true;
 	m_frusumDirty = true;
 
@@ -136,11 +135,15 @@ const fMat4& Camera::getViewProjectMatrix()
 
 const fMat4& Camera::getViewMatrix()
 {
-	if (m_viewDirty) {
-		m_matView = MathUtil::cameraLookAt(m_pos, m_rotation, m_up);
-		m_matViewProjection = m_matProjection * m_matView;
-		m_viewDirty = false;
-		m_projectDirty = false;
+	if (m_type == Camera::Type::PERSPECTIVE)
+	{
+		if (m_viewDirty) {
+			this->updateWorlModelMat(MathUtil::IdentityMat4(), false);
+			m_matView = this->m_matModel.inverse();
+			m_matViewProjection = m_matProjection * m_matView;
+			m_viewDirty = false;
+			m_projectDirty = false;
+		}
 	}
 
 	return m_matView;

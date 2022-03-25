@@ -72,7 +72,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ReferencePath>$(ReferencePath)</ReferencePath>
     <LibraryPath>$(ProjectDir)\..\..\3rdlib\glfw\lib;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(ProjectDir)/../../3rdlib/glad/include/;$(ProjectDir)/../../3rd/glfw/include/;$(ProjectDir)/../../3rd/stb/;$(ProjectDir)/../../source/;$(ProjectDir)/../../3rdlib\glfw\include;$(ProjectDir)/../../3rdlib\glfw\src;$(ProjectDir)/../../source/game;$(ProjectDir)/../../source/engine;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)/../../3rdlib/glad/include/;$(ProjectDir)/../../3rd/glfw/include/;$(ProjectDir)/../../3rd/stb/;$(ProjectDir)/../../source/;$(ProjectDir)/../../3rdlib\glfw\include;$(ProjectDir)/../../3rdlib\glfw\src;$(ProjectDir)/../../source/game;$(ProjectDir)/../../source/engine;$(ProjectDir)/../../3rdlib/glm;$(IncludePath)</IncludePath>
     <ExecutablePath>$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

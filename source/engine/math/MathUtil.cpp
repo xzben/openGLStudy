@@ -295,8 +295,6 @@ fMat4 MathUtil::createPerspective(float fieldOfView, float aspectRatio, float zN
 	CC_ASSERT(divisor);
 	float factor = 1.0f / divisor;
 
-	
-
 	memset(result.m_data, 0, MATRIX_SIZE);
 
 	CC_ASSERT(aspectRatio);
@@ -324,11 +322,21 @@ fMat4 MathUtil::createOrthographicOffCenter(float left, float right, float botto
 
 	fMat4 result;
 
-	memset(result.m_data, 0, MATRIX_SIZE);
-
+	
 	result.m_data[0] = 2 / (right - left);
+	result.m_data[1] = 0.0f;
+	result.m_data[2] = 0.0f;
+	result.m_data[3] = 0.0f;
+
+	result.m_data[4] = 0.0f;
 	result.m_data[5] = 2 / (top - bottom);
+	result.m_data[6] = 0.0f;
+	result.m_data[7] = 0.0f;
+
+	result.m_data[8] = 0.0f;
+	result.m_data[9] = 0.0f;
 	result.m_data[10] = 2 / (zNearPlane - zFarPlane);
+	result.m_data[11] = 0.0f;
 
 	result.m_data[12] = (left + right) / (left - right);
 	result.m_data[13] = (top + bottom) / (bottom - top);

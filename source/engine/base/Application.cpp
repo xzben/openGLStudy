@@ -161,7 +161,7 @@ Camera* Application::getMainCamera()
 {
 	if (m_mainCamera == nullptr)
 	{
-		m_mainCamera = Camera::createDefault(false);
+		m_mainCamera = Camera::createDefault(true);
 	}
 
 	return m_mainCamera;

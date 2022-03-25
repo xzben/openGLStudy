@@ -5,7 +5,7 @@
 
 int main() {
 	AppDeleget app;
-	Window window("OpenGLStudy", 800, 600);
+	Window window("OpenGLStudy", 1280, 720);
 	app.onAppLauchFinish();
 	window.mainLoop();
 	app.onAppExit();
