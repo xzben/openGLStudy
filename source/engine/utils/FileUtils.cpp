@@ -60,7 +60,10 @@ void Data::setData(const byte* data, const int size) {
 std::string FileUtils::getString(const std::string &filename)
 {
 	Data data;
-	this->getData(filename, &data);
+	if (!this->getData(filename, &data))
+	{
+		return "";
+	}
 
 	return (char*)data.getContent();
 }

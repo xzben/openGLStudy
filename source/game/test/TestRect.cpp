@@ -50,7 +50,7 @@ TestRect::~TestRect()
 	delete m_shader;
 }
 
-void TestRect::render(Camera* cam)
+void TestRect::render(RenderData* render)
 {
 	this->m_shader->use();
 	m_shader->setVec4("ourColor", fVec4(1.0f, 0.f, 0.f, 0.f));

@@ -61,7 +61,7 @@ void RenderableComponent::onDestroy()
 
 }
 
-void RenderableComponent::doDraw(Camera* cam, Mesh* mesh, Shader* shader /* = nullptr */, Texture* tex /* = nullptr */, SubTexture* texs /* = nullptr */, int subTextCount /* = 0 */)
+void RenderableComponent::doDraw(RenderData* render, Mesh* mesh, Shader* shader /* = nullptr */, Texture* tex /* = nullptr */, SubTexture* texs /* = nullptr */, int subTextCount /* = 0 */)
 {
 	if (tex) {
 		tex->use(SHADER_MAIN_TEXTURE_INDEX);
@@ -69,7 +69,7 @@ void RenderableComponent::doDraw(Camera* cam, Mesh* mesh, Shader* shader /* = nu
 
 	if (shader) {
 		shader->use();
-		shader->initCommonUniform(cam, this->m_node);
+		shader->initCommonUniform(render->mainCamera, this->m_node);
 		if(tex)
 			shader->setInt(SHADER_MAIN_TEXTURE_NAME, SHADER_MAIN_TEXTURE_INDEX);
 

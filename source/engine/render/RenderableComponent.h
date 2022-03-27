@@ -2,7 +2,7 @@
 #define __RENDER_NODE_2021_09_07_H__
 
 #include "base/Component.h"
-
+#include "render/RenderData.h"
 BEGIN_NAMESPACE
 
 class RenderContainor;
@@ -21,7 +21,7 @@ public:
 	RenderableComponent();
 	virtual ~RenderableComponent();
 
-	virtual void render(Camera* cam) = 0;
+	virtual void render(RenderData* render) = 0;
 	virtual void onLoad() override;
 	virtual void start() override;
 	virtual void onPause() override;
@@ -30,7 +30,7 @@ public:
 	virtual void update(float dt) override;
 	virtual void onDestroy() override;
 
-	virtual void doDraw(Camera* cam, Mesh* mesh, Shader* shader = nullptr, Texture* tex = nullptr, SubTexture* texs = nullptr, int subTextCount = 0);
+	virtual void doDraw(RenderData* render, Mesh* mesh, Shader* shader = nullptr, Texture* tex = nullptr, SubTexture* texs = nullptr, int subTextCount = 0);
 	//渲染过程中留给各个类handle 处理自己需要做的shader 传参操作
 	virtual void setShaderUniforms(Shader* shader);
 };

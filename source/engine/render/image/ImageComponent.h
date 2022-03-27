@@ -22,7 +22,7 @@ protected:
 	std::string m_filename;
 public:
 	CREATE_FUNC(ImageComponent);
-	virtual void render(Camera* cam) override;
+	virtual void render(RenderData* render) override;
 	ImageComponent(const std::string& filename);
 	ImageComponent();
 	~ImageComponent();

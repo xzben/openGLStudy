@@ -322,6 +322,11 @@ void Node::setScale(float scale)
 	setScale(scale, scale, scale);
 }
 
+POSITION Node::getWorldPosition()
+{
+	return m_pos;
+}
+
 const POSITION& Node::getPosition()
 {
 	return m_pos;

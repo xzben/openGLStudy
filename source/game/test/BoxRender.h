@@ -19,7 +19,7 @@ public:
 	CREATE_FUNC(BoxRender);
 	BoxRender();
 	virtual ~BoxRender();
-	virtual void render(Camera* cam) override;
+	virtual void render(RenderData* render) override;
 	bool init();
 	virtual void onLoad() override;
 };

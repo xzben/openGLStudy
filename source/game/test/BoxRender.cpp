@@ -80,7 +80,7 @@ bool BoxRender::init()
 	return true;
 }
 
-void BoxRender::render(Camera* cam)
+void BoxRender::render(RenderData* render)
 {
-	this->doDraw(cam, this->m_mesh, this->m_shader, this->m_texture);
+	this->doDraw(render, this->m_mesh, this->m_shader, this->m_texture);
 }

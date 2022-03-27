@@ -8,15 +8,11 @@
 
 BEGIN_NAMESPACE
 
-struct replace_data {
-	std::string::const_iterator begin;
-	std::string::const_iterator end;
-	std::string path;
-};
-
 std::string getShaderContent(const std::string& path)
 {
 	std::string source = FileUtils::getInstance()->getString(path);
+	if (source == "") return source;
+
 	std::regex import_reg("#import\\s*<\\s*([\\w./]*)\\s*>");
 	std::smatch result;
 
@@ -26,25 +22,22 @@ std::string getShaderContent(const std::string& path)
 	std::string temp;
 	std::string imppath;
 
-	std::vector<replace_data> placecontents;
-
 	while (std::regex_search(itstart, itend, result, import_reg))
 	{
-		replace_data data;
-		data.begin = result[0].first;
-		data.end = result[0].second;
-		data.path = result[1];
-		placecontents.push_back(data);
+		std::string path = result[1];
+		std::string subsouce = FileUtils::getInstance()->getString(path);
+		if (subsouce != "")
+		{
+			source.replace(result[0].first, result[0].second, subsouce);
+		}
+		else
+		{
+			CCLOGERROR("shader source failed to import %s", path.c_str());
+			CC_ASSERT(false);
+		}	
 
-		itstart = data.end;
-	}
-
-
-	for (auto it = placecontents.rbegin(); it != placecontents.rend(); it++) 
-	{
-		std::string subsouce = getShaderContent(it->path);
-
-		source.replace(it->begin, it->end, subsouce);
+		itstart = source.begin();
+		itend = source.end();
 	}
 
 	return source;

@@ -64,6 +64,7 @@ public:
 	 void setPositionY(float y);
 	 void setPositionZ(float z);
 	 void setRotation(const fVec3& rot);
+	 POSITION getWorldPosition();
 	 virtual void setRotation(float x, float y, float z);
 	 void setRotationX(float x);
 	 void setRotationY(float y);

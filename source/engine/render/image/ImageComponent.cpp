@@ -61,9 +61,9 @@ bool ImageComponent::init(const std::string& filename)
 	return true;
 }
 
-void ImageComponent::render(Camera* cam)
+void ImageComponent::render(RenderData* render)
 {
-	this->doDraw(cam, this->m_mesh, this->m_shader, this->m_texture);
+	this->doDraw(render, this->m_mesh, this->m_shader, this->m_texture);
 }
 
 int ImageComponent::getWidth()

@@ -52,7 +52,7 @@ void TestScene::onLoad()
 		CCLOG(" touch %f %f %f\r\n", rot.x, rot.y, rot.z);
 	});
 
-	float mvStep = 0.1;
+	float mvStep = 0.1f;
 	EventListener* keyboardListner = new EventListener(EventType::KEYBOARD, [=](Event* event) {
 		EventKeyboard* evt = (EventKeyboard*)event;
 		POSITION curPos = cam->getPosition();

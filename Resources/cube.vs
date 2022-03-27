@@ -1,4 +1,5 @@
 #import<common/vs_head.vs>
+#import<common/PhongLight.vs>
 
 out vec3 ourColor;
 out vec2 TexCoord;

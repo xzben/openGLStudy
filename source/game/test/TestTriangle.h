@@ -16,6 +16,6 @@ protected:
 public:
 	TestTriangle();
 	virtual ~TestTriangle();
-	virtual void render(Camera* cam) override;
+	virtual void render(RenderData* render) override;
 };
 #endif//__2022_01_04_TEST_TRIANGLE_H__

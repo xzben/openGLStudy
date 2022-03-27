@@ -287,5 +287,8 @@
     <ClInclude Include="..\..\source\engine\light\Light.h">
       <Filter>source\engine\light</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\source\engine\render\RenderData.h">
+      <Filter>source\engine\render</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

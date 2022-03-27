@@ -11,7 +11,7 @@ public:
 	CREATE_FUNC(RenderMesh);
 	RenderMesh();
 	virtual ~RenderMesh();
-	virtual void render(Camera* cam) override;
+	virtual void render(RenderData* render) override;
 };
 
 END_NAMESPACE

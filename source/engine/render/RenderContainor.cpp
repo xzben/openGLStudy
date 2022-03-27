@@ -19,11 +19,11 @@ void RenderContainor::removeRenderComp(RenderableComponent* com)
 	}
 }
 
-void RenderContainor::render(Camera* cam)
+void RenderContainor::render(RenderData* render)
 {
 	for (auto it = m_renderComps.begin(); it != m_renderComps.end(); it++)
 	{
-		(*it)->render(cam);
+		(*it)->render(render);
 	}
 }
 

@@ -203,6 +203,7 @@
     <ClInclude Include="..\..\source\engine\render\Material.h" />
     <ClInclude Include="..\..\source\engine\render\RenderableComponent.h" />
     <ClInclude Include="..\..\source\engine\render\RenderContainor.h" />
+    <ClInclude Include="..\..\source\engine\render\RenderData.h" />
     <ClInclude Include="..\..\source\engine\render\RenderMesh.h" />
     <ClInclude Include="..\..\source\engine\render\Texture.h" />
     <ClInclude Include="..\..\source\engine\resource\ResourceManager.h" />
