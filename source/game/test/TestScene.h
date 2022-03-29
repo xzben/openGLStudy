@@ -9,6 +9,8 @@ class TestScene : public Scene
 {
 protected:
 	float m_count;
+	Node* m_box;
+
 public:
 	CREATE_FUNC(TestScene);
 
@@ -16,6 +18,7 @@ public:
 	 virtual ~TestScene();
 
 	virtual void onLoad() override;
+	void initEventListener();
 	void update(float dt);
 
 };

@@ -38,4 +38,9 @@ enum class VerticleMember
 
 #define SHADER_UNIFORM_COLOR "uColor"  //每个节点都会设置一个颜色值与 顶点颜色值是不同的，这个color是公共的作用在所有顶点上的颜色变化
 
+
+#define SHADER_LIGHT_POS				"lightPos"
+#define SHADER_LIGHT_COLOR				"ligthColor"
+#define SHADER_LIGHT_AMBIENT_STRENGTH	"ambientStrength"
+
 #endif//__2022_03_16_SHADER_DEFINE_H__

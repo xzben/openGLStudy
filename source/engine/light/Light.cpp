@@ -3,6 +3,7 @@
 BEGIN_NAMESPACE
 
 Light::Light()
+	:m_ambientStrength(0.1)
 {
 
 }

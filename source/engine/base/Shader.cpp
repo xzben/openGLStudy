@@ -4,6 +4,7 @@
 #include "base//Node.h"
 #include "base/Application.h"
 #include "base/Camera.h"
+#include "light/Light.h"
 #include <regex>
 
 BEGIN_NAMESPACE
@@ -166,9 +167,13 @@ void Shader::setMat4(const std::string& name, const fMat4& value)const {
 		value.m_data);
 }
 
-void Shader::initCommonUniform(Camera* cam, Node* node)
+void Shader::initCommonUniform(RenderData* render, Node* node)
 {
 	setVec3(SHADER_COMMON_UNIFORM_TIMER, Application::getInstance()->getShaderTimer());
+
+	Camera* cam = render->mainCamera;
+	Light* light = render->mainLight;
+
 	const fMat4& model = node->getShaderModel();
 	const fMat4 view = cam->getViewMatrix();
 	const fMat4 projection = cam->getProjectMatrix();
@@ -179,6 +184,13 @@ void Shader::initCommonUniform(Camera* cam, Node* node)
 	setMat4(SHADER_COMMON_UNIFORM_PROJECTION, projection);
 	setMat4(SHADER_COMMON_UNIFORM_MVP, mvp);
 
+	if (light != nullptr)
+	{
+		setVec3(SHADER_LIGHT_POS, light->getWorldPosition());
+		setColor(SHADER_LIGHT_COLOR, light->getLightColor());
+		setFloat(SHADER_LIGHT_AMBIENT_STRENGTH, light->getAmbientStrength());
+	}
+	
 	setColor(SHADER_UNIFORM_COLOR, node->getDrawColor());
 }
 

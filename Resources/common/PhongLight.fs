@@ -1,12 +1,26 @@
-uniform float ambientStrength = 0.1f;
-uniform vec3 ligthColor;
+uniform float ambientStrength;
+uniform vec4 ligthColor;
 uniform vec3 lightPos;
 
-vec4 getFragColor(vec4 objectColor)
+// 漫反射光
+vec3 computDiffuse(vec3 normal, vec3 fragPos)
 {
-	vec3 ambient = ambientStrength*ligthColor; //环境光计算，根据全局光颜色结合环境光强度结算
+	vec3 norm = normalize(normal);
+	vec3 lightDir = normalize(lightPos - fragPos);
 
-	vec4 result = vec4(ambient, 1.0) * objectColor;
+	float diff = max(dot(norm, lightDir), 0.0);
+	vec3 diffuse = diff*ligthColor.rgb;
+
+	return diffuse;
+}
+
+vec4 computLightObject(vec4 objectColor, vec3 normal, vec3 fragPos)
+{
+	//环境光计算，根据全局光颜色结合环境光强度结算
+	vec3 ambient = ambientStrength*ligthColor.rgb; 
+	vec3 diffuse = computDiffuse(normal, fragPos);
+
+	vec4 result = vec4(ambient+diffuse, 1.0f) * objectColor;
 
 	return result;
 }

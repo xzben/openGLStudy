@@ -322,9 +322,37 @@ void Node::setScale(float scale)
 	setScale(scale, scale, scale);
 }
 
+POSITION Node::convertToNodeSpace(const POSITION& worldpos)
+{
+	fMat4 trans;
+	getParentTrnasparent(trans);
+
+	return trans.inverse()* worldpos;
+}
+
+POSITION Node::convertToWorldSpace(const POSITION& localpos)
+{
+	fMat4 trans;
+	getParentTrnasparent(trans);
+
+	return trans * localpos;
+}
+
+void Node::getParentTrnasparent(fMat4& transparent)
+{
+	Node* parent = this->m_parent;
+	
+	while (parent != nullptr)
+	{
+		parent->updateSelfModelMat();
+		transparent = parent->m_localMat*transparent;
+		parent = m_parent->m_parent;
+	}
+}
+
 POSITION Node::getWorldPosition()
 {
-	return m_pos;
+	return convertToWorldSpace(m_pos);
 }
 
 const POSITION& Node::getPosition()
@@ -380,5 +408,6 @@ float Node::getScaleZ()
 {
 	return m_scale.z;
 }
+
 
 END_NAMESPACE

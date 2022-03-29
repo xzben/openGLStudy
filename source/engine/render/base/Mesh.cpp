@@ -131,7 +131,6 @@ void Mesh::draw()
 {
 	if (!this->m_setuped || this->m_verticesCount <= 0) return;
 
-
 	glBindVertexArray(m_vao);
 	if (m_indicesCount > 0)
 	{

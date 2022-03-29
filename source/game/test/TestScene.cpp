@@ -15,6 +15,7 @@ USING_NAMESPACE;
 
 TestScene::TestScene() 
 {
+	m_box = nullptr;
 	m_count = 0;
 }
 
@@ -23,20 +24,13 @@ TestScene::~TestScene()
 	
 }
 
-void TestScene::onLoad()
+void TestScene::initEventListener()
 {
-	//this->addComponent(new ImageComponent("container.jpg"));
-
-	this->addComponent(BoxRender::create());
-
-	setColor(Color(1.f, 1.0f, 1.0f, 0.5f));
-
-
 	Camera* cam = this->getMainCamera();
-	
+
 	float step = 1;
 
-	EventListener *touchListener = new EventListener(EventType::TOUCH, [=](Event* event){
+	EventListener* touchListener = new EventListener(EventType::TOUCH, [=](Event* event) {
 		EventTouch* evt = (EventTouch*)event;
 		fVec3 rot = cam->getRotation();
 
@@ -50,7 +44,7 @@ void TestScene::onLoad()
 		}
 
 		CCLOG(" touch %f %f %f\r\n", rot.x, rot.y, rot.z);
-	});
+		});
 
 	float mvStep = 0.1f;
 	EventListener* keyboardListner = new EventListener(EventType::KEYBOARD, [=](Event* event) {
@@ -80,16 +74,37 @@ void TestScene::onLoad()
 		}
 		}
 		cam->setPosition(curPos);
-	});
+		});
 
 	Application::getInstance()->getDispatcher()->addTouchListener(touchListener);
 	Application::getInstance()->getDispatcher()->addKeyboardListener(keyboardListner);
 }
+void TestScene::onLoad()
+{
+	//this->addComponent(new ImageComponent("container.jpg"));
+
+	m_box = Node::create();
+	m_box->addComponent(BoxRender::create());
+	this->addChild(m_box);
+
+	this->initEventListener();
+
+	setColor(Color(1.f, 1.0f, 1.0f, 0.5f));
+
+	Light* light = this->getMainLight();
+
+	light->setLightColor(Color(1.0f, 1.0f, 1.0f));
+	light->setPosition(1.2f, 1.0f, 2.0f);
+}
 
 void TestScene::update(float dt)
 {
-	m_count += dt;
+	if (m_box)
+	{
+		m_count += dt;
 
-	float rot = m_count * 10;
-	setRotation(rot, rot, rot);
+		float rot = m_count * 10;
+		m_box->setRotation(rot, rot, rot);
+	}
+
 }

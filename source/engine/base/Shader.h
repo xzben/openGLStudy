@@ -11,16 +11,16 @@
 #include "math/math.h"
 #include "base/Object.h"
 #include "render/Color.h"
+#include "render/RenderData.h"
 
 BEGIN_NAMESPACE
 
 class Node;
-class Camera;
 
 class Shader : public Object
 {
 public:
-	void initCommonUniform(Camera* cam, Node* node);
+	void initCommonUniform(RenderData* cam, Node* node);
 protected:
 	void init(const std::string& vertextPath, const std::string& fragmentPath);
 public:

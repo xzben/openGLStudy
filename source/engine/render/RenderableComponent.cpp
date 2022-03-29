@@ -69,7 +69,7 @@ void RenderableComponent::doDraw(RenderData* render, Mesh* mesh, Shader* shader 
 
 	if (shader) {
 		shader->use();
-		shader->initCommonUniform(render->mainCamera, this->m_node);
+		shader->initCommonUniform(render, this->m_node);
 		if(tex)
 			shader->setInt(SHADER_MAIN_TEXTURE_NAME, SHADER_MAIN_TEXTURE_INDEX);
 

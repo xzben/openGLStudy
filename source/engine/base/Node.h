@@ -41,7 +41,7 @@ protected:
 	bool updateSelfModelMat();
 	void updateWorlModelMat(const fMat4& parentTrans, bool parentDirty);
 	void updateDrawColor(const Color& parentColor);
-
+	void getParentTrnasparent(fMat4& transparent);
 protected:
 	void doLoad();  //构造对象完毕就会执行
 	void doStart();  //所在scene切入渲染开始触发
@@ -126,6 +126,8 @@ public:
 	virtual void stop() {};
 	virtual void onDestroy() {};
 	virtual void update(float dt) {};
+	virtual POSITION convertToWorldSpace(const POSITION& localpos);
+	virtual POSITION convertToNodeSpace(const POSITION& worldpos);
 };
 
 END_NAMESPACE

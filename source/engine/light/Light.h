@@ -12,6 +12,7 @@ class Light : public Node
 {
 protected:
 	Color m_lightColor;
+	float m_ambientStrength;
 public:
 	Light();
 	virtual ~Light();
@@ -19,6 +20,7 @@ public:
 	void setLightColor(const Color& color);
 	const Color& getLightColor();
 	POSITION getLightPos();
+	float getAmbientStrength() { return m_ambientStrength; }
 };
 
 END_NAMESPACE
