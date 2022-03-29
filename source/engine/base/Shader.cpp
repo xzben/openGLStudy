@@ -189,9 +189,11 @@ void Shader::initCommonUniform(RenderData* render, Node* node)
 		setVec3(SHADER_LIGHT_POS, light->getWorldPosition());
 		setColor(SHADER_LIGHT_COLOR, light->getLightColor());
 		setFloat(SHADER_LIGHT_AMBIENT_STRENGTH, light->getAmbientStrength());
+		setFloat(SHADER_LIGHT_SPECULAR_STRENGTH, light->getSpecularStrength());
 	}
 	
 	setColor(SHADER_UNIFORM_COLOR, node->getDrawColor());
+	setVec3(SHADER_CAMERA_POS, cam->getWorldPosition());
 }
 
 END_NAMESPACE

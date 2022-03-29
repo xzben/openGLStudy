@@ -42,7 +42,7 @@ Light* Scene::getMainLight()
 
 Light* Scene::createMainLight()
 {
-	auto light = new Light();
+	auto light = Light::create();
 
 	this->addChild(light);
 

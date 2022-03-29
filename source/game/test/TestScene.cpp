@@ -94,7 +94,9 @@ void TestScene::onLoad()
 	Light* light = this->getMainLight();
 
 	light->setLightColor(Color(1.0f, 1.0f, 1.0f));
-	light->setPosition(1.2f, 1.0f, 2.0f);
+	light->setPosition(2.f, 2.f, 2.0f);
+	light->setSpecularStrength(1.0f);
+	light->setAmbientStrength(0.5f);
 }
 
 void TestScene::update(float dt)

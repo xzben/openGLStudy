@@ -42,5 +42,8 @@ enum class VerticleMember
 #define SHADER_LIGHT_POS				"lightPos"
 #define SHADER_LIGHT_COLOR				"ligthColor"
 #define SHADER_LIGHT_AMBIENT_STRENGTH	"ambientStrength"
+#define SHADER_LIGHT_SPECULAR_STRENGTH  "specularStrength"
+
+#define SHADER_CAMERA_POS				"cameraPos"
 
 #endif//__2022_03_16_SHADER_DEFINE_H__

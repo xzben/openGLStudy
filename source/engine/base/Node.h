@@ -36,7 +36,7 @@ protected:
 protected:
 	friend class Shader;
 	const fMat4& getShaderModel();
-	const Color& getDrawColor() { return m_drawColor; }
+	virtual const Color& getDrawColor() { return m_drawColor; }
 
 	bool updateSelfModelMat();
 	void updateWorlModelMat(const fMat4& parentTrans, bool parentDirty);
