@@ -235,7 +235,7 @@ void Node::updateDrawColor(const Color& parentColor)
 	}
 }
 
-void Node::setPosition(const POSITION& pos)
+void Node::setPosition(POSITION& pos)
 {
 	setPosition(pos.x, pos.y, pos.z);
 }

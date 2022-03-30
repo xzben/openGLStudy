@@ -8,12 +8,22 @@
 
 BEGIN_NAMESPACE
 
+struct LightShaderData
+{
+	POSITION pos;
+	RGB		 ambient;
+	RGB		 diffuse;
+	RGB		 specular;
+
+	fVec3    strength;
+};
+
 class Light : public Node
 {
 protected:
-	Color m_lightColor;
-	float m_ambientStrength; //环境光强度
-	float m_specularStrength; //镜面光强度
+	Color			m_lightColor;
+	bool			m_unitColor;
+	LightShaderData m_lightInfo;
 public:
 	CREATE_FUNC(Light);
 	Light();
@@ -21,13 +31,27 @@ public:
 
 	virtual void onLoad() override;
 	void setLightColor(const Color& color);
-	const Color& getLightColor();
-	POSITION getLightPos();
-	float getAmbientStrength() { return m_ambientStrength; }
-	void setAmbientStrength(float strength) { m_ambientStrength = strength; }
+	const Color& getLightColor() const;
 
-	float getSpecularStrength() { return m_specularStrength; }
-	void setSpecularStrength(float strength) { m_specularStrength = strength; }
+	void setAmbientColor(const RGB& color);
+	const RGB& getAmbientColor() const;
+
+	void setDiffuseColor(const RGB& color);
+	const RGB& getDiffuseColor() const;
+
+	void setSpecularColor(const RGB& color);
+	const RGB& getSpecularColor() const;
+
+	const LightShaderData& getLightShaderData();
+
+	float getAmbientStrength() { return m_lightInfo.strength.x; }
+	void setAmbientStrength(float strength) { m_lightInfo.strength.x = strength; }
+
+	float getSpecularStrength() { return m_lightInfo.strength.z; }
+	void setSpecularStrength(float strength) { m_lightInfo.strength.z = strength; }
+
+	float getDiffuseStrength() { return m_lightInfo.strength.y; }
+	void setDiffuseStrength(float strength) { m_lightInfo.strength.y = strength; }
 
 	virtual const Color& getDrawColor() override { return m_lightColor; }
 };

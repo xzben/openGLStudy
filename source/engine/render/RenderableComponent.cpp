@@ -5,6 +5,7 @@
 #include "base/Shader.h"
 #include "render/Texture.h"
 #include "render/base/Mesh.h"
+#include "render/Material.h"
 
 BEGIN_NAMESPACE
 
@@ -87,6 +88,13 @@ void RenderableComponent::doDraw(RenderData* render, Mesh* mesh, Shader* shader 
 	mesh->draw();
 
 	if (shader) shader->unuse();
+}
+
+void RenderableComponent::doDraw(RenderData* render, Mesh* mesh, Material* material)
+{
+	material->beforeDraw(render, this);
+	mesh->draw();
+	material->afterDraw();
 }
 
 void RenderableComponent::setShaderUniforms(Shader* shader)

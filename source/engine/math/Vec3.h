@@ -100,7 +100,6 @@ public:
 typedef Vec3<float>		fVec3;
 typedef Vec3<int>		iVec3;
 typedef Vec3<float>		POSITION;
-typedef Vec3<short>		RGB;
 
 END_NAMESPACE
 

@@ -38,6 +38,7 @@ public:
 	bool isEnable();
 	float getLastDt();
 	float getLastTime();
+	Node* getNode() { return m_node; }
 protected:
 	void doLoad();
 	void doStart();

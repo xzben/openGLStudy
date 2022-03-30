@@ -40,7 +40,6 @@ public:
 
 typedef Vec4<float>		fVec4;
 typedef Vec4<int>		iVec4;
-typedef Vec4<short>		RGBA;
 
 END_NAMESPACE
 

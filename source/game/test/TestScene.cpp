@@ -26,7 +26,7 @@ TestScene::~TestScene()
 
 void TestScene::initEventListener()
 {
-	Camera* cam = this->getMainCamera();
+	Node* cam = this->getMainCamera();
 
 	float step = 1;
 
@@ -93,7 +93,13 @@ void TestScene::onLoad()
 
 	Light* light = this->getMainLight();
 
-	light->setLightColor(Color(1.0f, 1.0f, 1.0f));
+	light->setAmbientColor(RGB(1.0f, 1.0f, 1.0f));
+	light->setDiffuseColor(RGB(1.0f, 1.f, 1.f));
+	light->setSpecularColor(RGB(1.0f, 0.0f, 0.0f));
+	light->setSpecularStrength(1.f);
+	light->setAmbientStrength(0.1f);
+	light->setDiffuseStrength(0.5f);
+
 	light->setPosition(2.f, 2.f, 2.0f);
 	light->setSpecularStrength(1.0f);
 	light->setAmbientStrength(0.5f);

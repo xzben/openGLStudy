@@ -11,7 +11,7 @@ BEGIN_NAMESPACE
 #define CC_DEGREES_TO_RADIANS(__ANGLE__) ((__ANGLE__) * 0.01745329252f) // PI / 180
 #define CC_RADIANS_TO_DEGREES(__ANGLE__) ((__ANGLE__) * 57.29577951f) // PI * 180
 
-#define MATRIX_SIZE ( sizeof(float) * 16)
+#define MATRIX_SIZE (sizeof(float) * 16)
 
 class MathUtil
 {
@@ -36,6 +36,7 @@ public:
 	static float determinant(const fMat4& mat);
 
 	static fMat4 createPerspective(float fieldOfView, float aspectRatio, float zNearPlane, float zFarPlane);
+
 	static fMat4 createOrthographic(float width, float height, float zNearPlane, float zFarPlane);
 	static fMat4 createOrthographicOffCenter(float left, float right, float bottom, float top, float zNearPlane, float zFarPlane);
 };

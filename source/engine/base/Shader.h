@@ -38,6 +38,10 @@ public:
 	void setMat3(const std::string& name, const fMat3& value)const;
 	void setMat4(const std::string& name, const fMat4& value)const;
 	void setColor(const std::string& name, const Color& value) const;
+	void setColorRGB(const std::string& name, const Color& value) const;
+	void setRGB(const std::string& name, const RGB& value)const;
+
+	void setFloatValues(const std::string& name, float value[], int size);
 	
 
 };

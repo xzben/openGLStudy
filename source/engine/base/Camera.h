@@ -50,7 +50,6 @@ public:
 	void setMask(uint mask);
 	void addGroup(uint mask);
 	virtual void setPosition(float x, float y, float z) override;
-	virtual void setPosition(const POSITION& pos) override;
 	virtual void setRotation(float x, float y, float z) override;
 
 	const fMat4& getViewProjectMatrix();

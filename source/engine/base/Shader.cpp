@@ -82,10 +82,10 @@ void Shader::init(const std::string& vertextPath, const std::string& fragmentPat
 	source = (const char*)fsource.c_str();
 	glShaderSource(fragmentShader, 1, &source, NULL);
 	glCompileShader(fragmentShader);
-	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
+	glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
 	if (!success)
 	{
-		glGetShaderInfoLog(vertexShader, GL_ERROR_MSG_SIZE, NULL, infoLog);
+		glGetShaderInfoLog(fragmentShader, GL_ERROR_MSG_SIZE, NULL, infoLog);
 		std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
 		return;
 	}
@@ -151,6 +151,45 @@ void Shader::setColor(const std::string& name, const Color& value) const
 	glUniform4f(glGetUniformLocation(this->m_id, name.c_str()), value.r, value.g, value.b, value.a);
 }
 
+void Shader::setColorRGB(const std::string& name, const Color& value) const
+{
+	glUniform3f(glGetUniformLocation(this->m_id, name.c_str()), value.r, value.g, value.b);
+}
+
+void Shader::setRGB(const std::string& name, const RGB& value)const
+{
+	glUniform3f(glGetUniformLocation(this->m_id, name.c_str()), value.r, value.g, value.b);
+}
+
+void Shader::setFloatValues(const std::string& name, float value[], int size)
+{
+	CC_ASSERT(size > 0 && size <= 4);
+	auto location = (glGetUniformLocation(this->m_id, name.c_str()));
+	switch (size)
+	{
+	case 1:
+	{
+		glUniform1f(location, value[0]);
+		break;
+	}
+	case 2:
+	{
+		glUniform2f(location, value[0], value[1]);
+		break;
+	}
+	case 3:
+	{
+		glUniform3f(location, value[0], value[1], value[2]);
+		break;
+	}
+	case 4:
+	{
+		glUniform4f(location, value[0], value[1], value[2], value[3]);
+		break;
+	}
+	}
+}
+
 void Shader::setMat3(const std::string& name, const fMat3& value)const {
 
 	glUniformMatrix3fv(
@@ -186,10 +225,13 @@ void Shader::initCommonUniform(RenderData* render, Node* node)
 
 	if (light != nullptr)
 	{
-		setVec3(SHADER_LIGHT_POS, light->getWorldPosition());
-		setColor(SHADER_LIGHT_COLOR, light->getLightColor());
-		setFloat(SHADER_LIGHT_AMBIENT_STRENGTH, light->getAmbientStrength());
-		setFloat(SHADER_LIGHT_SPECULAR_STRENGTH, light->getSpecularStrength());
+		const LightShaderData& lightInfo = light->getLightShaderData();
+
+		setVec3(SHADER_LIGHT_POS, lightInfo.pos);
+		setRGB(SHADER_LIGHT_AMBIENT_COLOR, lightInfo.ambient);
+		setRGB(SHADER_LIGHT_DIFFUSE_COLOR, lightInfo.diffuse);
+		setRGB(SHADER_LIGHT_SPECULAR_COLOR, lightInfo.specular);
+		setVec3(SHADER_LIGHT_STRENGTH, lightInfo.strength);
 	}
 	
 	setColor(SHADER_UNIFORM_COLOR, node->getDrawColor());

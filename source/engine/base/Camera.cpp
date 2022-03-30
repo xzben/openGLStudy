@@ -160,12 +160,6 @@ void Camera::setPosition(float x, float y, float z)
 	m_viewDirty = true;
 }
 
-void Camera::setPosition(const POSITION& pos)
-{
-	Node::setPosition(pos);
-	m_viewDirty = true;
-}
-
 void Camera::setRotation(float x, float y, float z)
 {
 	Node::setRotation(x, y, z);

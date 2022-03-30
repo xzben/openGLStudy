@@ -22,10 +22,11 @@ public:
 };
 
 Light::Light()
-	: m_ambientStrength(0.1f)
-	, m_specularStrength(0.5f)
+	: m_unitColor(true)
+	, m_lightColor(1.0f, 1.0f, 1.0f)
 {
-
+	m_lightInfo.diffuse = m_lightInfo.specular = m_lightInfo.ambient = RGB(1.0f, 1.0f, 1.0f);
+	m_lightInfo.strength = fVec3(1.0f, 1.0f, 1.0f);
 }
 
 Light::~Light()
@@ -33,18 +34,61 @@ Light::~Light()
 
 }
 
-void Light::setLightColor(const Color& color)
+const LightShaderData& Light::getLightShaderData()
 {
-	m_lightColor = color;
-}
-const Color& Light::getLightColor()
-{
-	return m_lightColor;
+	m_lightInfo.pos = this->getWorldPosition();
+
+	return m_lightInfo;
 }
 
-POSITION Light::getLightPos()
+void Light::setLightColor(const Color &color)
 {
-	return this->getWorldPosition();
+	m_lightColor = color;
+	if (m_unitColor)
+	{
+		RGB rgb = color.toRGB();
+		m_lightInfo.ambient = rgb;
+		m_lightInfo.diffuse = rgb;
+		m_lightInfo.specular = rgb;
+	}
+}
+
+void Light::setAmbientColor(const RGB& color)
+{
+	m_unitColor = false;
+	m_lightInfo.ambient = color;
+}
+
+const RGB& Light::getAmbientColor()const
+{
+	return m_lightInfo.ambient;
+}
+
+void Light::setDiffuseColor(const RGB& color)
+{
+	m_unitColor = false;
+	m_lightInfo.diffuse = color;
+}
+
+const RGB& Light::getDiffuseColor() const
+{
+	return m_lightInfo.diffuse;
+}
+
+void Light::setSpecularColor(const RGB& color)
+{
+	m_unitColor = false;
+	m_lightInfo.specular = color;
+}
+
+const RGB& Light::getSpecularColor() const
+{
+	return m_lightInfo.specular;
+}
+
+const Color& Light::getLightColor() const
+{
+	return m_lightColor;
 }
 
 

@@ -11,7 +11,7 @@ BEGIN_NAMESPACE
 
 class Component;
 
-class Node : Object
+class Node : public Object
 {
 protected:
 	std::vector<Node*> m_childrens;
@@ -58,23 +58,23 @@ public:
 	 void setColor(Color& color);
 	 void setColor(Color&& color);
 	 const Color& getColor() { return m_color; }
-	 virtual void setPosition(const POSITION& pos);
+	 void setPosition(POSITION& pos);
 	 virtual void setPosition(float x, float y, float z);
 	 void setPositionX(float x);
 	 void setPositionY(float y);
 	 void setPositionZ(float z);
-	 void setRotation(const fVec3& rot);
+	 virtual void setRotation(const fVec3& rot);
 	 POSITION getWorldPosition();
 	 virtual void setRotation(float x, float y, float z);
-	 void setRotationX(float x);
-	 void setRotationY(float y);
-	 void setRotationZ(float z);
-	 void setScale(const fVec3& scale);
-	 void setScale(float x, float y, float z);
-	 void setScaleX(float x);
-	 void setScaleY(float y);
-	 void setScaleZ(float z);
-	 void setScale(float sclae);
+	 virtual void setRotationX(float x);
+	 virtual void setRotationY(float y);
+	 virtual void setRotationZ(float z);
+	 virtual void setScale(const fVec3& scale);
+	 virtual void setScale(float x, float y, float z);
+	 virtual void setScaleX(float x);
+	 virtual void setScaleY(float y);
+	 virtual void setScaleZ(float z);
+	 virtual void setScale(float sclae);
 
 	 const POSITION& getPosition();
 	 float getPositionX();
