@@ -6,6 +6,7 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <map>
 
 #include "common.h"
 #include "math/math.h"
@@ -20,14 +21,36 @@ class Node;
 class Shader : public Object
 {
 public:
+	struct SHADER_DEFINE
+	{
+		std::string name;
+		std::string value;
+	};
+
+	std::vector<SHADER_DEFINE*> m_defines;
+	std::map<std::string, SHADER_DEFINE*> m_mapDefines;
+	GL_HANDLE m_id;
+	std::string m_vSource;
+	std::string m_fSource;
+
 	void initCommonUniform(RenderData* cam, Node* node);
 protected:
 	void init(const std::string& vertextPath, const std::string& fragmentPath);
+	void addDefine(SHADER_DEFINE* define);
+	std::string getDefineSource();
 public:
-	uint m_id;
+
 	Shader(const std::string& vertextPath, const std::string& fragmentPath);
 	Shader(const std::string& filepath);
 	virtual ~Shader();
+	
+	SHADER_DEFINE* getDefine(const std::string& name, bool create = false);
+	void setDefine(const std::string& name);
+	void setDefine(const std::string& name, const std::string& value);
+	void setDefine(const std::string& name, float value);
+	void setDefine(const std::string& name, int value);
+	void deleteDefine(const std::string& name);
+
 	void use();
 	void unuse();
 	void setBool(const std::string &name, bool value)const;
@@ -40,9 +63,9 @@ public:
 	void setColor(const std::string& name, const Color& value) const;
 	void setColorRGB(const std::string& name, const Color& value) const;
 	void setRGB(const std::string& name, const RGB& value)const;
-
 	void setFloatValues(const std::string& name, float value[], int size);
-	
+
+	bool recompile();
 
 };
 

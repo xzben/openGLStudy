@@ -165,6 +165,9 @@
     <ClCompile Include="..\..\source\game\test\CubeMesh.cpp">
       <Filter>source\game\test</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\source\engine\utils\Utils.cpp">
+      <Filter>source\engine\utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\source\engine\base\Application.h">
@@ -304,6 +307,9 @@
     </ClInclude>
     <ClInclude Include="..\..\source\game\test\CubeMesh.h">
       <Filter>source\game\test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\engine\utils\Utils.h">
+      <Filter>source\engine\utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

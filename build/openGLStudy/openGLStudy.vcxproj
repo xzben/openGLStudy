@@ -162,6 +162,7 @@
     <ClCompile Include="..\..\source\engine\resource\ResourceManager.cpp" />
     <ClCompile Include="..\..\source\engine\test\RectItem.cpp" />
     <ClCompile Include="..\..\source\engine\utils\FileUtils.cpp" />
+    <ClCompile Include="..\..\source\engine\utils\Utils.cpp" />
     <ClCompile Include="..\..\source\engine\window\Window.cpp" />
     <ClCompile Include="..\..\source\game\AppDeleget.cpp" />
     <ClCompile Include="..\..\source\game\test\BoxRender.cpp" />
@@ -211,6 +212,7 @@
     <ClInclude Include="..\..\source\engine\resource\ResourceManager.h" />
     <ClInclude Include="..\..\source\engine\test\RectItem.h" />
     <ClInclude Include="..\..\source\engine\utils\FileUtils.h" />
+    <ClInclude Include="..\..\source\engine\utils\Utils.h" />
     <ClInclude Include="..\..\source\engine\window\Window.h" />
     <ClInclude Include="..\..\source\game\AppDeleget.h" />
     <ClInclude Include="..\..\source\game\test\BoxRender.h" />
