@@ -58,6 +58,9 @@
     <Filter Include="source\engine\light">
       <UniqueIdentifier>{abe854ed-02a0-4067-a4f4-b85f2576663f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\engine\render\materials">
+      <UniqueIdentifier>{d9c2bee2-3063-425e-b3d0-4c580b4ecdd4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\3rdlib\glad\src\glad.c">
@@ -132,9 +135,6 @@
     <ClCompile Include="..\..\source\engine\event\Event.cpp">
       <Filter>source\engine\event</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\source\engine\math\MathUtil.cpp">
-      <Filter>source\engine\math</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\source\engine\math\MathUtil.h">
       <Filter>source\engine\math</Filter>
     </ClCompile>
@@ -155,6 +155,15 @@
     </ClCompile>
     <ClCompile Include="..\..\source\engine\light\Light.cpp">
       <Filter>source\engine\light</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\engine\math\MathUtil.cpp">
+      <Filter>source\engine\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\game\test\Cube.cpp">
+      <Filter>source\game\test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\game\test\CubeMesh.cpp">
+      <Filter>source\game\test</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -289,6 +298,12 @@
     </ClInclude>
     <ClInclude Include="..\..\source\engine\render\RenderData.h">
       <Filter>source\engine\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\game\test\Cube.h">
+      <Filter>source\game\test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\game\test\CubeMesh.h">
+      <Filter>source\game\test</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

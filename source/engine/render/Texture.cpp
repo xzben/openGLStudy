@@ -176,9 +176,17 @@ bool Texture::init(const std::string filename)
 void Texture::use(int index)
 {
 	CC_ASSERT(index >= 0 && index <= 31);
+
+	m_useIndex = index;
 	//ÉèÖÃÎÆÀíindex
 	glActiveTexture(GL_TEXTURE0 + index);
 	glBindTexture(GL_TEXTURE_2D, this->m_texture);
+}
+
+void Texture::unuse()
+{
+	glActiveTexture(GL_TEXTURE0 + m_useIndex);
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 END_NAMESPACE

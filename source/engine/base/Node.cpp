@@ -10,9 +10,11 @@ Node::Node()
 	, m_pause(false)
 	, m_dirtyMat(true)
 	, m_scale(1, 1, 1)
-	, m_pos(0,0, 0)
+	, m_pos(0, 0, 0)
 	, m_rotation(0, 0, 0)
 	, m_groupmask((uint)GroupMask::DEFAULT)
+	, m_tag(-1)
+	, m_name("")
 {
 
 }
@@ -409,5 +411,30 @@ float Node::getScaleZ()
 	return m_scale.z;
 }
 
+Node* Node::getChildByName(const std::string& name)
+{
+	for (auto itor = this->m_childrens.begin(); itor != this->m_childrens.end(); itor++)
+	{
+		if ((*itor)->getName() == name)
+		{
+			return *itor;
+		}
+	}
+
+	return nullptr;
+}
+
+Node* Node::getChildByTag(int tag)
+{
+	for (auto itor = this->m_childrens.begin(); itor != this->m_childrens.end(); itor++)
+	{
+		if((*itor)->getTag() == tag)
+		{
+			return *itor;
+		}
+	}
+
+	return nullptr;
+}
 
 END_NAMESPACE

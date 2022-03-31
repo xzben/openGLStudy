@@ -7,28 +7,28 @@ typedef unsigned int VBO_HANDLE;
 typedef unsigned int EBO_HANDLE;
 typedef unsigned int TEXTURE_HANDLE;
 
-enum MESH_DESC_BIT 
+enum MESH_DESC_BIT
 {
 	VER = 1<<0,
 	COLOR = 1<<1,
 	UV = 1<<2,
 };
 
-enum MESH_DESC
+enum class MESH_DESC
 {
 	VERTICLE = MESH_DESC_BIT::VER,
 	VERTICLE_COLOR = MESH_DESC_BIT::VER | MESH_DESC_BIT::COLOR,
 	VERTICLE_COLOR_UV = MESH_DESC_BIT::VER | MESH_DESC_BIT::COLOR | MESH_DESC_BIT::UV,
 };
 
-enum IMAGE_TYPE {
+enum class IMAGE_TYPE {
 	PNG,
 	JPEG,
 	TGA,
 	UNKNOW,
 };
 
-enum TEXTURE_WRAP 
+enum class TEXTURE_WRAP 
 {
 	REPEAT,   //重复
 	MIRRORED_REPEAT, //镜像重复
@@ -36,7 +36,7 @@ enum TEXTURE_WRAP
 	CLAMP_TO_BORDER, //超出使用指定边缘颜色
 };
 
-enum TEXTURE_FILTER
+enum class TEXTURE_FILTER
 {
 	NEAREST, //临近过滤  选择中心点最接近纹理坐标的那个像素
 	LINEAR, // 线性过滤  它会基于纹理坐标附近的纹理像素，计算出一个插值，近似出这些纹理像素之间的颜色

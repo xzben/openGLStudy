@@ -14,7 +14,7 @@ struct ShaderFiles
 
 static struct ShaderFiles s_ShaderResource[] = {
 	{ "image_shader.vs", "image_shader.fs" },
-	{ "base_shader.vs", "base_shader.fs" },
+	{ "common/standard.vs", "common/standard.fs" },
 };
 
 ResourceManager* ResourceManager::getInstance()

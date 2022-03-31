@@ -165,6 +165,8 @@
     <ClCompile Include="..\..\source\engine\window\Window.cpp" />
     <ClCompile Include="..\..\source\game\AppDeleget.cpp" />
     <ClCompile Include="..\..\source\game\test\BoxRender.cpp" />
+    <ClCompile Include="..\..\source\game\test\Cube.cpp" />
+    <ClCompile Include="..\..\source\game\test\CubeMesh.cpp" />
     <ClCompile Include="..\..\source\game\test\TestRect.cpp" />
     <ClCompile Include="..\..\source\game\test\TestScene.cpp" />
     <ClCompile Include="..\..\source\game\test\TestTriangle.cpp" />
@@ -212,6 +214,8 @@
     <ClInclude Include="..\..\source\engine\window\Window.h" />
     <ClInclude Include="..\..\source\game\AppDeleget.h" />
     <ClInclude Include="..\..\source\game\test\BoxRender.h" />
+    <ClInclude Include="..\..\source\game\test\Cube.h" />
+    <ClInclude Include="..\..\source\game\test\CubeMesh.h" />
     <ClInclude Include="..\..\source\game\test\TestRect.h" />
     <ClInclude Include="..\..\source\game\test\TestScene.h" />
     <ClInclude Include="..\..\source\game\test\TestTriangle.h" />

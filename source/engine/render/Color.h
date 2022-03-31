@@ -43,6 +43,31 @@ public:
 
 		return result;
 	}
+
+	void operator*=(const RGB& rvalue)
+	{
+		r *= rvalue.r;
+		g *= rvalue.g;
+		b *= rvalue.b;
+	}
+
+	RGB operator*(const float value)
+	{
+		RGB result;
+		result.r = r * value;
+		result.g = g * value;
+		result.b = b * value;
+
+
+		return result;
+	}
+
+	void operator*=(const float value)
+	{
+		r *= value;
+		g *= value;
+		b *= value;
+	}
 };
 
 
@@ -92,6 +117,33 @@ public:
 		result.a = a * rvalue.a;
 
 		return result;
+	}
+
+	void operator*=(const Color& rvalue)
+	{
+		r *= rvalue.r;
+		g *= rvalue.g;
+		b *= rvalue.b;
+		a *= rvalue.a;
+	}
+
+	Color operator*(const float& rvalue)
+	{
+		Color result;
+		result.r = r * rvalue;
+		result.g = g * rvalue;
+		result.b = b * rvalue;
+		result.a = a * rvalue;
+
+		return result;
+	}
+
+	void operator*=(const float& rvalue)
+	{
+		r *= rvalue;
+		g *= rvalue;
+		b *= rvalue;
+		a *= rvalue;
 	}
 
 	RGB toRGB() const

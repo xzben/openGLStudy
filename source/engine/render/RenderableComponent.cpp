@@ -65,17 +65,18 @@ void RenderableComponent::onDestroy()
 void RenderableComponent::doDraw(RenderData* render, Mesh* mesh, Shader* shader /* = nullptr */, Texture* tex /* = nullptr */, SubTexture* texs /* = nullptr */, int subTextCount /* = 0 */)
 {
 	if (tex) {
-		tex->use(SHADER_MAIN_TEXTURE_INDEX);
+		
 	}
 
 	if (shader) {
 		shader->use();
 		shader->initCommonUniform(render, this->m_node);
-		if(tex)
+		if (tex)
+		{
+			tex->use(SHADER_MAIN_TEXTURE_INDEX);
 			shader->setInt(SHADER_MAIN_TEXTURE_NAME, SHADER_MAIN_TEXTURE_INDEX);
-
-		setShaderUniforms(shader);
-
+		}
+		
 		//Ìí¼Ó×ÓÎÆÀí
 		for (int i = 0; i < subTextCount; i++)
 		{
@@ -88,6 +89,12 @@ void RenderableComponent::doDraw(RenderData* render, Mesh* mesh, Shader* shader 
 	mesh->draw();
 
 	if (shader) shader->unuse();
+	if (tex) tex->unuse();
+	for (int i = 0; i < subTextCount; i++)
+	{
+		SubTexture* subtex = texs + i;
+		subtex->tex->unuse();
+	}
 }
 
 void RenderableComponent::doDraw(RenderData* render, Mesh* mesh, Material* material)
@@ -95,11 +102,6 @@ void RenderableComponent::doDraw(RenderData* render, Mesh* mesh, Material* mater
 	material->beforeDraw(render, this);
 	mesh->draw();
 	material->afterDraw();
-}
-
-void RenderableComponent::setShaderUniforms(Shader* shader)
-{
-
 }
 
 END_NAMESPACE

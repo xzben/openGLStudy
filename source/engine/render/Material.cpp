@@ -46,9 +46,12 @@ Material::Material(BuiltInShader shaderId, const std::string& texturepath)
 void Material::init(Shader* shader, Texture* mainTexture)
 {
 	this->m_mainTexture = mainTexture;
-	this->m_mainTexture->addRef();
+	if(m_mainTexture)
+		this->m_mainTexture->addRef();
+
 	this->m_shader = shader;
-	this->m_shader->addRef();
+	if(this->m_shader)
+		this->m_shader->addRef();
 }
 
 void Material::setSubTexture(const std::string& name, Texture* tex)
@@ -153,6 +156,15 @@ bool Material::afterDraw()
 	if (m_shader)
 	{
 		m_shader->unuse();
+	}
+	if (m_mainTexture) m_mainTexture->unuse();
+
+	for (auto it = m_subTextures.begin(); it != m_subTextures.end(); it++)
+	{
+		SubTexture* sub = *it;
+		if (sub->tex) {
+			sub->tex->unuse();
+		}
 	}
 
 	return true;

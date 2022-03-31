@@ -33,6 +33,8 @@ protected:
 	bool m_running;
 	bool m_pause;
 	uint m_groupmask;
+	std::string m_name;
+	int m_tag;
 protected:
 	friend class Shader;
 	const fMat4& getShaderModel();
@@ -54,6 +56,14 @@ public:
 	CREATE_FUNC(Node);
 	 Node();
 	 virtual ~Node();
+
+	 void setTag(int tag) { m_tag = tag; }
+	 int getTag() { return m_tag; }
+	 void setName(const std::string& name) { m_name = name; }
+	 const std::string& getName() { return m_name; }
+
+	 Node* getChildByName(const std::string& name);
+	 Node* getChildByTag(int tag);
 
 	 void setColor(Color& color);
 	 void setColor(Color&& color);

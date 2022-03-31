@@ -21,6 +21,7 @@ protected:
 	TEXTURE_WRAP m_wrap = TEXTURE_WRAP::REPEAT;
 	TEXTURE_FILTER m_minFilter = TEXTURE_FILTER::LINEAR;
 	TEXTURE_FILTER m_magFilter = TEXTURE_FILTER::LINEAR;
+	int  m_useIndex;
 public:
 	Texture();
 	virtual ~Texture();
@@ -31,6 +32,7 @@ public:
 	}
 	bool init(const std::string filename);
 	void use(int index = 0);
+	void unuse();
 
 	int getWidth() { return this->m_width; }
 	int getHeight() { return this->m_height; }

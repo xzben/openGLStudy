@@ -10,12 +10,12 @@
 #include "base/Application.h"
 #include "event/EventDispatcher.h"
 #include "math/Vec2.h"
+#include "Cube.h"
 
 USING_NAMESPACE;
 
 TestScene::TestScene() 
 {
-	m_box = nullptr;
 	m_count = 0;
 }
 
@@ -83,9 +83,17 @@ void TestScene::onLoad()
 {
 	//this->addComponent(new ImageComponent("container.jpg"));
 
-	m_box = Node::create();
-	m_box->addComponent(BoxRender::create());
-	this->addChild(m_box);
+	auto box = Node::create();
+	box->setTag(1);
+
+	box->addComponent(BoxRender::create());
+	this->addChild(box);
+	box->setPosition(-2, 0, 0);
+	auto cube = Cube::create();
+	cube->setTag(2);
+
+	this->addChild(cube);
+	cube->setPosition(2, 0, 0);
 
 	this->initEventListener();
 
@@ -93,26 +101,40 @@ void TestScene::onLoad()
 
 	Light* light = this->getMainLight();
 
-	light->setAmbientColor(RGB(1.0f, 1.0f, 1.0f));
-	light->setDiffuseColor(RGB(1.0f, 1.f, 1.f));
-	light->setSpecularColor(RGB(1.0f, 0.0f, 0.0f));
-	light->setSpecularStrength(1.f);
-	light->setAmbientStrength(0.1f);
-	light->setDiffuseStrength(0.5f);
-
-	light->setPosition(2.f, 2.f, 2.0f);
+	light->setAmbientColor(RGB(0.2f, 0.2f, 0.2f));
+	light->setDiffuseColor(RGB(0.5f, 0.5f, 0.5f));
+	light->setSpecularColor(RGB(1.0f, 1.0f, 1.0f));
 	light->setSpecularStrength(1.0f);
-	light->setAmbientStrength(0.5f);
+	light->setAmbientStrength(1.0f);
+	light->setDiffuseStrength(1.0f);
+	light->setPosition(3, 10, 3);
 }
 
 void TestScene::update(float dt)
 {
-	if (m_box)
-	{
-		m_count += dt;
+	auto box = this->getChildByTag(1);
+	auto cube = this->getChildByTag(2);
+	Light* light = this->getMainLight();
 
-		float rot = m_count * 10;
-		m_box->setRotation(rot, rot, rot);
+	m_count += dt;
+	float rot = m_count * 10;
+
+	if (box)
+	{
+		box->setRotation(rot, rot, rot);
 	}
 
+	if (cube)
+		cube->setRotation(rot, rot, rot);
+
+	RGB lightClor;
+	lightClor.r = sin(m_count*2.0f);
+	lightClor.g = sin(m_count * 0.7f);
+	lightClor.b = sin(m_count * 1.3f);
+
+	RGB diffuseColor = lightClor * 0.5f;
+	RGB ambientColor = diffuseColor * 0.2f;
+
+	light->setAmbientColor(ambientColor);
+	light->setDiffuseColor(diffuseColor);
 }

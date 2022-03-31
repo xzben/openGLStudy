@@ -1,7 +1,7 @@
 #include "Camera.h"
-#include "window/Window.h"
-#include "math/Vec3.h"
 #include "math/MathUtil.h"
+#include "window/Window.h"
+
 
 BEGIN_NAMESPACE
 
@@ -61,7 +61,7 @@ bool Camera::initDefault(bool camera3d)
 	{
 		initPerspective(60.0f, size.width / size.height, 0.1f, 100.0f);
 		this->setRotation(-60, 0, 0);
-		this->setPosition(0, 6.0, 3.0);
+		this->setPosition(0, 10.0, 5.0);
 	}
 	else
 	{
