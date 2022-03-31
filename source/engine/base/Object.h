@@ -15,6 +15,7 @@ public:
 
 	void addRef();
 	void delRef();
+	int  getRef();
 };
 
 END_NAMESPACE

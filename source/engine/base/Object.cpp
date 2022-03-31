@@ -3,7 +3,7 @@
 BEGIN_NAMESPACE
 
 Object::Object() 
-	:m_refCount(1)
+	:m_refCount(0)
 {
 
 }
@@ -28,6 +28,11 @@ void Object::delRef()
 	{
 		delete this;
 	}
+}
+
+int Object::getRef()
+{
+	return m_refCount;
 }
 
 END_NAMESPACE

@@ -9,7 +9,7 @@ BoxRender::BoxRender()
 	, m_mesh(nullptr)
 {
 	this->m_mesh = new CubeMesh();
-	this->m_shader = ResourceManager::getInstance()->loadShader("cube");
+	this->m_shader = ResourceManager::getInstance()->loadShader("shader/cube");
 }
 
 BoxRender::~BoxRender()
@@ -26,7 +26,7 @@ void BoxRender::onLoad()
 }
 bool BoxRender::init()
 {
-	this->m_texture = ResourceManager::getInstance()->loadTexture("container.jpg");
+	this->m_texture = ResourceManager::getInstance()->loadTexture("texture/container.jpg");
 	if (this->m_texture == nullptr)
 		return false;
 

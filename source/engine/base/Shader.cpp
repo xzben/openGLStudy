@@ -64,37 +64,40 @@ void Shader::init(const std::string& vertextPath, const std::string& fragmentPat
 	m_vSource = getShaderContent(vertextPath);
 	m_fSource = getShaderContent(fragmentPath);
 	this->m_id = glCreateProgram();
-
-	this->recompile();
+	m_compiled = false;
 }
 
-std::string Shader::getDefineSource()
+const char** Shader::getFullShaderSource(const std::string& content, const std::vector<SHADER_DEFINE*>* defines, int& size)
 {
-	std::string source;
+	size = 2;
+	if(defines != nullptr)
+		size += defines->size();
 
-	for (auto it = m_defines.begin(); it != m_defines.end(); it++)
+	const char** ret = new const char*[size];
+	
+	ret[0] = SHADER_VERSION_HEAD;
+	for (int i = 0; i < size - 2; i++)
 	{
-		source += (*it)->value;
+		ret[i+1] = defines->at(i)->value.c_str();
 	}
-
-	return source;
+	ret[size - 1] = content.c_str();
+	return ret;
 }
 
-bool Shader::recompile()
+bool Shader::recompile(const std::vector<SHADER_DEFINE*>* defines)
 {
 	int  success;
 	char infoLog[GL_ERROR_MSG_SIZE];
 
-	std::string defineSouce = this->getDefineSource();
-	std::string vsource = SHADER_VERSION_HEAD + defineSouce + m_vSource;
-	std::string fsource = SHADER_VERSION_HEAD + defineSouce + m_fSource;
-
+	int size;
+	const char** vsource = getFullShaderSource(m_vSource, defines, size);
+	
 	uint vertexShader, fragmentShader;
 	vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	const char* source = (const char*)vsource.c_str();
-	glShaderSource(vertexShader, 1, &source, NULL);
+	glShaderSource(vertexShader, size, vsource, NULL);
 	glCompileShader(vertexShader);
-	
+	delete[] vsource;
+
 	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
 	if (!success)
 	{
@@ -103,10 +106,12 @@ bool Shader::recompile()
 		return false;
 	}
 
+	const char** fsource = getFullShaderSource(m_fSource, defines, size);
 	fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	source = (const char*)fsource.c_str();
-	glShaderSource(fragmentShader, 1, &source, NULL);
+	glShaderSource(fragmentShader, size, fsource, NULL);
 	glCompileShader(fragmentShader);
+	delete[] fsource;
+
 	glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
 	if (!success)
 	{
@@ -128,6 +133,8 @@ bool Shader::recompile()
 		return false;
 	}
 
+	m_compiled = true;
+
 	return true;
 }
 
@@ -136,15 +143,13 @@ Shader::~Shader()
 	if (this->m_id > 0) {
 		glDeleteProgram(this->m_id);
 	}
-
-	for (auto it = m_defines.begin(); it != m_defines.end(); it++)
-	{
-		delete* it;
-	}
 }
 
 void Shader::use() 
 {
+	if (!m_compiled)
+		this->recompile(nullptr);
+
 	glUseProgram(this->m_id);
 }
 
@@ -267,81 +272,15 @@ void Shader::initCommonUniform(RenderData* render, Node* node)
 	setVec3(SHADER_CAMERA_POS, cam->getWorldPosition());
 }
 
-
-void Shader::addDefine(SHADER_DEFINE* define)
+Shader* Shader::clone()
 {
-	this->m_mapDefines.insert(std::pair<std::string, SHADER_DEFINE*>(define->name, define));
-	this->m_defines.push_back(define);
-}
+	Shader* obj = new Shader();
+	obj->m_vSource = m_vSource;
+	obj->m_fSource = m_fSource;
+	obj->m_compiled = false;
+	obj->m_id = glCreateProgram();
 
-Shader::SHADER_DEFINE* Shader::getDefine(const std::string& name, bool create /*= false*/)
-{
-	auto itor = m_mapDefines.find(name);
-	if (itor == m_mapDefines.end()) 
-	{
-		if (create) 
-		{
-			SHADER_DEFINE* define = new SHADER_DEFINE();
-
-			define->name = name;
-			this->addDefine(define);
-			return define;
-		}
-		else
-		{
-			return nullptr;
-		}
-
-	}
-
-	return itor->second;
-}
-
-void Shader::setDefine(const std::string& name)
-{
-	SHADER_DEFINE* define = getDefine(name, true);
-	define->value = Utils::string_format("#define %s\r\n", name.c_str());
-}
-
-void Shader::setDefine(const std::string& name, const std::string& value)
-{
-	SHADER_DEFINE* define = getDefine(name, true);
-	define->value = Utils::string_format("#define %s %s\r\n", name.c_str(), value.c_str());
-}
-
-void Shader::setDefine(const std::string& name, float value)
-{
-	SHADER_DEFINE* define = getDefine(name, true);
-
-	define->value = Utils::string_format("#define %s %.7ff\r\n", name.c_str(), value);
-}
-
-void Shader::setDefine(const std::string& name, int value)
-{
-	SHADER_DEFINE* define = getDefine(name, true);
-	define->value = Utils::string_format("#define %s %d\r\n", name.c_str(), value);
-}
-
-void Shader::deleteDefine(const std::string& name)
-{
-	auto itor = m_mapDefines.find(name);
-	if (itor == m_mapDefines.end())
-	{
-		return;
-	}
-
-	this->m_mapDefines.erase(itor);
-
-	SHADER_DEFINE* define = itor->second;
-	for (auto it = m_defines.begin(); it != m_defines.end(); it ++)
-	{
-		
-		if (*it == define)
-		{
-			m_defines.erase(it);
-			break;
-		}
-	}
+	return obj;
 }
 
 END_NAMESPACE

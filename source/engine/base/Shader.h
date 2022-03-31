@@ -13,44 +13,40 @@
 #include "base/Object.h"
 #include "render/Color.h"
 #include "render/RenderData.h"
+#include "base/NonCopyable.h"
 
 BEGIN_NAMESPACE
 
+
 class Node;
 
-class Shader : public Object
+struct SHADER_DEFINE
+{
+	std::string name;
+	std::string value;
+};
+
+class Shader : public Object, public NonCopyable
 {
 public:
-	struct SHADER_DEFINE
-	{
-		std::string name;
-		std::string value;
-	};
-
-	std::vector<SHADER_DEFINE*> m_defines;
-	std::map<std::string, SHADER_DEFINE*> m_mapDefines;
 	GL_HANDLE m_id;
 	std::string m_vSource;
 	std::string m_fSource;
-
+	bool m_compiled;
 	void initCommonUniform(RenderData* cam, Node* node);
 protected:
 	void init(const std::string& vertextPath, const std::string& fragmentPath);
-	void addDefine(SHADER_DEFINE* define);
-	std::string getDefineSource();
+	
+	const char** getFullShaderSource(const std::string& content, const std::vector<SHADER_DEFINE*>* defines, int& size);
+	Shader() {}
 public:
 
 	Shader(const std::string& vertextPath, const std::string& fragmentPath);
 	Shader(const std::string& filepath);
-	virtual ~Shader();
-	
-	SHADER_DEFINE* getDefine(const std::string& name, bool create = false);
-	void setDefine(const std::string& name);
-	void setDefine(const std::string& name, const std::string& value);
-	void setDefine(const std::string& name, float value);
-	void setDefine(const std::string& name, int value);
-	void deleteDefine(const std::string& name);
 
+	virtual ~Shader();
+	Shader* clone();
+	
 	void use();
 	void unuse();
 	void setBool(const std::string &name, bool value)const;
@@ -64,8 +60,7 @@ public:
 	void setColorRGB(const std::string& name, const Color& value) const;
 	void setRGB(const std::string& name, const RGB& value)const;
 	void setFloatValues(const std::string& name, float value[], int size);
-
-	bool recompile();
+	bool recompile(const std::vector<SHADER_DEFINE*>* defines);
 
 };
 

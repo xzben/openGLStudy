@@ -1,10 +1,19 @@
-#import<common/vs_head.vs>
-#import<common/MaterialLight.vs>
+#import<shader/common/vs_head.vs>
 
 out vec3 ourColor;
 out vec2 TexCoord;
 out vec3 Normal;
 out vec3 FragPos;
+
+#ifdef MATERIAL_SAMPLE
+
+#import<shader/common/MaterialSampleLight.vs>
+
+#else
+
+#import<shader/common/MaterialLight.vs>
+
+#endif
 
 void main()
 {

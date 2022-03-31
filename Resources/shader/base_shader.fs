@@ -1,4 +1,4 @@
-#import<common/fs_head.fs>
+#import<shader/common/fs_head.fs>
 
 in vec3 ourColor;
 

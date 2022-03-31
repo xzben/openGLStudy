@@ -12,6 +12,7 @@ BEGIN_NAMESPACE
 
 
 class Shader;
+struct SHADER_DEFINE;
 class RenderableComponent;
 struct RenderData;
 class Texture;
@@ -47,8 +48,13 @@ protected:
 	std::vector<Unifrom*> m_uniforms;
 	std::map<std::string, Unifrom*> m_mapUnifroms;
 
-	Unifrom* getUniform(const std::string& name);
-	void pushUniform(const std::string& name, Unifrom* uniform);
+	std::vector<SHADER_DEFINE*> m_defines;
+	std::map<std::string, SHADER_DEFINE*> m_mapDefines;
+	bool m_defineChange;
+
+	Unifrom* getUniform(const std::string& name, bool create = false);
+	void pushUniform(Unifrom* uniform);
+	void addDefine(SHADER_DEFINE* define);
 public:
 	Material(Shader* shader);
 	Material(BuiltInShader shaderId);
@@ -68,7 +74,13 @@ public:
 	void setUniform(const std::string& name, const Color& value);
 	void setUniform(const std::string& name, const RGB& value);
 	
-	
+
+	SHADER_DEFINE* getDefine(const std::string& name, bool create = false);
+	void setDefine(const std::string& name);
+	void setDefine(const std::string& name, const std::string& value);
+	void setDefine(const std::string& name, float value);
+	void setDefine(const std::string& name, int value);
+	void deleteDefine(const std::string& name);
 
 	virtual bool beforeDraw(RenderData* render, RenderableComponent* com);
 	virtual bool afterDraw();

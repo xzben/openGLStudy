@@ -311,5 +311,8 @@
     <ClInclude Include="..\..\source\engine\utils\Utils.h">
       <Filter>source\engine\utils</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\source\engine\base\NonCopyable.h">
+      <Filter>source\engine\base</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

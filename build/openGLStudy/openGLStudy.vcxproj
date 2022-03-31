@@ -178,6 +178,7 @@
     <ClInclude Include="..\..\source\engine\base\Camera.h" />
     <ClInclude Include="..\..\source\engine\base\Component.h" />
     <ClInclude Include="..\..\source\engine\base\Node.h" />
+    <ClInclude Include="..\..\source\engine\base\NonCopyable.h" />
     <ClInclude Include="..\..\source\engine\base\Object.h" />
     <ClInclude Include="..\..\source\engine\base\Scene.h" />
     <ClInclude Include="..\..\source\engine\base\SceneManager.h" />

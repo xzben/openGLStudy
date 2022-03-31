@@ -2,10 +2,11 @@
 #define __2022_03_09_MESH_H__
 #include "common.h"
 #include "base/Object.h"
+#include "base/NonCopyable.h"
 
 BEGIN_NAMESPACE
 
-class Mesh : public Object
+class Mesh : public Object, public NonCopyable
 {
 protected:
 	GL_HANDLE m_vao;   //顶点数组对象

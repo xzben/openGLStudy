@@ -3,6 +3,7 @@
 #include "render/Texture.h"
 #include "render/RenderData.h"
 #include "render/RenderableComponent.h"
+#include "utils/Utils.h"
 
 BEGIN_NAMESPACE
 
@@ -45,6 +46,7 @@ Material::Material(BuiltInShader shaderId, const std::string& texturepath)
 
 void Material::init(Shader* shader, Texture* mainTexture)
 {
+	m_defineChange = false;
 	this->m_mainTexture = mainTexture;
 	if(m_mainTexture)
 		this->m_mainTexture->addRef();
@@ -114,12 +116,23 @@ Material::~Material()
 		Unifrom* uniform = *it;
 		delete uniform;
 	}
+
+	for (auto it = m_defines.begin(); it != m_defines.end(); it++)
+	{
+		delete* it;
+	}
 }
 
 bool Material::beforeDraw(RenderData* render, RenderableComponent* com)
 {
 	if (m_shader)
 	{
+		if (m_defineChange)
+		{
+			m_shader->recompile(&m_defines);
+			m_defineChange = false;
+		}
+
 		m_shader->use();
 		m_shader->initCommonUniform(render, com->getNode());
 
@@ -170,140 +183,157 @@ bool Material::afterDraw()
 	return true;
 }
 
-Unifrom* Material::getUniform(const std::string& name)
+Unifrom* Material::getUniform(const std::string& name, bool create /*= false*/)
 {
 	auto it = this->m_mapUnifroms.find(name);
-	if (it == m_mapUnifroms.end()) {
+	if (it == m_mapUnifroms.end()) 
+	{
+		if (create)
+		{
+			auto uniform = new Unifrom();
+			uniform->name = name;
+			this->pushUniform(uniform);
+
+			return uniform;
+		}
+
 		return nullptr;
 	}
 
 	return it->second;
 }
 
-void Material::pushUniform(const std::string& name, Unifrom* uniform)
+void Material::pushUniform(Unifrom* uniform)
 {
-	this->m_mapUnifroms.insert(std::pair<std::string, Unifrom*>(name, uniform));
+	this->m_mapUnifroms.insert(std::pair<std::string, Unifrom*>(uniform->name, uniform));
 	this->m_uniforms.push_back(uniform);
 }
 
 void Material::setUniform(const std::string& name, const fVec3& value)
 {
-	Unifrom* uniform = getUniform(name);
-
-	if (uniform == nullptr)
-	{
-		uniform = new Unifrom();
-		uniform->name = name;
-		uniform->size = 3;
-		uniform->v3 = value;
-		
-		this->pushUniform(name, uniform);
-	}
-	else
-	{
-		uniform->size = 3;
-		uniform->v3 = value;
-	}
+	Unifrom* uniform = getUniform(name, true);
+	uniform->size = 3;
+	uniform->v3 = value;	
 }
 
 void Material::setUniform(const std::string& name, const Color& value)
 {
-	Unifrom* uniform = getUniform(name);
-
-	if (uniform == nullptr)
-	{
-		uniform = new Unifrom();
-		uniform->name = name;
-		uniform->size = 4;
-		uniform->color = value;
-
-		this->pushUniform(name, uniform);
-	}
-	else
-	{
-		uniform->size = 4;
-		uniform->color = value;
-	}
+	Unifrom* uniform = getUniform(name, true);
+	uniform->size = 4;
+	uniform->color = value;
 }
 
 void Material::setUniform(const std::string& name, const RGB& value)
 {
-	Unifrom* uniform = getUniform(name);
+	Unifrom* uniform = getUniform(name, true);
 
-	if (uniform == nullptr)
-	{
-		uniform = new Unifrom();
-		uniform->name = name;
-		uniform->size = 3;
-		uniform->rgb = value;
-
-		this->pushUniform(name, uniform);
-	}
-	else
-	{
-		uniform->size = 3;
-		uniform->rgb = value;
-	}
+	uniform->size = 3;
+	uniform->rgb = value;
 }
 
 void Material::setUniform(const std::string& name, const fVec4& value)
 {
-	Unifrom* uniform = getUniform(name);
+	Unifrom* uniform = getUniform(name, true);
 
-	if (uniform == nullptr)
-	{
-		uniform = new Unifrom();
-		uniform->name = name;
-		uniform->size = 4;
-		uniform->v4 = value;
+	uniform->size = 4;
+	uniform->v4 = value;
 
-		this->pushUniform(name, uniform);
-	}
-	else
-	{
-		uniform->size = 4;
-		uniform->v4 = value;
-	}
 }
 
 void Material::setUniform(const std::string& name, const float value)
 {
-	Unifrom* uniform = getUniform(name);
+	Unifrom* uniform = getUniform(name, true);
 
-	if (uniform == nullptr)
-	{
-		uniform = new Unifrom();
-		uniform->name = name;
-		uniform->size = 1;
-		uniform->v1 = value;
-
-		this->pushUniform(name, uniform);
-	}
-	else
-	{
-		uniform->size = 1;
-		uniform->v1 = value;
-	}
+	uniform->size = 1;
+	uniform->v1 = value;
 }
 
 void Material::setUniform(const std::string& name, const fVec2& value)
 {
-	Unifrom* uniform = getUniform(name);
+	Unifrom* uniform = getUniform(name, true);
+	uniform->size = 2;
+	uniform->v2 = value;
+}
 
-	if (uniform == nullptr)
-	{
-		uniform = new Unifrom();
-		uniform->name = name;
-		uniform->size = 2;
-		uniform->v2 = value;
+void Material::addDefine(SHADER_DEFINE* define)
+{
+	this->m_mapDefines.insert(std::pair<std::string, SHADER_DEFINE*>(define->name, define));
+	this->m_defines.push_back(define);
+}
 
-		this->pushUniform(name, uniform);
-	}
-	else
+SHADER_DEFINE* Material::getDefine(const std::string& name, bool create /*= false*/)
+{
+	auto itor = m_mapDefines.find(name);
+	if (itor == m_mapDefines.end())
 	{
-		uniform->size = 2;
-		uniform->v2 = value;
+		if (create)
+		{
+			SHADER_DEFINE* define = new SHADER_DEFINE();
+
+			define->name = name;
+			this->addDefine(define);
+			return define;
+		}
+		else
+		{
+			return nullptr;
+		}
+
 	}
+
+	return itor->second;
+}
+
+void Material::setDefine(const std::string& name)
+{
+	SHADER_DEFINE* define = getDefine(name, true);
+	define->value = Utils::string_format("#define %s\r\n", name.c_str());
+	m_defineChange = true;
+}
+
+void Material::setDefine(const std::string& name, const std::string& value)
+{
+	SHADER_DEFINE* define = getDefine(name, true);
+	define->value = Utils::string_format("#define %s %s\r\n", name.c_str(), value.c_str());
+	m_defineChange = true;
+}
+
+void Material::setDefine(const std::string& name, float value)
+{
+	SHADER_DEFINE* define = getDefine(name, true);
+
+	define->value = Utils::string_format("#define %s %.7f\r\n", name.c_str(), value);
+	m_defineChange = true;
+}
+
+void Material::setDefine(const std::string& name, int value)
+{
+	SHADER_DEFINE* define = getDefine(name, true);
+	define->value = Utils::string_format("#define %s %d\r\n", name.c_str(), value);
+	m_defineChange = true;
+}
+
+void Material::deleteDefine(const std::string& name)
+{
+	auto itor = m_mapDefines.find(name);
+	if (itor == m_mapDefines.end())
+	{
+		return;
+	}
+
+	this->m_mapDefines.erase(itor);
+
+	SHADER_DEFINE* define = itor->second;
+	for (auto it = m_defines.begin(); it != m_defines.end(); it++)
+	{
+
+		if (*it == define)
+		{
+			m_defines.erase(it);
+			break;
+		}
+	}
+	m_defineChange = true;
 }
 
 END_NAMESPACE

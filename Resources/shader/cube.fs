@@ -1,5 +1,5 @@
-#import<common/fs_head.fs>
-#import<common/PhongLight.fs>
+#import<shader/common/fs_head.fs>
+#import<shader/common/PhongLight.fs>
 
 in vec3 ourColor;
 in vec2 TexCoord;

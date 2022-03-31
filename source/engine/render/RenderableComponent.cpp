@@ -64,10 +64,6 @@ void RenderableComponent::onDestroy()
 
 void RenderableComponent::doDraw(RenderData* render, Mesh* mesh, Shader* shader /* = nullptr */, Texture* tex /* = nullptr */, SubTexture* texs /* = nullptr */, int subTextCount /* = 0 */)
 {
-	if (tex) {
-		
-	}
-
 	if (shader) {
 		shader->use();
 		shader->initCommonUniform(render, this->m_node);

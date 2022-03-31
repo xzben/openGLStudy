@@ -13,8 +13,8 @@ struct ShaderFiles
 };
 
 static struct ShaderFiles s_ShaderResource[] = {
-	{ "image_shader.vs", "image_shader.fs" },
-	{ "common/standard.vs", "common/standard.fs" },
+	{ "shader/image_shader.vs", "shader/image_shader.fs" },
+	{ "shader/common/standard.vs", "shader/common/standard.fs" },
 };
 
 ResourceManager* ResourceManager::getInstance()
@@ -45,6 +45,8 @@ Shader* ResourceManager::getBuiltinShader(BuiltInShader id, bool autoRetain /*= 
 		shader = createBuiltinShader(id);
 		m_builtinShaders.insert(std::pair<BuiltInShader, Shader*>(id, shader));
 	}
+
+	shader = shader->clone();
 
 	if (autoRetain && shader)
 	{
@@ -99,6 +101,8 @@ Shader* ResourceManager::loadShader(const std::string& filename, bool autoRetain
 		shader = new Shader(filename);
 		m_loadedShaders.insert(std::pair<std::string, Shader*>(filename, shader));
 	}
+
+	shader = shader->clone();
 
 	if (autoRetain && shader != nullptr)
 	{

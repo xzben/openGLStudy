@@ -6,7 +6,7 @@ TestTriangle::TestTriangle()
 	: m_vao(0)
 	, m_shader(nullptr)
 {
-	m_shader = new Shader("test/test_shader.vs", "test/test_shader.fs");
+	m_shader = new Shader("shader/test/test_shader");
 
 	glGenVertexArrays(1, &m_vao);
 	glBindVertexArray(m_vao);

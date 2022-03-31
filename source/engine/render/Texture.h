@@ -5,11 +5,11 @@
 #include "render/config.h"
 #include "base/Object.h"
 #include "utils/FileUtils.h"
-
+#include "base/NonCopyable.h"
 
 BEGIN_NAMESPACE
 
-class Texture : public Object
+class Texture : public Object, public NonCopyable
 {
 protected:
 	TEXTURE_HANDLE m_texture;

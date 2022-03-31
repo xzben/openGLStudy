@@ -101,7 +101,7 @@ LightRender::LightRender()
 	: m_mesh(nullptr)
 {
 	this->m_mesh = new Mesh();
-	this->m_shader = ResourceManager::getInstance()->loadShader("light_mesh");
+	this->m_shader = ResourceManager::getInstance()->loadShader("shader/light_mesh");
 }
 
 LightRender::~LightRender()

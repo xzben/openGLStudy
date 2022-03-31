@@ -1,4 +1,4 @@
-#import<common/vs_head.vs>
+#import<shader/common/vs_head.vs>
 
 void main()
 {

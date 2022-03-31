@@ -9,6 +9,9 @@ class Cube : public Node
 {
 public:
 	CREATE_FUNC(Cube);
+	
+	static Cube* createColorMaterial();
+	static Cube* createSampleMaterial();
 
 	Cube();
 	virtual ~Cube();

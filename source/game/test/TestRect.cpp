@@ -6,7 +6,7 @@ TestRect::TestRect()
 	: m_vao(0)
 	, m_shader(nullptr)
 {
-	m_shader = new Shader("test/uniform_color.vs", "test/uniform_color.fs");
+	m_shader = new Shader("shader/test/uniform_color");
 
 	glGenVertexArrays(1, &m_vao);
 	glBindVertexArray(m_vao);

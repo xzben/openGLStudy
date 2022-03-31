@@ -89,11 +89,16 @@ void TestScene::onLoad()
 	box->addComponent(BoxRender::create());
 	this->addChild(box);
 	box->setPosition(-2, 0, 0);
-	auto cube = Cube::create();
-	cube->setTag(2);
 
+	auto cube = Cube::createColorMaterial();
+	cube->setTag(2);
 	this->addChild(cube);
-	cube->setPosition(2, 0, 0);
+	cube->setPosition(0, 0, 0);
+
+	auto cube2 = Cube::createSampleMaterial();
+	cube2->setTag(3);
+	this->addChild(cube2);
+	cube2->setPosition(2, 0, 0);
 
 	this->initEventListener();
 
@@ -114,6 +119,8 @@ void TestScene::update(float dt)
 {
 	auto box = this->getChildByTag(1);
 	auto cube = this->getChildByTag(2);
+	auto cube2 = this->getChildByTag(3);
+
 	Light* light = this->getMainLight();
 
 	m_count += dt;
@@ -125,16 +132,20 @@ void TestScene::update(float dt)
 	}
 
 	if (cube)
-		cube->setRotation(rot, rot, rot);
+		cube->setRotation(rot, -rot, rot);
+
+	if (cube2)
+		cube2->setRotation(rot, rot, -rot);
 
 	RGB lightClor;
-	lightClor.r = sin(m_count*2.0f);
-	lightClor.g = sin(m_count * 0.7f);
-	lightClor.b = sin(m_count * 1.3f);
+	float step = m_count / 10;
+	lightClor.r = sin(step*2.0f);
+	lightClor.g = sin(step*0.7f);
+	lightClor.b = sin(step*1.3f);
 
 	RGB diffuseColor = lightClor * 0.5f;
 	RGB ambientColor = diffuseColor * 0.2f;
 
-	light->setAmbientColor(ambientColor);
-	light->setDiffuseColor(diffuseColor);
+	//light->setAmbientColor(ambientColor);
+	//light->setDiffuseColor(diffuseColor);
 }

@@ -1,5 +1,5 @@
-#import<common/vs_head.vs>
-#import<common/PhongLight.vs>
+#import<shader/common/vs_head.vs>
+#import<shader/common/PhongLight.vs>
 
 out vec3 ourColor;
 out vec2 TexCoord;
