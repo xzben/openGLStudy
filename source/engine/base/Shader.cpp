@@ -6,6 +6,7 @@
 #include "base/Camera.h"
 #include "light/Light.h"
 #include "utils/Utils.h"
+#include "light/LightManager.h"
 #include <regex>
 
 BEGIN_NAMESPACE
@@ -256,6 +257,8 @@ void Shader::initCommonUniform(RenderData* render, Node* node)
 	setMat4(SHADER_COMMON_UNIFORM_VIEW, view);
 	setMat4(SHADER_COMMON_UNIFORM_PROJECTION, projection);
 	setMat4(SHADER_COMMON_UNIFORM_MVP, mvp);
+
+	LightManager::getInstance();
 
 	if (light != nullptr)
 	{

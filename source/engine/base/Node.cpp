@@ -86,6 +86,7 @@ void Node::removeChild(Node* node)
 			this->m_childrens.erase(itor);
 			node->delRef();
 			node->m_parent = nullptr;
+			node->m_running = false;
 			break;
 		}
 	}

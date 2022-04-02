@@ -168,6 +168,18 @@
     <ClCompile Include="..\..\source\engine\utils\Utils.cpp">
       <Filter>source\engine\utils</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\source\engine\light\DirectionLight.cpp">
+      <Filter>source\engine\light</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\engine\light\PointLight.cpp">
+      <Filter>source\engine\light</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\engine\light\SpotLight.cpp">
+      <Filter>source\engine\light</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\engine\light\LightManager.cpp">
+      <Filter>source\engine\light</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\source\engine\base\Application.h">
@@ -312,6 +324,21 @@
       <Filter>source\engine\utils</Filter>
     </ClInclude>
     <ClInclude Include="..\..\source\engine\base\NonCopyable.h">
+      <Filter>source\engine\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\engine\light\DirectionLight.h">
+      <Filter>source\engine\light</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\engine\light\PointLight.h">
+      <Filter>source\engine\light</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\engine\light\SpotLight.h">
+      <Filter>source\engine\light</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\engine\light\LightManager.h">
+      <Filter>source\engine\light</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\engine\base\InstanceBase.h">
       <Filter>source\engine\base</Filter>
     </ClInclude>
   </ItemGroup>

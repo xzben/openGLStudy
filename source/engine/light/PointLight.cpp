@@ -1,0 +1,5 @@
+#include "PointLight.h"
+
+BEGIN_NAMESPACE
+
+END_NAMESPACE

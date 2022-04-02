@@ -148,7 +148,11 @@
     <ClCompile Include="..\..\source\engine\base\Shader.cpp" />
     <ClCompile Include="..\..\source\engine\event\Event.cpp" />
     <ClCompile Include="..\..\source\engine\event\EventDispatcher.cpp" />
+    <ClCompile Include="..\..\source\engine\light\DirectionLight.cpp" />
     <ClCompile Include="..\..\source\engine\light\Light.cpp" />
+    <ClCompile Include="..\..\source\engine\light\LightManager.cpp" />
+    <ClCompile Include="..\..\source\engine\light\PointLight.cpp" />
+    <ClCompile Include="..\..\source\engine\light\SpotLight.cpp" />
     <ClCompile Include="..\..\source\engine\math\MathUtil.cpp" />
     <ClCompile Include="..\..\source\engine\math\MathUtil.h" />
     <ClCompile Include="..\..\source\engine\math\quaternion.cpp" />
@@ -177,6 +181,7 @@
     <ClInclude Include="..\..\source\engine\base\Application.h" />
     <ClInclude Include="..\..\source\engine\base\Camera.h" />
     <ClInclude Include="..\..\source\engine\base\Component.h" />
+    <ClInclude Include="..\..\source\engine\base\InstanceBase.h" />
     <ClInclude Include="..\..\source\engine\base\Node.h" />
     <ClInclude Include="..\..\source\engine\base\NonCopyable.h" />
     <ClInclude Include="..\..\source\engine\base\Object.h" />
@@ -190,7 +195,11 @@
     <ClInclude Include="..\..\source\engine\define\shader_define.h" />
     <ClInclude Include="..\..\source\engine\event\Event.h" />
     <ClInclude Include="..\..\source\engine\event\EventDispatcher.h" />
+    <ClInclude Include="..\..\source\engine\light\DirectionLight.h" />
     <ClInclude Include="..\..\source\engine\light\Light.h" />
+    <ClInclude Include="..\..\source\engine\light\LightManager.h" />
+    <ClInclude Include="..\..\source\engine\light\PointLight.h" />
+    <ClInclude Include="..\..\source\engine\light\SpotLight.h" />
     <ClInclude Include="..\..\source\engine\math\Mat3.h" />
     <ClInclude Include="..\..\source\engine\math\Mat4.h" />
     <ClInclude Include="..\..\source\engine\math\math.h" />
