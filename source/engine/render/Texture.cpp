@@ -36,6 +36,21 @@ static IMAGE_TYPE getImageType(byte* buf, const int& len) {
 	return IMAGE_TYPE::UNKNOW;
 }
 
+bool Texture::initAttachment(float width, float height)
+{
+	this->m_width = width;
+	this->m_height = height;
+	glBindTexture(GL_TEXTURE_2D, m_texture);
+
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	return true;
+}
+
 bool Texture::init(const std::string filename)
 {
 	Data data;

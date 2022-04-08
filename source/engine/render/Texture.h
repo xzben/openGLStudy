@@ -12,6 +12,8 @@ BEGIN_NAMESPACE
 class Texture : public Object, public NonCopyable
 {
 protected:
+	friend class FrameBuffer;
+
 	TEXTURE_HANDLE m_texture;
 	std::string m_filename;
 	int m_width;
@@ -31,6 +33,8 @@ public:
 		this->m_magFilter = magFilter;
 	}
 	bool init(const std::string filename);
+	bool initAttachment(float width, float height);
+
 	void use(int index = 0);
 	void unuse();
 
