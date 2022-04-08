@@ -24,19 +24,6 @@ Node::~Node()
 	this->doPause();
 	this->doStop();
 	this->doDestroy();
-
-	for (auto itor = this->m_childrens.begin(); itor != this->m_childrens.end(); itor++)
-	{
-		(*itor)->delRef();
-	}
-
-	for (auto itor = this->m_components.begin(); itor != this->m_components.end(); itor++)
-	{
-		(*itor)->delRef();
-	}
-
-	this->m_childrens.clear();
-	this->m_components.clear();
 }
 
 bool Node::updateSelfModelMat()
@@ -69,7 +56,6 @@ const fMat4& Node::getShaderModel()
 
 Component* Node::addComponent(Component* com)
 {
-	com->addRef();
 	this->m_components.push_back(com);
 	com->setOwner(this);
 	return com;

@@ -160,25 +160,17 @@ void Window::mainLoop()
 		//并且 交换缓冲区显示
 		if (Application::getInstance()->shiftTime(offset))
 		{
-			//触发系统 update 
 			Application::getInstance()->update();
 
-			glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-
-			glEnable(GL_MULTISAMPLE);
-
-			//启用深度测试
-			glEnable(GL_DEPTH_TEST);
-			
-			// 设置清理缓冲区的 颜色buf 和 深度buf
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 		
-			//开始程序的 图形渲染
+			glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+			glEnable(GL_DEPTH_TEST);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		
 			Application::getInstance()->render();
 
 			//交换缓冲去屏幕渲染
 			glfwSwapBuffers((GLFWwindow*)m_window);
-
 			//触发事件收集
 			glfwPollEvents();
 		}

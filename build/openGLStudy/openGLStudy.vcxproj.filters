@@ -180,9 +180,6 @@
     <ClCompile Include="..\..\source\engine\light\LightManager.cpp">
       <Filter>source\engine\light</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\source\engine\define\glenum_define.cpp">
-      <Filter>source\engine\define</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\source\engine\base\Application.h">
@@ -343,9 +340,6 @@
     </ClInclude>
     <ClInclude Include="..\..\source\engine\base\InstanceBase.h">
       <Filter>source\engine\base</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\source\engine\define\glenum_define.h">
-      <Filter>source\engine\define</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

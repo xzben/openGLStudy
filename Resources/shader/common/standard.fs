@@ -5,7 +5,15 @@ in vec2 TexCoord;
 in vec3 Normal;
 in vec3 FragPos;
 
-#import<shader/light/light_func.fs>
+#ifdef MATERIAL_SAMPLE
+
+#import<shader/common/MaterialSampleLight.fs>
+
+#else
+
+#import<shader/common/MaterialLight.fs>
+
+#endif
 
 uniform sampler2D mainTexture;
 

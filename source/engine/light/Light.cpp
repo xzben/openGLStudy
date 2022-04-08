@@ -2,7 +2,6 @@
 #include "render/RenderableComponent.h"
 #include "render/base/Mesh.h"
 #include "resource/ResourceManager.h"
-#include "LightManager.h"
 #include "base/Shader.h"
 
 BEGIN_NAMESPACE
@@ -23,9 +22,11 @@ public:
 };
 
 Light::Light()
-	: m_lightColor(1.0f, 1.0f, 1.0f)
+	: m_unitColor(true)
+	, m_lightColor(1.0f, 1.0f, 1.0f)
 {
-
+	m_lightInfo.diffuse = m_lightInfo.specular = m_lightInfo.ambient = RGB(1.0f, 1.0f, 1.0f);
+	m_lightInfo.strength = fVec3(1.0f, 1.0f, 1.0f);
 }
 
 Light::~Light()
@@ -33,21 +34,56 @@ Light::~Light()
 
 }
 
-void Light::doStart()
+const LightShaderData& Light::getLightShaderData()
 {
-	Node::doStart();
-	LightManager::getInstance()->addLight(this);
-}
+	m_lightInfo.pos = this->getWorldPosition();
 
-void Light::doStop()
-{
-	Node::doStop();
-	LightManager::getInstance()->removeLight(this);
+	return m_lightInfo;
 }
 
 void Light::setLightColor(const Color &color)
 {
 	m_lightColor = color;
+	if (m_unitColor)
+	{
+		RGB rgb = color.toRGB();
+		m_lightInfo.ambient = rgb;
+		m_lightInfo.diffuse = rgb;
+		m_lightInfo.specular = rgb;
+	}
+}
+
+void Light::setAmbientColor(const RGB& color)
+{
+	m_unitColor = false;
+	m_lightInfo.ambient = color;
+}
+
+const RGB& Light::getAmbientColor()const
+{
+	return m_lightInfo.ambient;
+}
+
+void Light::setDiffuseColor(const RGB& color)
+{
+	m_unitColor = false;
+	m_lightInfo.diffuse = color;
+}
+
+const RGB& Light::getDiffuseColor() const
+{
+	return m_lightInfo.diffuse;
+}
+
+void Light::setSpecularColor(const RGB& color)
+{
+	m_unitColor = false;
+	m_lightInfo.specular = color;
+}
+
+const RGB& Light::getSpecularColor() const
+{
+	return m_lightInfo.specular;
 }
 
 const Color& Light::getLightColor() const
@@ -56,10 +92,9 @@ const Color& Light::getLightColor() const
 }
 
 
-void Light::doLoad()
+void Light::onLoad()
 {
 	this->addComponent(LightRender::create());
-	Node::doLoad();
 }
 
 LightRender::LightRender()
@@ -72,7 +107,7 @@ LightRender::LightRender()
 LightRender::~LightRender()
 {
 	SAFE_DEL_REF(this->m_shader);
-	DELETE_OBJ(this->m_mesh);
+	SAFE_DEL_REF(this->m_mesh);
 }
 
 void LightRender::onLoad()

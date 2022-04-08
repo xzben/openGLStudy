@@ -1,5 +1,5 @@
 #include "base/Scene.h"
-#include "light/DirectionLight.h"
+
 BEGIN_NAMESPACE
 
 Scene::Scene() 
@@ -42,7 +42,7 @@ Light* Scene::getMainLight()
 
 Light* Scene::createMainLight()
 {
-	auto light = DirectionLight::create();
+	auto light = Light::create();
 
 	this->addChild(light);
 

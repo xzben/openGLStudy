@@ -45,13 +45,13 @@ protected:
 	void updateDrawColor(const Color& parentColor);
 	void getParentTrnasparent(fMat4& transparent);
 protected:
-	virtual void doLoad();  //构造对象完毕就会执行
-	virtual void doStart();  //所在scene切入渲染开始触发
-	virtual void doPause();
-	virtual void doResume();
-	virtual void doStop();
-	virtual void doDestroy();
-	virtual void doUpdate(float dt);
+	void doLoad();  //构造对象完毕就会执行
+	void doStart();  //所在scene切入渲染开始触发
+	void doPause();
+	void doResume();
+	void doStop();
+	void doDestroy();
+	void doUpdate(float dt);
 public:
 	CREATE_FUNC(Node);
 	 Node();

@@ -37,7 +37,7 @@ std::string getShaderContent(const std::string& path)
 		}
 		else
 		{
-			CCLOGERROR("shader source failed to import %s\r\n", path.c_str());
+			CCLOGERROR("shader source failed to import %s", path.c_str());
 			CC_ASSERT(false);
 		}	
 
@@ -172,10 +172,6 @@ void Shader::setInt(const std::string &name, int value)const {
 	glUniform1i(glGetUniformLocation(this->m_id, name.c_str()), value);
 }
 
-void Shader::setVec3(const std::string& name, const iVec3& value) const
-{
-	glUniform3i(glGetUniformLocation(this->m_id, name.c_str()), value.x, value.y, value.z);
-}
 
 void Shader::setVec3(const std::string& name, const fVec3& value) const {
 	glUniform3f(glGetUniformLocation(this->m_id, name.c_str()), value.x, value.y, value.z);
@@ -262,7 +258,18 @@ void Shader::initCommonUniform(RenderData* render, Node* node)
 	setMat4(SHADER_COMMON_UNIFORM_PROJECTION, projection);
 	setMat4(SHADER_COMMON_UNIFORM_MVP, mvp);
 
-	LightManager::getInstance()->setShaderLightInfo(this);
+	LightManager::getInstance();
+
+	if (light != nullptr)
+	{
+		const LightShaderData& lightInfo = light->getLightShaderData();
+
+		setVec3(SHADER_LIGHT_POS, lightInfo.pos);
+		setRGB(SHADER_LIGHT_AMBIENT_COLOR, lightInfo.ambient);
+		setRGB(SHADER_LIGHT_DIFFUSE_COLOR, lightInfo.diffuse);
+		setRGB(SHADER_LIGHT_SPECULAR_COLOR, lightInfo.specular);
+		setVec3(SHADER_LIGHT_STRENGTH, lightInfo.strength);
+	}
 	
 	setColor(SHADER_UNIFORM_COLOR, node->getDrawColor());
 	setVec3(SHADER_CAMERA_POS, cam->getWorldPosition());

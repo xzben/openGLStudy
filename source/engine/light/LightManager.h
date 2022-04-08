@@ -14,22 +14,12 @@ class Shader;
 class LightManager : public InstanceBase<LightManager>
 {
 protected:
-	DirectionLight* m_directLight;
+	std::vector<DirectionLight*> m_directLights;
 	std::vector<PointLight*> m_pointLights;
 	std::vector<SpotLight*>  m_spotLights;
+
 public:
 	void setShaderLightInfo(Shader* shader);
-	iVec3 getLightNums();
-
-	void addLight(Light* light);
-	void addDirectLigth(DirectionLight* dlight);
-	void addPointLight(PointLight* plight);
-	void addSpotLight(SpotLight* splight);
-
-	void removeLight(Light* light);
-	void removeDirectLight(DirectionLight* dlight);
-	void removePointLight(PointLight* plight);
-	void removeSpotLight(SpotLight* splight);
 };
 
 END_NAMESPACE

@@ -154,33 +154,6 @@ public:
 		return result;
 	}
 
-	Mat4<TYPENAME> transpose() const {
-		Mat4<TYPENAME> result;
-
-		result.m_data[0] = m_data[0];
-		result.m_data[1] = m_data[4];
-		result.m_data[2] = m_data[8];
-		result.m_data[3] = m_data[12];
-
-		result.m_data[4] = m_data[1];
-		result.m_data[5] = m_data[5];
-		result.m_data[6] = m_data[9];
-		result.m_data[7] = m_data[13];
-
-		result.m_data[8] = m_data[2];
-		result.m_data[9] = m_data[6];
-		result.m_data[10] = m_data[10];
-		result.m_data[11] = m_data[14];
-
-		result.m_data[12] = m_data[3];
-		result.m_data[13] = m_data[7];
-		result.m_data[14] = m_data[11];
-		result.m_data[15] = m_data[15];
-
-		return result;
-	}
-
-	//¾ØÕóÄæ¾ØÕó
 	Mat4<TYPENAME> inverse() const{
 		Mat4<TYPENAME> result;
 
