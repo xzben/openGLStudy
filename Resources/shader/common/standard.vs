@@ -5,16 +5,6 @@ out vec2 TexCoord;
 out vec3 Normal;
 out vec3 FragPos;
 
-#ifdef MATERIAL_SAMPLE
-
-#import<shader/common/MaterialSampleLight.vs>
-
-#else
-
-#import<shader/common/MaterialLight.vs>
-
-#endif
-
 void main()
 {
 	gl_Position = cc_mvp*vec4(aPos, 1.0);
