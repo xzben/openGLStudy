@@ -11,6 +11,7 @@
 #include "event/EventDispatcher.h"
 #include "math/Vec2.h"
 #include "light/PointLight.h"
+#include "light/SpotLight.h"
 #include "Cube.h"
 
 USING_NAMESPACE;
@@ -109,6 +110,10 @@ void TestScene::onLoad()
 	cube2->setTag(3);
 	this->addChild(cube2);
 	cube2->setPosition(2, 0, 0);
+
+	Light* spotLight = SpotLight::create();
+	spotLight->setPosition(0.f, 0.f, 2.f);
+	this->addChild(spotLight);
 
 	this->initEventListener();
 
