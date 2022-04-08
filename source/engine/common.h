@@ -8,11 +8,15 @@
 #include "define/shader_define.h"
 #include "define/event_define.h"
 #include "define/math_define.h"
+#include "define/glenum_define.h"
 
 typedef unsigned int  uint;
 typedef unsigned char uint8;
 typedef unsigned char byte;
 typedef unsigned int  GL_HANDLE;
+
+#define CC_DEGREES_TO_RADIANS(__ANGLE__) ((__ANGLE__) * 0.01745329252f) // PI / 180
+#define CC_RADIANS_TO_DEGREES(__ANGLE__) ((__ANGLE__) * 57.29577951f) // PI * 180
 
 #define GL_ERROR_MSG_SIZE 512  //openGL 错误信息日志buff size
 
