@@ -10,6 +10,7 @@
 #include "base/Application.h"
 #include "event/EventDispatcher.h"
 #include "math/Vec2.h"
+#include "light/PointLight.h"
 #include "Cube.h"
 
 USING_NAMESPACE;
@@ -83,6 +84,7 @@ void TestScene::onLoad()
 {
 	//this->addComponent(new ImageComponent("container.jpg"));
 
+
 	auto box = Node::create();
 	box->setTag(1);
 
@@ -90,10 +92,18 @@ void TestScene::onLoad()
 	this->addChild(box);
 	box->setPosition(-2, 0, 0);
 
+	Light* poinglight = PointLight::create();
+	this->addChild(poinglight);
+	poinglight->setPosition(-1.f, 0.f, 0.f);
+
 	auto cube = Cube::createColorMaterial();
 	cube->setTag(2);
 	this->addChild(cube);
 	cube->setPosition(0, 0, 0);
+
+	Light* poinglight1 = PointLight::create();
+	this->addChild(poinglight1);
+	poinglight1->setPosition(1.f, 0.f, 0.f);
 
 	auto cube2 = Cube::createSampleMaterial();
 	cube2->setTag(3);
@@ -104,15 +114,7 @@ void TestScene::onLoad()
 
 	setColor(Color(1.f, 1.0f, 1.0f, 0.5f));
 
-	Light* light = this->getMainLight();
-
-	light->setAmbientColor(RGB(0.2f, 0.2f, 0.2f));
-	light->setDiffuseColor(RGB(0.5f, 0.5f, 0.5f));
-	light->setSpecularColor(RGB(1.0f, 1.0f, 1.0f));
-	light->setSpecularStrength(1.0f);
-	light->setAmbientStrength(1.0f);
-	light->setDiffuseStrength(1.0f);
-	light->setPosition(3, 10, 3);
+	this->getMainLight()->setPosition(3, 10, 3);
 }
 
 void TestScene::update(float dt)

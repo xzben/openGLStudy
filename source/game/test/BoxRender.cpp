@@ -9,14 +9,15 @@ BoxRender::BoxRender()
 	, m_mesh(nullptr)
 {
 	this->m_mesh = new CubeMesh();
-	this->m_shader = ResourceManager::getInstance()->loadShader("shader/cube");
+	this->m_mesh->addRef();
+	this->m_shader = ResourceManager::getInstance()->getBuiltinShader(BuiltInShader::STANDARD_SHADER);
 }
 
 BoxRender::~BoxRender()
 {
 	SAFE_DEL_REF(this->m_shader);
 	SAFE_DEL_REF(this->m_texture);
-	SAFE_DEL_REF(this->m_mesh);
+	DELETE_OBJ(this->m_mesh);
 }
 
 void BoxRender::onLoad()

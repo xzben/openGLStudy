@@ -2,6 +2,7 @@
 #define __2022_03_31_CUBE_MESH_H__
 
 #include "render/base/Mesh.h"
+#include "common.h"
 
 BEGIN_NAMESPACE
 
