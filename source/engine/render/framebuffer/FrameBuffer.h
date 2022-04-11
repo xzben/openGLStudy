@@ -3,7 +3,7 @@
 #include "common.h"
 #include "base/Object.h"
 #include "base/NonCopyable.h"
-
+#include "RenderBuffer.h"
 BEGIN_NAMESPACE
 
 class Texture;
@@ -12,15 +12,25 @@ class FrameBuffer : public Object, public NonCopyable
 {
 protected:
 	GL_HANDLE m_fbo;
+	std::vector<Texture*> m_colorAttachs;
+	Texture* m_depathAttach;
+	Texture* m_stencilAttach;
 public:
 	FrameBuffer();
 	virtual ~FrameBuffer();
 
 	virtual void active();
+	virtual void deactive();
 
-	void addColorAttachment(Texture* tex);
-	void addDepthAttachment(Texture* tex);
+	Texture* addColorAttachment();
+	Texture* addDepthAttachment();
+	Texture* addStencilAttachment();
+	Texture* addDepthStencilAttatchment();
 
+	void   addDepthAttachment(RenderBuffer* rb);
+
+protected:
+	bool checkComplete();
 };
 
 END_NAMESPACE

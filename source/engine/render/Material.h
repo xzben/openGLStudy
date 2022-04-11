@@ -98,6 +98,7 @@ public:
 	void setEnableDepthWrite(bool enable); //是否启用深度写入
 	void setDepthFunc(DepthFunc func); //设置深度函数
 
+	void setMainTexture(Texture* tex);
 	void setSubTexture(const std::string& name, Texture* tex);
 		
 	void setUniform(const std::string& name, const float value);

@@ -34,9 +34,10 @@ public:
 	}
 	bool init(const std::string filename);
 	bool initAttachment(float width, float height);
+	bool initDepthStencilAttachment(float width, float height);
 
-	void use(int index = 0);
-	void unuse();
+	virtual void use(int index = 0);
+	virtual void unuse();
 
 	int getWidth() { return this->m_width; }
 	int getHeight() { return this->m_height; }

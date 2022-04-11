@@ -78,6 +78,13 @@ void Material::init(Shader* shader, Texture* mainTexture)
 		this->m_shader->addRef();
 }
 
+void Material::setMainTexture(Texture* mainTexture)
+{
+	this->m_mainTexture = mainTexture;
+	if (m_mainTexture)
+		this->m_mainTexture->addRef();
+
+}
 void Material::setSubTexture(const std::string& name, Texture* tex)
 {
 	SubTexture* subTex = nullptr;

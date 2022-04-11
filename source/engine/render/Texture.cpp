@@ -47,7 +47,22 @@ bool Texture::initAttachment(float width, float height)
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	return true;
+}
 
+bool Texture::initDepthStencilAttachment(float width, float height)
+{
+	this->m_width = width;
+	this->m_height = height;
+	glBindTexture(GL_TEXTURE_2D, m_texture);
+
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH24_STENCIL8, width, height, 0, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, NULL);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glBindTexture(GL_TEXTURE_2D, 0);
 	return true;
 }
 
@@ -184,7 +199,7 @@ bool Texture::init(const std::string filename)
 
 	glGenerateMipmap(GL_TEXTURE_2D);
 	stbi_image_free(img_data);
-
+	glBindTexture(GL_TEXTURE_2D, 0);
 	return true;
 }
 
@@ -200,7 +215,6 @@ void Texture::use(int index)
 
 void Texture::unuse()
 {
-	glActiveTexture(GL_TEXTURE0 + m_useIndex);
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 

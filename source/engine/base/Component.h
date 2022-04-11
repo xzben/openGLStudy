@@ -8,7 +8,7 @@ BEGIN_NAMESPACE
 
 class Node;
 
-class Component : Object
+class Component : public Object
 {
 public:
 	enum class Status {
@@ -20,6 +20,7 @@ public:
 	};
 protected:
 	friend class Node;
+	friend class Scene;
 
 	std::string m_name;
 	Node* m_node;

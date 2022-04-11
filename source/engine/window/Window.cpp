@@ -165,8 +165,6 @@ void Window::mainLoop()
 
 			glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
-			glEnable(GL_MULTISAMPLE);
-
 			//∆Ù”√…Ó∂»≤‚ ‘
 			glEnable(GL_DEPTH_TEST);
 			

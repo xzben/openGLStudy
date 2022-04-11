@@ -60,8 +60,8 @@ bool Camera::initDefault(bool camera3d)
 	if (camera3d)
 	{
 		initPerspective(60.0f, size.width / size.height, 0.1f, 100.0f);
-		this->setRotation(-60.0f, 0.0f, 0.0f);
-		this->setPosition(0.0f, 6.0f, 3.0f);
+		this->setRotation(0.f, 0.0f, 0.0f);
+		this->setPosition(0.0f, 0.f, 5.f);
 	}
 	else
 	{

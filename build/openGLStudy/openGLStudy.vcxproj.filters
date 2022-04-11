@@ -61,6 +61,9 @@
     <Filter Include="source\engine\render\materials">
       <UniqueIdentifier>{d9c2bee2-3063-425e-b3d0-4c580b4ecdd4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\engine\render\framebuffer">
+      <UniqueIdentifier>{af8375aa-ed8c-488c-a439-ca434c97caef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\3rdlib\glad\src\glad.c">
@@ -182,6 +185,18 @@
     </ClCompile>
     <ClCompile Include="..\..\source\engine\define\glenum_define.cpp">
       <Filter>source\engine\define</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\engine\render\framebuffer\FrameBuffer.cpp">
+      <Filter>source\engine\render\framebuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\engine\render\framebuffer\RenderBuffer.cpp">
+      <Filter>source\engine\render\framebuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\engine\render\TextureCube.cpp">
+      <Filter>source\engine\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\engine\render\SkyBox.cpp">
+      <Filter>source\engine\render</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -346,6 +361,18 @@
     </ClInclude>
     <ClInclude Include="..\..\source\engine\define\glenum_define.h">
       <Filter>source\engine\define</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\engine\render\framebuffer\FrameBuffer.h">
+      <Filter>source\engine\render\framebuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\engine\render\framebuffer\RenderBuffer.h">
+      <Filter>source\engine\render\framebuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\engine\render\TextureCube.h">
+      <Filter>source\engine\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\engine\render\SkyBox.h">
+      <Filter>source\engine\render</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

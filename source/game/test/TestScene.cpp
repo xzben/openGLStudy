@@ -13,6 +13,7 @@
 #include "light/PointLight.h"
 #include "light/SpotLight.h"
 #include "Cube.h"
+#include "render/SkyBox.h"
 
 USING_NAMESPACE;
 
@@ -44,8 +45,7 @@ void TestScene::initEventListener()
 			rot.y += delta.x / step;
 			cam->setRotation(rot.x, rot.y, rot.z);
 		}
-
-		CCLOG(" touch %f %f %f\r\n", rot.x, rot.y, rot.z);
+		CCLOG(" touch x:%f y:%f z:%f\r\n", rot.x, rot.y, rot.z);
 		});
 
 	float mvStep = 0.1f;
@@ -85,6 +85,16 @@ void TestScene::onLoad()
 {
 	//this->addComponent(new ImageComponent("container.jpg"));
 
+	SkyBox* skybox = new SkyBox();
+	std::string faces[6];
+	faces[0] = "texture/skybox/right.jpg";
+	faces[1] = "texture/skybox/left.jpg";
+	faces[2] = "texture/skybox/top.jpg";
+	faces[3] = "texture/skybox/bottom.jpg";
+	faces[4] = "texture/skybox/front.jpg";
+	faces[5] = "texture/skybox/back.jpg";
+	skybox->init(faces);
+	setSkybox(skybox);
 
 	auto box = Node::create();
 	box->setTag(1);
