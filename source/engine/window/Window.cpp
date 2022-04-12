@@ -65,6 +65,9 @@ bool Window::init()
 	//指定使用core 内核模式
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
+	//设置屏幕每个坐标使用4个子样本的颜色缓冲。
+	glfwWindowHint(GLFW_SAMPLES, 4);
+
 #if CUR_PLAT == PLAT_MAC 
 	//Mac OS X 系统需要开启注释，开启向前兼容
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
@@ -167,6 +170,9 @@ void Window::mainLoop()
 
 			//启用深度测试
 			glEnable(GL_DEPTH_TEST);
+
+			//启用多重采样
+			glEnable(GL_MULTISAMPLE);
 			
 			// 设置清理缓冲区的 颜色buf 和 深度buf
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);

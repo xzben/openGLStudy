@@ -21,7 +21,7 @@ protected:
 	int m_channels;
 	IMAGE_TYPE m_imageType;
 	TEXTURE_WRAP m_wrap = TEXTURE_WRAP::REPEAT;
-	TEXTURE_FILTER m_minFilter = TEXTURE_FILTER::NEAREST_MIPMAP_NEAREST;
+	TEXTURE_FILTER m_minFilter = TEXTURE_FILTER::LINEAR_MIPMAP_LINEAR;
 	TEXTURE_FILTER m_magFilter = TEXTURE_FILTER::LINEAR;
 	int  m_useIndex;
 public:
