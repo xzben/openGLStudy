@@ -133,16 +133,6 @@ bool Texture::init(const std::string filename)
 	// 缩小时 比放大多了多级渐远设置
 	switch (this->m_minFilter)
 	{
-	case TEXTURE_FILTER::LINEAR:
-		{
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-			break;
-		}
-	case TEXTURE_FILTER::NEAREST:
-	{
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		break;
-	}
 	case TEXTURE_FILTER::LINEAR_MIPMAP_LINEAR:
 	{
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
