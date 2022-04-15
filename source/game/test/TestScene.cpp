@@ -14,6 +14,7 @@
 #include "light/SpotLight.h"
 #include "Cube.h"
 #include "render/SkyBox.h"
+#include "Plane.h"
 
 USING_NAMESPACE;
 
@@ -120,6 +121,10 @@ void TestScene::onLoad()
 	cube2->setTag(3);
 	this->addChild(cube2);
 	cube2->setPosition(2, 0, 0);
+
+	auto plane = Plane::createColorMaterial();
+	this->addChild(plane);
+	plane->setPosition(0, -1, 0);
 
 	Light* spotLight = SpotLight::create();
 	spotLight->setPosition(0.f, 0.f, 2.f);

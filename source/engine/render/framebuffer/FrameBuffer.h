@@ -15,8 +15,9 @@ protected:
 	std::vector<Texture*> m_colorAttachs;
 	Texture* m_depathAttach;
 	Texture* m_stencilAttach;
+	bool m_mutilesampe;  //是否开启多重采样
 public:
-	FrameBuffer();
+	FrameBuffer(bool mutilesample);
 	virtual ~FrameBuffer();
 
 	virtual void active();

@@ -4,7 +4,8 @@
 
 BEGIN_NAMESPACE
 
-FrameBuffer::FrameBuffer()
+FrameBuffer::FrameBuffer(bool mutilesample)
+	: m_mutilesampe(mutilesample)
 {
 	glGenFramebuffers(1, &m_fbo);
 }
@@ -72,6 +73,11 @@ Texture* FrameBuffer::addDepthStencilAttatchment()
 	this->m_depathAttach = tex;
 
 	return tex;
+}
+
+void FrameBuffer::addDepthAttachment(RenderBuffer* rb)
+{
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, (uint)rb->m_type, GL_RENDERBUFFER, rb->m_rbo);
 }
 
 bool FrameBuffer::checkComplete()

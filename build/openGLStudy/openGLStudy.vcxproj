@@ -177,6 +177,8 @@
     <ClCompile Include="..\..\source\game\test\BoxRender.cpp" />
     <ClCompile Include="..\..\source\game\test\Cube.cpp" />
     <ClCompile Include="..\..\source\game\test\CubeMesh.cpp" />
+    <ClCompile Include="..\..\source\game\test\Plane.cpp" />
+    <ClCompile Include="..\..\source\game\test\PlaneMesh.cpp" />
     <ClCompile Include="..\..\source\game\test\TestRect.cpp" />
     <ClCompile Include="..\..\source\game\test\TestScene.cpp" />
     <ClCompile Include="..\..\source\game\test\TestTriangle.cpp" />
@@ -238,6 +240,8 @@
     <ClInclude Include="..\..\source\game\test\BoxRender.h" />
     <ClInclude Include="..\..\source\game\test\Cube.h" />
     <ClInclude Include="..\..\source\game\test\CubeMesh.h" />
+    <ClInclude Include="..\..\source\game\test\Plane.h" />
+    <ClInclude Include="..\..\source\game\test\PlaneMesh.h" />
     <ClInclude Include="..\..\source\game\test\TestRect.h" />
     <ClInclude Include="..\..\source\game\test\TestScene.h" />
     <ClInclude Include="..\..\source\game\test\TestTriangle.h" />

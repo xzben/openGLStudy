@@ -173,16 +173,21 @@ bool Texture::init(const std::string filename)
 	}
 	}
 
-	switch (this->m_imageType)
+	switch (this->m_channels)
 	{
-	case IMAGE_TYPE::PNG:
+	case 1:
 	{
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, this->m_width, this->m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, img_data);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, this->m_width, this->m_height, 0, GL_RED, GL_UNSIGNED_BYTE, img_data);
 		break;
 	}
-	case IMAGE_TYPE::JPEG:
+	case 3:
 	{
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, this->m_width, this->m_height, 0, GL_RGB, GL_UNSIGNED_BYTE, img_data);
+		break;
+	}
+	case 4:
+	{
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, this->m_width, this->m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, img_data);
 		break;
 	}
 	}

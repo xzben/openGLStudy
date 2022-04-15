@@ -198,6 +198,12 @@
     <ClCompile Include="..\..\source\engine\render\SkyBox.cpp">
       <Filter>source\engine\render</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\source\game\test\PlaneMesh.cpp">
+      <Filter>source\game\test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\game\test\Plane.cpp">
+      <Filter>source\game\test</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\source\engine\base\Application.h">
@@ -373,6 +379,12 @@
     </ClInclude>
     <ClInclude Include="..\..\source\engine\render\SkyBox.h">
       <Filter>source\engine\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\game\test\PlaneMesh.h">
+      <Filter>source\game\test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\game\test\Plane.h">
+      <Filter>source\game\test</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
