@@ -111,7 +111,7 @@ void Window::handleWindowSizeChange(float width, float height) {
 
 void Window::handleKeyboardPress(int key, int scancode, int action, int mods)
 {
-	Application::getInstance()->dispatchKeyboard(key, action == GLFW_PRESS);
+	Application::getInstance()->dispatchKeyboard(key, action == GLFW_PRESS || action == GLFW_REPEAT);
 }
 
 void Window::handleMouse(int button, int action, int mods)

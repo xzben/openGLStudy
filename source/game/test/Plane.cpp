@@ -69,7 +69,7 @@ void PlaneRender::initColor()
 	m_material->setUniform("material.ambient", RGB(1.0f, 1.0f, 1.0f));
 	m_material->setUniform("material.diffuse", RGB(1.0f, 1.0f, 1.0f));
 	m_material->setUniform("material.specular", RGB(1.0f, 1.0f, 1.0f));
-	m_material->setUniform("material.shininess", 32.f);
+	m_material->setUniform("material.shininess", 1);
 }
 void PlaneRender::initSample()
 {
