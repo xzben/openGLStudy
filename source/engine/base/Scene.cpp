@@ -5,6 +5,8 @@ BEGIN_NAMESPACE
 
 Scene::Scene() 
 	: m_skybox(nullptr)
+	, m_mainLight(nullptr)
+	, m_mainCamera(nullptr)
 {
 
 }

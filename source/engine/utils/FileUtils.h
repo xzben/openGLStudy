@@ -39,11 +39,15 @@ public:
 
 class FileUtils {
 public:
+	std::vector<std::string> m_searchpaths;
+
 	static FileUtils* getInstance() {
 		static FileUtils s_instance;
 
 		return &s_instance;
 	}
+
+	void addSearchPath(std::string path);
 
 	bool getData(const std::string &filename, Data* data);
 	std::string getString(const std::string &filename);

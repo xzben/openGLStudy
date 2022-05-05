@@ -1,0 +1,5 @@
+#include "RenderPass.h"
+
+BEGIN_NAMESPACE
+
+END_NAMESPACE
