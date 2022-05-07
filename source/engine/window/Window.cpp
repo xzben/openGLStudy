@@ -30,33 +30,40 @@ Window::~Window() {
 
 void Window::resize_callback(GLFWwindow* win, int width, int height)
 {
-	Window::getInstance()->handleWindowSizeChange((float)width, (float)height);
+	Window* app = (Window*)glfwGetWindowUserPointer(win);
+	app->handleWindowSizeChange((float)width, (float)height);
 }
 
 void Window::keypress_callback(GLFWwindow* win, int key, int scancode, int action, int mods)
 {
-	Window::getInstance()->handleKeyboardPress(key, scancode, action, mods);
+	Window* app = (Window*)glfwGetWindowUserPointer(win);
+	app->handleKeyboardPress(key, scancode, action, mods);
 }
 
 void Window::mouse_callback(GLFWwindow* win, int button, int action, int mods)
 {
-	Window::getInstance()->handleMouse(button, action, mods);
+	Window* app = (Window*)glfwGetWindowUserPointer(win);
+	app->handleMouse(button, action, mods);
 }
 
 void Window::cursorpos_callback(GLFWwindow* win, double x, double y)
 {
-	Window::getInstance()->handleCursorpos(x, y);
+	Window* app = (Window*)glfwGetWindowUserPointer(win);
+	app->handleCursorpos(x, y);
 }
 
 void Window::cursorenter_callback(GLFWwindow* win, int entered)
 {
-	Window::getInstance()->handleCursorenter(entered == GLFW_TRUE);
+	Window* app = (Window*)glfwGetWindowUserPointer(win);
+	app->handleCursorenter(entered == GLFW_TRUE);
 }
 
 bool Window::init()
 {
 	//初始化 glfw
-	glfwInit();
+	if (!glfwInit()) {
+		return false;
+	}
 
 	//指定opengl 版本 3.3
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -90,6 +97,7 @@ bool Window::init()
 	this->handleWindowSizeChange(this->m_winSize.width, this->m_winSize.height);
 
 	//设置窗口大小变化回调，主要重置窗口大小用
+	glfwSetWindowUserPointer((GLFWwindow*)m_window, this);
 	glfwSetFramebufferSizeCallback((GLFWwindow*)m_window, Window::resize_callback);
 	glfwSetKeyCallback((GLFWwindow*)m_window, Window::keypress_callback);
 	glfwSetMouseButtonCallback((GLFWwindow*)m_window, Window::mouse_callback);
@@ -147,11 +155,15 @@ void Window::handleCursorenter(bool enter)
 	//CCLOG("handleCursorenter enter:%d\r\n", enter ? 1 : 0);
 }
 
+
 void Window::mainLoop()
 {
 	float lasttime = (float)glfwGetTime();
 	while (!glfwWindowShouldClose((GLFWwindow*)m_window))
 	{
+		//触发事件收集
+		glfwPollEvents();
+
 		//获取当前时间
 		float curtime = (float)glfwGetTime();
 		float offset = curtime - lasttime;
@@ -182,9 +194,6 @@ void Window::mainLoop()
 
 			//交换缓冲去屏幕渲染
 			glfwSwapBuffers((GLFWwindow*)m_window);
-
-			//触发事件收集
-			glfwPollEvents();
 		}
 		else
 		{

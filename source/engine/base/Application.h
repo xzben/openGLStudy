@@ -7,6 +7,7 @@
 BEGIN_NAMESPACE
 
 class EventDispatcher;
+class Window;
 
 class Application
 {
@@ -25,12 +26,14 @@ protected:
 	Size m_resolutionSize;
 	Size m_frameSize;
 	Size m_drawSize;
+	Window* m_GLWin { nullptr};
 
 	EventDispatcher* m_dispatcher;
 	friend class Window;
 	void setFrameSize(const float& width, const float& height);
 	void setFrameSize(const Size& frameSize);
 	void updateDrawSize();
+	
 protected:
 	fVec3 m_timer;
 
@@ -40,7 +43,8 @@ public:
 	Application();
 	virtual ~Application();
 	static Application* getInstance();
-
+	void setGLWin(Window* win) { m_GLWin = win; }
+	void run();
 	void setDesignResolution(float width, float height, ResolutionFit fit = ResolutionFit::AUTO_FIT);
 	const Size& getFrameSize();
 	const Size& getResolutionSize();
@@ -54,6 +58,7 @@ public:
 	//Æ«ÒÆÊ±²î
 	bool shiftTime(float offsettime);
 	bool update();
+	void clear();
 	void render();
 	virtual void onAppLauchFinish() = 0;
 	virtual void onAppPause() = 0;

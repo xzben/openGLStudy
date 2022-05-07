@@ -4,9 +4,9 @@
 
 
 int main() {
+
 	AppDeleget app;
 	Window window("OpenGLStudy", 1280, 720);
-	app.onAppLauchFinish();
-	window.mainLoop();
-	app.onAppExit();
+	app.setGLWin(&window);
+	app.run();
 }

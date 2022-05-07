@@ -1,7 +1,8 @@
 #工程名
 project(OpenGLStudy)
 
-add_subdirectory(3rd/glfw/)
+add_subdirectory(3rd)
+
 #设置 c++ 版本未 c++17
 set(CMAKE_CXX_STANDARD 17)
 #设置编译的运行程序输出路径
@@ -47,6 +48,7 @@ ADD_EXECUTABLE(${PROJECT_NAME}
 ${HEADER_FILES}
 ${SOURCE_FILES}
 3rdlib/glad/src/glad.c
+Resources/icon/icon.rc
 )
 
 #设置项目未默认启动工程

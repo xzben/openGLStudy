@@ -25,6 +25,7 @@ public:
 	void update(float dt);
 	void changeScene(Scene* scene);
 	void render();
+	void clear();
 };
 
 END_NAMESPACE

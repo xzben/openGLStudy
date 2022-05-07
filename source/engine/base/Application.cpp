@@ -2,6 +2,7 @@
 #include "base/SceneManager.h"
 #include "event/EventDispatcher.h"
 #include <GLFW/glfw3.h>
+#include "window/Window.h"
 #include <iostream>
 
 BEGIN_NAMESPACE
@@ -157,6 +158,20 @@ void Application::dispatchMouse(int key, bool press)
 	EventMouse evt(key, press);
 
 	this->m_dispatcher->dispatchMouse(&evt);
+}
+
+void Application::run()
+{
+	CC_ASSERT(m_GLWin != nullptr);
+	this->onAppLauchFinish();
+	m_GLWin->mainLoop();
+	this->onAppExit();
+	this->clear();
+}
+
+void Application::clear()
+{
+	SceneManager::getInstance()->clear();
 }
 
 END_NAMESPACE

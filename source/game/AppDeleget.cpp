@@ -26,6 +26,5 @@ void AppDeleget::onAppResume()
 
 void AppDeleget::onAppExit()
 {
-	Scene* scene = SceneManager::getInstance()->getCurScene();
-	delete scene;
+
 }
