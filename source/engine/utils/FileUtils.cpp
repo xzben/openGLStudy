@@ -3,9 +3,9 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <filesystem>
 
 BEGIN_NAMESPACE
-
 #define BUFFER_SIZE_BLOCK  1024
 
 Data::Data() 
@@ -57,6 +57,11 @@ void Data::setData(const byte* data, const int size) {
 	memcpy((void*)(this->m_content), data, size);
 }
 
+void FileUtils::addSearchPath(std::string path)
+{
+	this->m_searchpaths.push_back(path);
+}
+
 std::string FileUtils::getString(const std::string &filename)
 {
 	Data data;
@@ -97,7 +102,25 @@ bool FileUtils::getData(const std::string &filename, Data* data) {
 
 std::string FileUtils::getfullpath(const std::string& filename)
 {
-	return "../../Resources/"+filename;
+	std::filesystem::path filepath(filename);
+	if (filepath.is_absolute())
+	{
+		return filename;
+	}
+	else
+	{
+		for (auto it = m_searchpaths.begin(); it != m_searchpaths.end(); it++)
+		{
+			std::string fullpath = *it + "/" + filename;
+			std::filesystem::path temppath(fullpath);
+			if (std::filesystem::exists(temppath))
+			{
+				return fullpath;
+			}
+		}
+	}
+
+	return "";
 }
 
 END_NAMESPACE

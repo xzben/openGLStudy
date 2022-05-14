@@ -5,7 +5,7 @@
 
 USING_NAMESPACE;
 
-class AppDeleget : Application
+class AppDeleget : public Application
 {
 public:
 	virtual void onAppLauchFinish()override;

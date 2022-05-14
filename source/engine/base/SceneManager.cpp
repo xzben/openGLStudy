@@ -71,4 +71,13 @@ void SceneManager::render()
 	RenderContainor::render(&renderData);
 }
 
+void SceneManager::clear()
+{
+	if (m_scene)
+	{
+		delete m_scene;
+		m_scene = nullptr;
+	}
+}
+
 END_NAMESPACE

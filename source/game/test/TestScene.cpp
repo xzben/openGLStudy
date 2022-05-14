@@ -10,7 +10,11 @@
 #include "base/Application.h"
 #include "event/EventDispatcher.h"
 #include "math/Vec2.h"
+#include "light/PointLight.h"
+#include "light/SpotLight.h"
 #include "Cube.h"
+#include "render/SkyBox.h"
+#include "Plane.h"
 
 USING_NAMESPACE;
 
@@ -42,8 +46,7 @@ void TestScene::initEventListener()
 			rot.y += delta.x / step;
 			cam->setRotation(rot.x, rot.y, rot.z);
 		}
-
-		CCLOG(" touch %f %f %f\r\n", rot.x, rot.y, rot.z);
+		CCLOG(" touch x:%f y:%f z:%f\r\n", rot.x, rot.y, rot.z);
 		});
 
 	float mvStep = 0.1f;
@@ -83,6 +86,17 @@ void TestScene::onLoad()
 {
 	//this->addComponent(new ImageComponent("container.jpg"));
 
+	SkyBox* skybox = new SkyBox();
+	std::string faces[6];
+	faces[0] = "texture/skybox/right.jpg";
+	faces[1] = "texture/skybox/left.jpg";
+	faces[2] = "texture/skybox/top.jpg";
+	faces[3] = "texture/skybox/bottom.jpg";
+	faces[4] = "texture/skybox/front.jpg";
+	faces[5] = "texture/skybox/back.jpg";
+	skybox->init(faces);
+	setSkybox(skybox);
+
 	auto box = Node::create();
 	box->setTag(1);
 
@@ -90,29 +104,37 @@ void TestScene::onLoad()
 	this->addChild(box);
 	box->setPosition(-2, 0, 0);
 
+	Light* poinglight = PointLight::create();
+	this->addChild(poinglight);
+	poinglight->setPosition(-1.f, 0.f, 0.f);
+
 	auto cube = Cube::createColorMaterial();
 	cube->setTag(2);
 	this->addChild(cube);
 	cube->setPosition(0, 0, 0);
+
+	Light* poinglight1 = PointLight::create();
+	this->addChild(poinglight1);
+	poinglight1->setPosition(1.f, 0.f, 0.f);
 
 	auto cube2 = Cube::createSampleMaterial();
 	cube2->setTag(3);
 	this->addChild(cube2);
 	cube2->setPosition(2, 0, 0);
 
+	auto plane = Plane::createColorMaterial();
+	this->addChild(plane);
+	plane->setPosition(0, -1, 0);
+
+	Light* spotLight = SpotLight::create();
+	spotLight->setPosition(0.f, 0.f, 2.f);
+	this->addChild(spotLight);
+
 	this->initEventListener();
 
 	setColor(Color(1.f, 1.0f, 1.0f, 0.5f));
 
-	Light* light = this->getMainLight();
-
-	light->setAmbientColor(RGB(0.2f, 0.2f, 0.2f));
-	light->setDiffuseColor(RGB(0.5f, 0.5f, 0.5f));
-	light->setSpecularColor(RGB(1.0f, 1.0f, 1.0f));
-	light->setSpecularStrength(1.0f);
-	light->setAmbientStrength(1.0f);
-	light->setDiffuseStrength(1.0f);
-	light->setPosition(3, 10, 3);
+	this->getMainLight()->setPosition(3, 10, 3);
 }
 
 void TestScene::update(float dt)

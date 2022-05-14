@@ -4,3 +4,5 @@ build/Debug/
 build/.vs/
 build/openGLStudy/x64/
 *.pdb
+build/
+runtime/

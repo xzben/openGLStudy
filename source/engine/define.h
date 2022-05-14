@@ -24,6 +24,7 @@ enum class GroupMask : unsigned int{
 #define DELETE_ARRAY_OBJ( pointer ) do{ if(pointer != nullptr) delete[] pointer; pointer = nullptr; }while(false)
 
 #define SAFE_DEL_REF( pointer ) do{ if(pointer != nullptr) pointer->delRef(); pointer = nullptr; } while(false)
+#define SAFE_ADD_REF( pointer  ) do{ if(pointer != nullptr) pointer->addRef(); } while(false)
 
 #define MATH_FLOAT_SMALL            1.0e-37f
 #define MATH_TOLERANCE              2e-37f

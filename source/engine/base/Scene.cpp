@@ -1,8 +1,12 @@
 #include "base/Scene.h"
-
+#include "light/DirectionLight.h"
+#include "render/SkyBox.h"
 BEGIN_NAMESPACE
 
 Scene::Scene() 
+	: m_skybox(nullptr)
+	, m_mainLight(nullptr)
+	, m_mainCamera(nullptr)
 {
 
 }
@@ -42,11 +46,26 @@ Light* Scene::getMainLight()
 
 Light* Scene::createMainLight()
 {
-	auto light = Light::create();
+	auto light = DirectionLight::create();
 
 	this->addChild(light);
 
 	return light;
 }
 
+void Scene::setSkybox(SkyBox* skybox) 
+{ 
+	m_skybox = skybox; 
+	skybox->setOwner(this);
+	SAFE_ADD_REF(m_skybox);
+}
+
+void Scene::render(RenderData* render)
+{
+	RenderContainor::render(render);
+	if (this->m_skybox)
+	{
+		this->m_skybox->render(render);
+	}
+}
 END_NAMESPACE

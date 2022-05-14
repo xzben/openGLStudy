@@ -1,0 +1,5 @@
+#include "Pipeline.h"
+
+BEGIN_NAMESPACE
+
+END_NAMESPACE

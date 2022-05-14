@@ -30,33 +30,40 @@ Window::~Window() {
 
 void Window::resize_callback(GLFWwindow* win, int width, int height)
 {
-	Window::getInstance()->handleWindowSizeChange((float)width, (float)height);
+	Window* app = (Window*)glfwGetWindowUserPointer(win);
+	app->handleWindowSizeChange((float)width, (float)height);
 }
 
 void Window::keypress_callback(GLFWwindow* win, int key, int scancode, int action, int mods)
 {
-	Window::getInstance()->handleKeyboardPress(key, scancode, action, mods);
+	Window* app = (Window*)glfwGetWindowUserPointer(win);
+	app->handleKeyboardPress(key, scancode, action, mods);
 }
 
 void Window::mouse_callback(GLFWwindow* win, int button, int action, int mods)
 {
-	Window::getInstance()->handleMouse(button, action, mods);
+	Window* app = (Window*)glfwGetWindowUserPointer(win);
+	app->handleMouse(button, action, mods);
 }
 
 void Window::cursorpos_callback(GLFWwindow* win, double x, double y)
 {
-	Window::getInstance()->handleCursorpos(x, y);
+	Window* app = (Window*)glfwGetWindowUserPointer(win);
+	app->handleCursorpos(x, y);
 }
 
 void Window::cursorenter_callback(GLFWwindow* win, int entered)
 {
-	Window::getInstance()->handleCursorenter(entered == GLFW_TRUE);
+	Window* app = (Window*)glfwGetWindowUserPointer(win);
+	app->handleCursorenter(entered == GLFW_TRUE);
 }
 
 bool Window::init()
 {
 	//初始化 glfw
-	glfwInit();
+	if (!glfwInit()) {
+		return false;
+	}
 
 	//指定opengl 版本 3.3
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -64,6 +71,9 @@ bool Window::init()
 
 	//指定使用core 内核模式
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+	//设置屏幕每个坐标使用4个子样本的颜色缓冲。
+	glfwWindowHint(GLFW_SAMPLES, 4);
 
 #if CUR_PLAT == PLAT_MAC 
 	//Mac OS X 系统需要开启注释，开启向前兼容
@@ -87,6 +97,7 @@ bool Window::init()
 	this->handleWindowSizeChange(this->m_winSize.width, this->m_winSize.height);
 
 	//设置窗口大小变化回调，主要重置窗口大小用
+	glfwSetWindowUserPointer((GLFWwindow*)m_window, this);
 	glfwSetFramebufferSizeCallback((GLFWwindow*)m_window, Window::resize_callback);
 	glfwSetKeyCallback((GLFWwindow*)m_window, Window::keypress_callback);
 	glfwSetMouseButtonCallback((GLFWwindow*)m_window, Window::mouse_callback);
@@ -108,7 +119,7 @@ void Window::handleWindowSizeChange(float width, float height) {
 
 void Window::handleKeyboardPress(int key, int scancode, int action, int mods)
 {
-	Application::getInstance()->dispatchKeyboard(key, action == GLFW_PRESS);
+	Application::getInstance()->dispatchKeyboard(key, action == GLFW_PRESS || action == GLFW_REPEAT);
 }
 
 void Window::handleMouse(int button, int action, int mods)
@@ -144,11 +155,15 @@ void Window::handleCursorenter(bool enter)
 	//CCLOG("handleCursorenter enter:%d\r\n", enter ? 1 : 0);
 }
 
+
 void Window::mainLoop()
 {
 	float lasttime = (float)glfwGetTime();
 	while (!glfwWindowShouldClose((GLFWwindow*)m_window))
 	{
+		//触发事件收集
+		glfwPollEvents();
+
 		//获取当前时间
 		float curtime = (float)glfwGetTime();
 		float offset = curtime - lasttime;
@@ -160,19 +175,25 @@ void Window::mainLoop()
 		//并且 交换缓冲区显示
 		if (Application::getInstance()->shiftTime(offset))
 		{
+			//触发系统 update 
 			Application::getInstance()->update();
 
-		
 			glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+
+			//启用深度测试
 			glEnable(GL_DEPTH_TEST);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+			//启用多重采样
+			glEnable(GL_MULTISAMPLE);
+			
+			// 设置清理缓冲区的 颜色buf 和 深度buf
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 		
+			//开始程序的 图形渲染
 			Application::getInstance()->render();
 
 			//交换缓冲去屏幕渲染
 			glfwSwapBuffers((GLFWwindow*)m_window);
-			//触发事件收集
-			glfwPollEvents();
 		}
 		else
 		{

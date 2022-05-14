@@ -13,6 +13,7 @@ class Mesh;
 enum class BuiltInShader {
 	IMAGE_SHADER,  //图片使用的shader
 	STANDARD_SHADER, //标准shader
+	SKY_BOX, // 天空盒shader
 
 	BUILTIN_SIZE,
 };

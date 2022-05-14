@@ -12,6 +12,8 @@ BEGIN_NAMESPACE
 class Texture : public Object, public NonCopyable
 {
 protected:
+	friend class FrameBuffer;
+
 	TEXTURE_HANDLE m_texture;
 	std::string m_filename;
 	int m_width;
@@ -19,7 +21,7 @@ protected:
 	int m_channels;
 	IMAGE_TYPE m_imageType;
 	TEXTURE_WRAP m_wrap = TEXTURE_WRAP::REPEAT;
-	TEXTURE_FILTER m_minFilter = TEXTURE_FILTER::LINEAR;
+	TEXTURE_FILTER m_minFilter = TEXTURE_FILTER::LINEAR_MIPMAP_LINEAR;
 	TEXTURE_FILTER m_magFilter = TEXTURE_FILTER::LINEAR;
 	int  m_useIndex;
 public:
@@ -31,8 +33,11 @@ public:
 		this->m_magFilter = magFilter;
 	}
 	bool init(const std::string filename);
-	void use(int index = 0);
-	void unuse();
+	bool initAttachment(float width, float height);
+	bool initDepthStencilAttachment(float width, float height);
+
+	virtual void use(int index = 0);
+	virtual void unuse();
 
 	int getWidth() { return this->m_width; }
 	int getHeight() { return this->m_height; }

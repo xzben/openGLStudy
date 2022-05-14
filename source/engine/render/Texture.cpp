@@ -36,6 +36,36 @@ static IMAGE_TYPE getImageType(byte* buf, const int& len) {
 	return IMAGE_TYPE::UNKNOW;
 }
 
+bool Texture::initAttachment(float width, float height)
+{
+	this->m_width = width;
+	this->m_height = height;
+	glBindTexture(GL_TEXTURE_2D, m_texture);
+
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	return true;
+}
+
+bool Texture::initDepthStencilAttachment(float width, float height)
+{
+	this->m_width = width;
+	this->m_height = height;
+	glBindTexture(GL_TEXTURE_2D, m_texture);
+
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH24_STENCIL8, width, height, 0, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, NULL);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	return true;
+}
+
 bool Texture::init(const std::string filename)
 {
 	Data data;
@@ -103,16 +133,6 @@ bool Texture::init(const std::string filename)
 	// 缩小时 比放大多了多级渐远设置
 	switch (this->m_minFilter)
 	{
-	case TEXTURE_FILTER::LINEAR:
-		{
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-			break;
-		}
-	case TEXTURE_FILTER::NEAREST:
-	{
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		break;
-	}
 	case TEXTURE_FILTER::LINEAR_MIPMAP_LINEAR:
 	{
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
@@ -153,23 +173,28 @@ bool Texture::init(const std::string filename)
 	}
 	}
 
-	switch (this->m_imageType)
+	switch (this->m_channels)
 	{
-	case IMAGE_TYPE::PNG:
+	case 1:
 	{
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, this->m_width, this->m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, img_data);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, this->m_width, this->m_height, 0, GL_RED, GL_UNSIGNED_BYTE, img_data);
 		break;
 	}
-	case IMAGE_TYPE::JPEG:
+	case 3:
 	{
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, this->m_width, this->m_height, 0, GL_RGB, GL_UNSIGNED_BYTE, img_data);
+		break;
+	}
+	case 4:
+	{
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, this->m_width, this->m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, img_data);
 		break;
 	}
 	}
 
 	glGenerateMipmap(GL_TEXTURE_2D);
 	stbi_image_free(img_data);
-
+	glBindTexture(GL_TEXTURE_2D, 0);
 	return true;
 }
 
@@ -185,7 +210,6 @@ void Texture::use(int index)
 
 void Texture::unuse()
 {
-	glActiveTexture(GL_TEXTURE0 + m_useIndex);
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 

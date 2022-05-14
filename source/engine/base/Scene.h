@@ -10,12 +10,14 @@
 
 BEGIN_NAMESPACE
 
+class SkyBox;
+
 class Scene : public Node, public RenderContainor
 {
 protected:
 	Camera* m_mainCamera;
 	Light* m_mainLight;
-
+	SkyBox* m_skybox;
 	Size m_size;
 	void setSize(const Size& size) {
 		this->m_size = size;
@@ -33,6 +35,8 @@ public:
 
 	Camera* getMainCamera();
 	Light* getMainLight();
+	virtual void render(RenderData* render) override;
+	void setSkybox(SkyBox* skybox);
 
 	virtual Camera* createMainCamera();
 	virtual Light* createMainLight();
