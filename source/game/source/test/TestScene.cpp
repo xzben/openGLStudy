@@ -5,7 +5,7 @@
 #include "base/Application.h"
 #include "math/MathUtil.h"
 #include "render/Color.h"
-#include "game/test/BoxRender.h"
+#include "test/BoxRender.h"
 #include "event/Event.h"
 #include "base/Application.h"
 #include "event/EventDispatcher.h"

@@ -1,0 +1,13 @@
+material stander
+{
+	techniques:
+	{
+		name: opaque;
+		frag: 
+	}
+
+	program unlit-fs
+	{
+		
+	}
+}

@@ -15,6 +15,9 @@ typedef unsigned char uint8;
 typedef unsigned char byte;
 typedef unsigned int  GL_HANDLE;
 
+#define DEFINE_XSTR(s) DEFINE_STR(s)
+#define DEFINE_STR(s) #s
+
 #define CC_DEGREES_TO_RADIANS(__ANGLE__) ((__ANGLE__) * 0.01745329252f) // PI / 180
 #define CC_RADIANS_TO_DEGREES(__ANGLE__) ((__ANGLE__) * 57.29577951f) // PI * 180
 
