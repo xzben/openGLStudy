@@ -4,17 +4,18 @@
 #include "render/RenderableComponent.h"
 #include "render/config.h"
 
-class OGS::Shader;
-class OGS::Mesh;
 
 USING_NAMESPACE;
+
+class Shader;
+class Mesh;
 
 class BoxRender : public RenderableComponent
 {
 protected:
 	Texture* m_texture;
-	Shader* m_shader;
-	Mesh* m_mesh;
+	OGS_OLD::Shader* m_shader;
+	OGS_OLD::Mesh* m_mesh;
 public:
 	CREATE_FUNC(BoxRender);
 	BoxRender();

@@ -33,7 +33,7 @@ void TestScene::initEventListener()
 	Node* cam = this->getMainCamera();
 
 	float step = 1;
-
+	
 	EventListener* touchListener = new EventListener(EventType::TOUCH, [=](Event* event) {
 		EventTouch* evt = (EventTouch*)event;
 		fVec3 rot = cam->getRotation();

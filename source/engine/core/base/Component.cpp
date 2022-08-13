@@ -1,0 +1,8 @@
+#include "Component.h"
+
+BEGIN_OGS_NAMESPACE
+
+IMPLEMENT_CLASS_BASE(Component)
+
+
+END_OGS_NAMESPACE

@@ -5,6 +5,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <thread>
+#include <functional>
 #include "base/Application.h"
 
 BEGIN_NAMESPACE
@@ -37,18 +38,24 @@ void Window::resize_callback(GLFWwindow* win, int width, int height)
 void Window::keypress_callback(GLFWwindow* win, int key, int scancode, int action, int mods)
 {
 	Window* app = (Window*)glfwGetWindowUserPointer(win);
+	if (app->isFilterEvent()) return;
+
 	app->handleKeyboardPress(key, scancode, action, mods);
 }
 
 void Window::mouse_callback(GLFWwindow* win, int button, int action, int mods)
 {
 	Window* app = (Window*)glfwGetWindowUserPointer(win);
+	if (app->isFilterEvent()) return;
+
 	app->handleMouse(button, action, mods);
 }
 
 void Window::cursorpos_callback(GLFWwindow* win, double x, double y)
 {
 	Window* app = (Window*)glfwGetWindowUserPointer(win);
+	if (app->isFilterEvent()) return;
+
 	app->handleCursorpos(x, y);
 }
 
@@ -56,6 +63,19 @@ void Window::cursorenter_callback(GLFWwindow* win, int entered)
 {
 	Window* app = (Window*)glfwGetWindowUserPointer(win);
 	app->handleCursorenter(entered == GLFW_TRUE);
+}
+
+void Window::window_focuse_callback(GLFWwindow* win, int focuse)
+{
+	Window* app = (Window*)glfwGetWindowUserPointer(win);
+	if (focuse == 0)
+	{
+		app->setFocuse(false);
+	}
+	else
+	{
+		app->setFocuse(true);
+	}
 }
 
 bool Window::init()
@@ -98,13 +118,20 @@ bool Window::init()
 
 	//设置窗口大小变化回调，主要重置窗口大小用
 	glfwSetWindowUserPointer((GLFWwindow*)m_window, this);
-	glfwSetFramebufferSizeCallback((GLFWwindow*)m_window, Window::resize_callback);
+	glfwSetWindowSizeCallback((GLFWwindow*)m_window, Window::resize_callback);
+
 	glfwSetKeyCallback((GLFWwindow*)m_window, Window::keypress_callback);
 	glfwSetMouseButtonCallback((GLFWwindow*)m_window, Window::mouse_callback);
 	glfwSetCursorPosCallback((GLFWwindow*)m_window, Window::cursorpos_callback);
 	glfwSetCursorEnterCallback((GLFWwindow*)m_window, Window::cursorenter_callback);
+	glfwSetWindowFocusCallback((GLFWwindow*)m_window, Window::window_focuse_callback);
 
 	return true;
+}
+
+void Window::setFocuse(bool focuse)
+{
+	m_isFocuse = focuse;
 }
 
 void Window::handleWindowSizeChange(float width, float height) {

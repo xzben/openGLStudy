@@ -3,6 +3,9 @@
 #include "base/SceneManager.h"
 #include "test/TestScene.h"
 #include "utils/FileUtils.h"
+#include "core/thread/TaskPool.h"
+#include "core/thread/Task.h"
+#include <iostream>
 
 void AppDeleget::onAppLauchFinish()
 {

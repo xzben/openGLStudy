@@ -19,13 +19,15 @@ public:
 	static void mouse_callback(GLFWwindow* win, int button, int action, int mods);
 	static void cursorpos_callback(GLFWwindow* win, double x, double y);
 	static void cursorenter_callback(GLFWwindow* win, int entered);
+	static void window_focuse_callback(GLFWwindow* win, int focuse);
 protected:
 	Size m_winSize;
 	std::string m_name;
-	void* m_window;
-	float m_lastMouseX;
-	float m_lastMouseY;
-	bool  m_mouseClicked;
+	void* m_window = nullptr;
+	float m_lastMouseX = 0;
+	float m_lastMouseY = 0;
+	bool  m_mouseClicked = false;
+	bool  m_isFocuse = true;
 public:
 	Window(std::string name, float width, float height);
 	virtual ~Window();
@@ -34,6 +36,8 @@ public:
 
 	const Size& getWinSize() { return m_winSize; }
 protected:
+	bool isFilterEvent() { return !m_isFocuse; }
+	void setFocuse(bool focuse);
 	bool init();
 	void handleWindowSizeChange(float width, float height);
 	void handleKeyboardPress(int key, int scancode, int action, int mods);

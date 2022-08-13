@@ -4,7 +4,7 @@
 #include "render/RenderableComponent.h"
 #include "render/config.h"
 
-class OGS::Shader;
+class OGS_OLD::Shader;
 
 USING_NAMESPACE;
 
@@ -12,7 +12,7 @@ class TestTriangle : public RenderableComponent
 {
 protected:
 	VAO_HANDLE m_vao;
-	Shader* m_shader;
+	OGS_OLD::Shader* m_shader;
 public:
 	TestTriangle();
 	virtual ~TestTriangle();

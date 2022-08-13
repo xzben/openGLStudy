@@ -4,7 +4,7 @@
 #include "render/RenderableComponent.h"
 #include "render/config.h"
 
-class OGS::Shader;
+class OGS_OLD::Shader;
 
 USING_NAMESPACE;
 

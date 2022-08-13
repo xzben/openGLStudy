@@ -27,8 +27,10 @@ typedef unsigned int  GL_HANDLE;
 
 #if CC_DISABLE_ASSET
 	#define CC_ASSERT( cond )
+	#define ASSERT(cond, fmt, ...)
 #else
 	#define CC_ASSERT( cond ) assert((cond))
+	#define ASSERT( cond, fmt, ...)  if(!(cond)){ fprintf(stderr, fmt, ##__VA_ARGS__); assert(false); };
 #endif
 
 #define PLAT_WIN		1
@@ -55,9 +57,16 @@ typedef unsigned int  GL_HANDLE;
 #define CCLOGERROR( format, ...) fprintf(stderr, format, ##__VA_ARGS__ )
 
 
-#define BEGIN_NAMESPACE  namespace OGS{
+#define BEGIN_NAMESPACE  namespace OGS_OLD{
 #define END_NAMESPACE }
 
-#define USING_NAMESPACE using namespace OGS
+#define USING_NAMESPACE using namespace OGS_OLD
+
+
+#define BEGIN_OGS_NAMESPACE  namespace OGS{
+#define END_OGS_NAMESPACE }
+#define USING_OGS_NAMESPACE using namespace OGS
+
+#define SAFE_DELTE( ptr ) do{ if((ptr) != nullptr){ delete (ptr);} } while(false)
 
 #endif//__COMMON_2021_09_06_H__
