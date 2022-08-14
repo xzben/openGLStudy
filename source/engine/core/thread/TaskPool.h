@@ -23,7 +23,7 @@ public:
 
 	void addTask(Task* task);
 private:
-	virtual bool init()override;
+	bool init();
 	static void threadFunc(TaskPool* pool);
 private:
 	std::mutex m_tasklock;

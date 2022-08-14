@@ -7,6 +7,9 @@
 #include <unordered_map>
 BEGIN_OGS_NAMESPACE
 
+#define CLASS_OBJ_KEY	"__$classname$__"
+#define CLASS_SUPER_KEY "__$superclass$__"
+
 class Object;
 
 using JSON = Json::Value;
@@ -42,11 +45,18 @@ public:
 	}
 };
 
+class ReflexClassBase;
+
 template<typename CLS>
 class ReflexClassMemberBase
 {
 public:
-	ReflexClassMemberBase(const char* name) :m_name(name) {}
+	ReflexClassMemberBase(ReflexClassBase* cls, const char* name) :
+		m_cls(cls) 
+	{
+		m_name = "$" + cls->m_name + "$." + name;
+	}
+
 	virtual ~ReflexClassMemberBase() = default;
 
 	virtual void GetObjectValue(CLS* obj, void* value) = 0;
@@ -58,17 +68,17 @@ public:
 	const std::string& GetName() { return m_name; }
 protected:
 	std::string m_name;
+	ReflexClassBase* m_cls;
 };
 
 
 template<typename CLS, typename FieldType>
-class ReflexClassField : public ReflexClassMemberBase<CLS>
+class ReflexClassCommonField : public ReflexClassMemberBase<CLS>
 {
 public:
 	using FieldPtr = FieldType CLS::*;
-
-	ReflexClassField(const char* name, FieldPtr member)
-		: ReflexClassMemberBase<CLS>(name)
+	ReflexClassCommonField(ReflexClassBase* cls, const char* name, FieldPtr member)
+		: ReflexClassMemberBase<CLS>(cls, name)
 		, m_member(member)
 	{
 
@@ -97,18 +107,26 @@ private:
 	FieldPtr m_member;
 };
 
-
 class ReflexClassBase
 {
 public:
-	ReflexClassBase(const char* name) :m_name(name) {}
+	template<typename CLS>
+	friend class ReflexClassMemberBase;
+	friend class ReflexManager;
+	ReflexClassBase(const char* name, ReflexClassBase* parent = nullptr) : m_parent(parent) 
+	{
+		m_name = name;
+	}
+
 	virtual ~ReflexClassBase() = default;
 
-	virtual void Serialize(Object* obj, JSON& json)  = 0;
-	virtual void Deserialize(Object* obj, const JSON& json) = 0;
+	virtual void Serialize(void* obj, JSON& json)  = 0;
+	virtual void Deserialize(void* obj, const JSON& json) = 0;
+	virtual void* NewInstance() = 0;
 	const std::string& GetName() { return m_name; }
 protected:
 	std::string m_name;
+	ReflexClassBase* m_parent = nullptr; //∏∏¿‡
 };
 
 template<typename CLS>
@@ -116,28 +134,36 @@ class ReflexClass : public ReflexClassBase
 {
 public:
 	ReflexClass(const char* name, ReflexClassBase* parent = nullptr)
-		: ReflexClassBase(name)
-		, m_parent(parent)
+		: ReflexClassBase(name, parent)
 	{
+	}
+
+	virtual void* NewInstance() override
+	{
+		return new CLS();
 	}
 
 	template<typename MemberType>
 	void RegisterMember(const char* fieldname, MemberType CLS::* ptrmeber)
 	{
-		auto item = new ReflexClassField<CLS, MemberType>(fieldname, ptrmeber);
+		auto item = new ReflexClassCommonField<CLS, MemberType>(this, fieldname, ptrmeber);
 		m_members.insert(std::make_pair<std::string, ReflexClassMemberBase<CLS>*>(fieldname, item));
 	}
 
-	virtual void Serialize(Object* obj, JSON& json) override
+	virtual void Serialize(void* obj, JSON& json) override
 	{
+		json[CLASS_OBJ_KEY] = this->m_name;
 		for (auto item : m_members)
 		{
 			item.second->Serialize(static_cast<CLS*>(obj), json);
 		}
 	}
 
-	virtual void Deserialize(Object* obj, const JSON& json) override
+	virtual void Deserialize(void* obj, const JSON& json) override
 	{
+		std::string classname = json[CLASS_OBJ_KEY].asCString();
+		ASSERT(classname == this->m_name, "muset been same class name");
+
 		for (auto item : m_members)
 		{
 			item.second->Deserialize(static_cast<CLS*>(obj), json);
@@ -145,9 +171,16 @@ public:
 	}
 private:
 	std::unordered_map<std::string, ReflexClassMemberBase<CLS>*> m_members;
-	ReflexClassBase* m_parent = nullptr; //∏∏¿‡
 };
 
 
+class StaticRunObject
+{
+public:
+	using AutoFunc = std::function<void(void)>;
+	StaticRunObject(AutoFunc func) {
+		func();
+	}
+};
 
 END_OGS_NAMESPACE

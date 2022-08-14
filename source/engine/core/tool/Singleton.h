@@ -9,19 +9,15 @@ class Singleton
 {
 public:
 	static T* s_instance;
-	static T* getInstance()
+	static T* GetInstance()
 	{
 		if (s_instance == nullptr)
 		{
 			s_instance = new T();
-			auto ptr = dynamic_cast<Singleton*>(s_instance);
-			ptr->init();
 		}
 
 		return s_instance;
 	}
-protected:
-	virtual bool init() = 0;
 };
 
 template<typename T> T* Singleton<T>::s_instance = nullptr;

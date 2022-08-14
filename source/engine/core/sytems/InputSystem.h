@@ -37,7 +37,7 @@ public:
 	typedef Notify<InputState, int> NotifyKeyboard;
 
 	InputSystem();
-	virtual bool init() override;
+	virtual bool init();
 
 	virtual void update(float dt) override;
 	virtual void destroy()override;

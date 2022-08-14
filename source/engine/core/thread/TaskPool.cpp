@@ -41,7 +41,7 @@ void TaskPool::threadFunc(TaskPool* pool)
 
 TaskPool::TaskPool()
 {
-
+	this->init();
 }
 
 TaskPool::~TaskPool()
