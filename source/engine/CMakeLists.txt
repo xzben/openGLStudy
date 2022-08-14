@@ -19,6 +19,7 @@ include_directories(
 	${THIRD_SOURCE_DIR}/glm/
 	${CMAKE_CURRENT_SOURCE_DIR}
 	${THIRD_SOURCE_DIR}/glad/include/
+	${THIRD_LIB_DIR}/jsoncpp/include/
 )
 
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES 
@@ -40,4 +41,5 @@ set_target_properties(${TARGET_NAME} PROPERTIES FOLDER "engine")
 target_link_libraries(${TARGET_NAME} PUBLIC glfw)
 target_link_libraries(${TARGET_NAME} PUBLIC imgui)
 target_link_libraries(${TARGET_NAME} PUBLIC stb)
+target_link_libraries(${TARGET_NAME} PUBLIC jsoncpp)
 

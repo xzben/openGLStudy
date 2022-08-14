@@ -11,6 +11,7 @@ include_directories(
 	${RUNTIME_SOURCE_DIR}/
 	${THIRD_SOURCE_DIR}/glad/include/
 	${CMAKE_CURRENT_SOURCE_DIR}/source/
+	${THIRD_LIB_DIR}/jsoncpp/include/
 )
 
 add_compile_definitions("BUILTIN_RES_DIR=${BUILD_RESOURCE_DIR}")

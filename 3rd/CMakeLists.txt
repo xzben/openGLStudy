@@ -16,6 +16,11 @@ if(NOT TARGET glfw)
     set_target_properties(update_mappings PROPERTIES FOLDER ${third_party_folder}/glfw)
 endif()
 
+if(NOT TARGET jsoncpp)
+	include(jsoncpp.cmake)
+	set_target_properties(jsoncpp PROPERTIES FOLDER ${third_party_folder}/jsoncpp)
+endif()
+
 if(NOT TARGET stb)
     include(stb.cmake)
     set_target_properties(stb PROPERTIES FOLDER ${third_party_folder}/stb)

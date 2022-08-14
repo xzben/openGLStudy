@@ -2,11 +2,14 @@
 
 
 #include "common.h"
+#include "json/json.h"
 #include <functional>
 #include <unordered_map>
 BEGIN_OGS_NAMESPACE
 
 class Object;
+
+using JSON = Json::Value;
 
 class Runtime
 {
@@ -25,19 +28,17 @@ private:
 	std::string m_name;
 };
 
-typedef std::string JSON;
-
 template<typename FieldType>
 class FieldSerialize
 {
 public:
 	static void Serialize(JSON& json, FieldType* field, const std::string& name)
 	{
-		ASSERT(false, "need to implement by use type");
+		json[name] = *field;
 	}
 	static void Deserialize(const JSON& json, FieldType* field, const std::string& name)
 	{
-		ASSERT(false, "need to implement by use type");
+		 *field = json[name].as<FieldType>();
 	}
 };
 
@@ -129,7 +130,6 @@ public:
 
 	virtual void Serialize(Object* obj, JSON& json) override
 	{
-		json += m_name + "|";
 		for (auto item : m_members)
 		{
 			item.second->Serialize(static_cast<CLS*>(obj), json);
