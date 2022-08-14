@@ -1,4 +1,4 @@
-set(TARGET_NAME OpenGLStudyGame)
+set(TARGET_NAME OpenGLStudyTest)
 
 file(GLOB_RECURSE GAME_HEADERS CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/source/*.h)
 file(GLOB_RECURSE GAME_SOURCES CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/source/*.cpp)
@@ -18,12 +18,12 @@ add_compile_definitions("BUILTIN_RES_DIR=${BUILD_RESOURCE_DIR}")
 add_compile_definitions("GAME_RESOURCE=${CMAKE_CURRENT_SOURCE_DIR}/resources/")
 
 add_executable(${TARGET_NAME} ${GAME_HEADERS} ${GAME_SOURCES} ${GAME_RESOURCE})
-
 set_target_properties(${TARGET_NAME} PROPERTIES CXX_STANDARD 17 OUTPUT_NAME ${TARGET_NAME})
-set_target_properties(${TARGET_NAME} PROPERTIES FOLDER "game")
-
+set_target_properties(${TARGET_NAME} PROPERTIES FOLDER "test")
 target_compile_options(${TARGET_NAME} PUBLIC "$<$<COMPILE_LANG_AND_ID:CXX,MSVC>:/WX->")
+
 target_link_libraries(${TARGET_NAME} engineRuntime)
+
 
 #设置编译的运行程序输出路径
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_INSTALL_PREFIX})
