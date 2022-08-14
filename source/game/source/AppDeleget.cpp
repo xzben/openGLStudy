@@ -10,7 +10,7 @@
 void AppDeleget::onAppLauchFinish()
 {
 	FileUtils::getInstance()->addSearchPath(DEFINE_XSTR(GAME_RESOURCE));
-	FileUtils::getInstance()->addSearchPath(DEFINE_XSTR(BUILTIN_RES_DIR));
+	FileUtils::getInstance()->addSearchPath(DEFINE_XSTR(ENGINE_ASSETS_DIR));
 
 	Scene* scene = TestScene::create();
 	SceneManager::getInstance()->changeScene(scene);

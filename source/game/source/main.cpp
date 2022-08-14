@@ -8,4 +8,6 @@ int main() {
 	Window window("OpenGLStudy", 1280, 720);
 	app.setGLWin(&window);
 	app.run();
+
+	return 0;
 }
