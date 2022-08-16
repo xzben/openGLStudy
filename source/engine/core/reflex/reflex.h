@@ -2,6 +2,7 @@
 
 #include "common.h"
 #include "core/reflex/ReflexItem.h"
+#include "core/reflex/ReflexCommon.h"
 #include "core/reflex/ReflexManager.h"
 
 /// Runtime define base
@@ -41,7 +42,6 @@ void FieldSerialize<CLS>::Deserialize(const JSON& json, CLS* field, const std::s
 
 #define IMPLEMENT_REFLEX_CLASS_BASE( CLS ) \
 	ReflexClass<CLS>  CLS::Reflex##CLS##Obj(#CLS);\
-	REFLEX_TYPE_FUNC(CLS) \
 	static StaticRunObject Static##CLS##RegsiterReflexClass([]() { \
 		ReflexManager::GetInstance()->RegisterReflexClass(#CLS, CLS::GetREFLEX()); \
 	});
@@ -49,7 +49,6 @@ void FieldSerialize<CLS>::Deserialize(const JSON& json, CLS* field, const std::s
 // reflex define with super
 #define IMPLEMENT_REFLEX_CLASS( CLS ) \
 	ReflexClass<CLS>  CLS::Reflex##CLS##Obj(#CLS, CLS::Super::GetREFLEX()); \
-	REFLEX_TYPE_FUNC(CLS) \
 	static StaticRunObject Static##CLS##RegsiterReflexClass([]() { \
 		ReflexManager::GetInstance()->RegisterReflexClass(#CLS, CLS::GetREFLEX()); \
 	});
@@ -81,9 +80,9 @@ private:
 	
 #define BEGIN_REFLEX_CLASS_FIELD(CLS)\
 	static StaticRunObject Static##CLS##RegsiterReflexClassField([]() { \
+		using CUR_TYPE = CLS;
 
-#define REFLEX_FIELD(CLS, field) \
-	ReflexManager::GetInstance()->RegisterClassMember<CLS, decltype(CLS::field)>(#field, &CLS::field);
+#define REFLEX_FIELD(FieldType, field) ReflexManager::GetInstance()->RegisterClassMember<CUR_TYPE, FieldType>(#field, &CUR_TYPE::field);
 
-#define END_REFLEX_CLASS_FIELD()\
+#define END_REFLEX_CLASS_FIELD() \
 	});

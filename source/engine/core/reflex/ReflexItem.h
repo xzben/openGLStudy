@@ -4,7 +4,9 @@
 #include "common.h"
 #include "json/json.h"
 #include <functional>
+#include <type_traits>
 #include <unordered_map>
+#include <map>
 BEGIN_OGS_NAMESPACE
 
 #define CLASS_OBJ_KEY	"__$classname$__"
@@ -21,6 +23,7 @@ public:
 		: m_name(name)
 		,m_pBase(pbase)
 	{
+
 	};
 	virtual Runtime* GetBaseRTTS()
 	{
@@ -31,19 +34,75 @@ private:
 	std::string m_name;
 };
 
-template<typename FieldType>
-class FieldSerialize
+namespace FieldSerialize
 {
-public:
-	static void Serialize(JSON& json, FieldType* field, const std::string& name)
+	template<typename FieldType>
+	void Serialize(JSON& json, FieldType* field)
 	{
-		json[name] = *field;
+		FieldType::GetREFLEX()->Serialize(field, json);
 	}
-	static void Deserialize(const JSON& json, FieldType* field, const std::string& name)
+
+	template<typename FieldType>
+	void Deserialize(const JSON& json, FieldType* field)
 	{
-		 *field = json[name].as<FieldType>();
+		FieldType::GetREFLEX()->Deserialize(field, json);
 	}
-};
+
+	template<typename FieldType>
+	void Serialize(JSON& json, std::vector<FieldType> *field)
+	{
+		int size = field->size();
+		json.resize(size);
+
+		for (int i = 0; i < size; i++)
+		{
+			FieldSerialize::Serialize(json[i], &((*field)[i]));
+		}
+	}
+
+	template<typename FieldType>
+	void Deserialize(const JSON& json, std::vector<FieldType> *field)
+	{
+		ASSERT(json.isArray(), "must been array json object");
+
+		int count = json.size();
+		field->resize(count);
+		for (int i = 0; i < count; i++)
+		{
+			FieldSerialize::Deserialize(json[i], &((*field)[i]));
+		}
+	}
+
+
+	//template<typename FieldType>
+	//void Serialize(JSON& json, std::map<std::string, FieldType>* field)
+	//{
+	//
+	//	for(auto it = field->begin(); it != field->end(); it++)
+	//	{
+	//		FieldSerialize::Serialize(json[it->first], &it->second);
+	//	}
+	//}
+
+	//template<typename FieldType>
+	//void Deserialize(const JSON& json, std::map<std::string, FieldType>* field)
+	//{
+	//	ASSERT(json.isObject(), "must been map json object");
+
+	//	for (auto it = json.begin(); it != json.end(); it++)
+	//	{
+	//		
+	//		field->
+	//	}
+	//	int count = json.size();
+	//	field->resize(count);
+	//	for (int i = 0; i < count; i++)
+	//	{
+	//		FieldSerialize::Deserialize(json[i], &((*field)[i]));
+	//	}
+	//}
+}
+
 
 class ReflexClassBase;
 
@@ -96,12 +155,12 @@ public:
 
 	virtual void Serialize(CLS* obj, JSON& json) override
 	{
-		FieldSerialize<FieldType>::Serialize(json, &(obj->*m_member), m_name);
+		FieldSerialize::Serialize(json[m_name], &(obj->*m_member));
 	}
 
 	virtual void Deserialize(CLS* obj, const JSON& json) override
 	{
-		FieldSerialize<FieldType>::Deserialize(json, &(obj->*m_member), m_name);
+		FieldSerialize::Deserialize(json[m_name], &(obj->*m_member));
 	}
 private:
 	FieldPtr m_member;
