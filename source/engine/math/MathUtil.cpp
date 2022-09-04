@@ -289,7 +289,7 @@ fMat4 MathUtil::createPerspective(float fieldOfView, float aspectRatio, float zN
 	float theta = MATH_DEG_TO_RAD(fieldOfView) * 0.5f;
 	if (std::abs(std::fmod(theta, MATH_PIOVER2)) < MATH_EPSILON)
 	{
-		CCLOGERROR("Invalid field of view value (%f) causes attempted calculation tan(%f), which is undefined.", fieldOfView, theta);
+		CCLOG_ERROR("Invalid field of view value (%f) causes attempted calculation tan(%f), which is undefined.", fieldOfView, theta);
 		return std::move(result);
 	}
 	float divisor = std::tan(theta);

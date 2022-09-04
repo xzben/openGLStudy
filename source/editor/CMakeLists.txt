@@ -16,10 +16,12 @@ add_executable(${TARGET_NAME} ${EDITOR_HEADERS} ${EDITOR_SOURCES} ${EDITOR_RESOU
 
 set_target_properties(${TARGET_NAME} PROPERTIES CXX_STANDARD 17 OUTPUT_NAME ${TARGET_NAME})
 set_target_properties(${TARGET_NAME} PROPERTIES FOLDER "editor")
+set_target_properties(${TARGET_NAME} PROPERTIES DEBUG_POSTFIX "_d")     # debug 可执行文件的后缀名
 
 target_compile_options(${TARGET_NAME} PUBLIC "$<$<COMPILE_LANG_AND_ID:CXX,MSVC>:/WX->")
 
-target_link_libraries(${TARGET_NAME} engineRuntime)
+target_link_libraries(${TARGET_NAME} PUBLIC engineRuntime imgui glfw)
+
 
 #设置编译的运行程序输出路径
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_INSTALL_PREFIX})

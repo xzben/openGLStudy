@@ -37,7 +37,7 @@ std::string getShaderContent(const std::string& path)
 		}
 		else
 		{
-			CCLOGERROR("shader source failed to import %s\r\n", path.c_str());
+			CCLOG_ERROR("shader source failed to import %s\r\n", path.c_str());
 			CC_ASSERT(false);
 		}	
 

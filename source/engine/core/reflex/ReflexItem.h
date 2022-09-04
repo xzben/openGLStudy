@@ -1,38 +1,31 @@
 #pragma once
 
 
-#include "common.h"
+#include "define.h"
 #include "json/json.h"
 #include <functional>
 #include <type_traits>
 #include <unordered_map>
+#include <string>
 #include <map>
 BEGIN_OGS_NAMESPACE
 
-#define CLASS_OBJ_KEY	"__$classname$__"
-#define CLASS_SUPER_KEY "__$superclass$__"
+#define CLASS_OBJ_KEY	"classname"
+#define CLASS_SUPER_KEY "superclass"
+#define MAP_KEY  "map_key"
+#define MAP_VALUE  "map_value"
 
 class Object;
 
 using JSON = Json::Value;
 
-class Runtime
+namespace reflex_define
 {
-public:
-	Runtime(const char* name, Runtime* pbase = nullptr)
-		: m_name(name)
-		,m_pBase(pbase)
-	{
+	template <class _Ty>
+	using valid_mapkey_t = std::enable_if_t<std::_Is_any_of_v<_Ty, bool, char, int, unsigned int, float, double, JSON::Int64, JSON::UInt64, std::string>, _Ty>;
+}
 
-	};
-	virtual Runtime* GetBaseRTTS()
-	{
-		return m_pBase;
-	}
-private:
-	Runtime* m_pBase;
-	std::string m_name;
-};
+
 
 namespace FieldSerialize
 {
@@ -49,7 +42,7 @@ namespace FieldSerialize
 	}
 
 	template<typename FieldType>
-	void Serialize(JSON& json, std::vector<FieldType> *field)
+	void Serialize(JSON& json, std::vector<FieldType>*field)
 	{
 		int size = field->size();
 		json.resize(size);
@@ -61,7 +54,7 @@ namespace FieldSerialize
 	}
 
 	template<typename FieldType>
-	void Deserialize(const JSON& json, std::vector<FieldType> *field)
+	void Deserialize(const JSON& json, std::vector<FieldType>* field)
 	{
 		ASSERT(json.isArray(), "must been array json object");
 
@@ -72,35 +65,40 @@ namespace FieldSerialize
 			FieldSerialize::Deserialize(json[i], &((*field)[i]));
 		}
 	}
+	/*
+	template<typename KeyType, typename FieldType>
+	void Serialize(JSON& json, std::map<reflex_define::valid_mapkey_t<KeyType>, FieldType>* field)
+	{
+		int size = field->size();
+		json.resize(size);
+		int index = 0;
+		for(auto it = field->begin(); it != field->end(); it++)
+		{
+			JSON item = json[index];
+			FieldSerialize::Serialize(item[MAP_KEY], &it->first);
+			FieldSerialize::Serialize(item[MAP_VALUE], &it->second);
+			index++;
+		}
+	}
 
+	template<typename KeyType, typename FieldType>
+	void Deserialize(const JSON& json, std::map<reflex_define::valid_mapkey_t<KeyType>, FieldType>* field)
+	{
+		ASSERT(json.isArray(), "must been array json object");
+		int size = json.size();
+		for (int i = 0; i < size; i++)
+		{
+			KeyType key;
+			FieldType value;
 
-	//template<typename FieldType>
-	//void Serialize(JSON& json, std::map<std::string, FieldType>* field)
-	//{
-	//
-	//	for(auto it = field->begin(); it != field->end(); it++)
-	//	{
-	//		FieldSerialize::Serialize(json[it->first], &it->second);
-	//	}
-	//}
+			const JSON& item = json[i];
+			ASSERT(item.isObject(), "must been map object has key and value");
+			FieldSerialize::Deserialize(item[MAP_KEY], &key);
+			FieldSerialize::Deserialize(item[MAP_VALUE], &value);
 
-	//template<typename FieldType>
-	//void Deserialize(const JSON& json, std::map<std::string, FieldType>* field)
-	//{
-	//	ASSERT(json.isObject(), "must been map json object");
-
-	//	for (auto it = json.begin(); it != json.end(); it++)
-	//	{
-	//		
-	//		field->
-	//	}
-	//	int count = json.size();
-	//	field->resize(count);
-	//	for (int i = 0; i < count; i++)
-	//	{
-	//		FieldSerialize::Deserialize(json[i], &((*field)[i]));
-	//	}
-	//}
+			field->insert(std::make_pair(key, value));
+		}
+	}*/
 }
 
 

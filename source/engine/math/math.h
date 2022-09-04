@@ -14,6 +14,7 @@
 
 namespace OGS {
 	using Position = OGS_OLD::Vec3<float>;
+	using Color = OGS_OLD::Vec4<float>;
 	using Rotation = OGS_OLD::Vec3<float>;
 	using Scale = OGS_OLD::Vec3<float>;
 }

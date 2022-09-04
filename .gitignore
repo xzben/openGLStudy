@@ -6,3 +6,4 @@ build/openGLStudy/x64/
 *.pdb
 build/
 runtime/
+bin/

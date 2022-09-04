@@ -1,8 +1,12 @@
 #include "core/base/Ref.h"
 #include "json/json.h"
-#include "core/reflex/reflex.h"
+#include "common.h"
+#include "core/base/Notify.h"
 #include <iostream>
 #include <vector>
+#include <map>
+#include <string>
+#include <unordered_map>
 using namespace OGS;
 
 class SimpeClass
@@ -18,7 +22,7 @@ public:
 
 class TempClass : public OGS::Object
 {
-	DECLARE_CLASS(TempClass);
+	DECLARE_CLASS_BASE(TempClass);
 public:
 	int _inta;
 };
@@ -34,7 +38,7 @@ public:
 };
 
 IMPLEMENT_CLASS_BASE(SimpeClass);
-IMPLEMENT_CLASS(TempClass);
+IMPLEMENT_CLASS_BASE(TempClass);
 IMPLEMENT_CLASS(Test);
 
 BEGIN_REFLEX_CLASS_FIELD(SimpeClass)

@@ -18,7 +18,7 @@ public:
 
 class Object
 {
-	DECLARE_CLASS_BASE(Object)
+	DECLARE_RUNTIME_CLASS_BASE(Object)
 public:
 	Object() = default;
 	virtual ~Object() = default;
@@ -55,25 +55,7 @@ public:
 	typedef Ref ThisType;
 
 	Ref() = default;
-	virtual ~Ref()
-	{
-		ASSERT(m_refCount == 0, "refcount must been 0 when release!");
-	}
-
-	void addRef()
-	{
-		m_refCount++;
-	}
-
-	void delRef()
-	{
-		m_refCount--;
-		if (m_refCount <= 0)
-		{
-			SAFE_DELTE(this);
-		}
-	}
-protected:
-	int m_refCount : 1;
+	virtual ~Ref() = default;
 };
+
 END_OGS_NAMESPACE

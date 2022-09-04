@@ -19,7 +19,7 @@ public:
 		pbyte[index] |= (1 << flag);
 	}
 
-	bool isCheck(const int type)
+	bool isOpen(const int type)
 	{
 		ASSERT(type >= 0 && type < s_maxlen, "type must in range %d - %d", 0, s_maxlen);
 

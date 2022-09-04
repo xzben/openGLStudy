@@ -1,6 +1,5 @@
 #pragma once
 
-#include "common.h"
 #include "SharePtr.h"
 
 BEGIN_OGS_NAMESPACE
@@ -11,21 +10,43 @@ class WeakPtr final
 public:
 	friend class SharePtr<T>;
 
-	WeakPtr() = delete;
+	friend bool operator==(std::nullptr_t nil, const WeakPtr<T>& right);
+
+	WeakPtr() {};
+
 	~WeakPtr() {
 		release();
 	}
 
-	explicit WeakPtr(const SharePtr<T>& ptr){
+	WeakPtr(const SharePtr<T>& ptr) 
+	{
 		m_data = ptr.m_data;
 		m_count = ptr.m_count;
-		m_count->weak++;
+		if (m_data)
+		{
+			ASSERT(m_count, "count must valid when m_data isvalid");
+			m_count->weak++;
+		}
 	}
 
-	explicit WeakPtr(const WeakPtr<T>& ptr) {
-		m_data = ptr.m_data;
-		m_count = ptr.m_count;
-		m_count->weak++;
+	WeakPtr(const WeakPtr<T>& other) 
+	{
+		if (!other->expired())
+		{
+			m_data = other.m_data;
+			m_count = other.m_count;
+		}
+		else
+		{
+			m_data = nullptr;
+			m_count = nullptr;
+		}
+
+		if (m_data)
+		{
+			ASSERT(m_count, "count must valid when m_data isvalid");
+			m_count->weak++;
+		}
 	}
 
 	WeakPtr<T>& operator=(const SharePtr<T>& other)
@@ -34,26 +55,62 @@ public:
 
 		m_data = other.m_data;
 		m_count = other.m_count;
-		m_count->weak++;
+		if (m_data)
+		{
+			ASSERT(m_count, "count must valid when m_data isvalid");
+			m_count->weak++;
+		}
+
+		return *this;
+	}
+
+	bool operator ==( const WeakPtr<T>& rhs)const
+	{
+		return m_data = rhs.m_data;
+	}
+
+	bool operator==(std::nullptr_t nil)const 
+	{
+		return m_data == nullptr;
 	}
 
 	WeakPtr<T>& operator=(const WeakPtr<T>& other)
 	{
 		release();
+		if (!other->expired())
+		{
+			m_data = other.m_data;
+			m_count = other.m_count;
+		}
+		else
+		{
+			m_data = nullptr;
+			m_count = nullptr;
+		}
 
-		m_data = other.m_data;
-		m_count = other.m_count;
-		m_count->weak++;
+		if (m_data)
+		{
+			ASSERT(m_count, "count must valid when m_data isvalid");
+			m_count->weak++;
+		}
+
+		*this;
 	}
 
 	SharePtr<T> lock()
 	{
 		return SharePtr<T>(*this);
 	}
+	
 
-	T* get()
+	T* operator->() const
 	{
-		if(!expired())
+		return get();
+	}
+
+	T* get() const
+	{
+		if (!expired())
 		{
 			return m_data;
 		}
@@ -62,7 +119,7 @@ public:
 	}
 
 	//指针是否过期
-	bool expired()
+	bool expired() const
 	{
 		if (m_count)
 		{
@@ -74,7 +131,7 @@ public:
 
 		return true;
 	}
-private:
+
 	void release()
 	{
 		if (nullptr != m_count)
@@ -90,8 +147,14 @@ private:
 		m_data = nullptr;
 	}
 private:
-	T* m_data;
-	SharePtr<T>::Counter* m_count;
+	T* m_data = nullptr;
+	Counter* m_count = nullptr;
 };
+
+template<typename T>
+bool operator==(std::nullptr_t nil, const WeakPtr<T>& right)
+{
+	return right.m_data == nullptr;
+}
 
 END_OGS_NAMESPACE

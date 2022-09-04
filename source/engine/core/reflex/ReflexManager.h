@@ -1,6 +1,5 @@
 #pragma once
 
-#include "common.h"
 #include "core/tool/Singleton.h"
 #include "ReflexItem.h"
 #include <unordered_map>
