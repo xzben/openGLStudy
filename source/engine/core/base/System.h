@@ -1,12 +1,12 @@
 #pragma once
 
 #include "common.h"
-#include "Ref.h"
+#include "Object.h"
 #include <string>
 
 BEGIN_OGS_NAMESPACE
 
-class System : public Ref, public NoCopy
+class System : public Object, public NoCopy
 {
 public:
 	explicit System(std::string& name);

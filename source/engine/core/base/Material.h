@@ -1,11 +1,11 @@
 #pragma once
 
 #include "common.h"
-#include "Ref.h"
+#include "Object.h"
 
 BEGIN_OGS_NAMESPACE
 
-class Material : public Ref
+class Material : public Object
 {
 public:
 

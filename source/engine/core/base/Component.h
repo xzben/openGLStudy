@@ -1,13 +1,13 @@
 #pragma once
 
-#include "Ref.h"
+#include "Object.h"
 #include "core/reflex/reflex.h"
 
 BEGIN_OGS_NAMESPACE
 
 class Node;
 
-class Component : public Ref
+class Component : public Object
 {
 	DECLARE_CLASS(Component);
 public:

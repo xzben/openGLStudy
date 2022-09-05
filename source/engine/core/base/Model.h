@@ -2,11 +2,11 @@
 
 
 #include "common.h"
-#include "Ref.h"
+#include "Object.h"
 
 BEGIN_OGS_NAMESPACE
 
-class Model : public Ref
+class Model : public Object
 {
 
 };

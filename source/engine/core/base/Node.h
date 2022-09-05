@@ -2,13 +2,13 @@
 
 #include <vector>
 #include <string>
-#include "Ref.h"
+#include "Object.h"
 
 BEGIN_OGS_NAMESPACE
 
 class Component;
 
-class Node : public Ref
+class Node : public Object
 {
 public:
 	void addComponent(const Component* com);

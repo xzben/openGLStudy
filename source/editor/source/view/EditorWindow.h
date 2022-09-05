@@ -15,6 +15,7 @@ class EventData;
 
 class EditorWindow
 {
+	DECLARE_EDITOR_CLASS_BASE(EditorWindow)
 public:
 	EditorWindow();
 	virtual ~EditorWindow();

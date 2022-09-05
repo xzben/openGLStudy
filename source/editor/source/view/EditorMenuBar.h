@@ -10,10 +10,8 @@ BEGIN_EDITOR_NAMESPACE
 
 class EditorMenuBar : public EditorUIBase
 {
+	DECLARE_EDITOR_CLASS(EditorMenuBar)
 public:
-	typedef ThisType Super;
-	typedef EditorMenuBar ThisType;
-
 	EditorMenuBar();
 	virtual ~EditorMenuBar();
 

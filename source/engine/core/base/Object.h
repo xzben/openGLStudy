@@ -18,7 +18,7 @@ public:
 
 class Object
 {
-	DECLARE_RUNTIME_CLASS_BASE(Object)
+	DECLARE_CLASS_BASE(Object)
 public:
 	Object() = default;
 	virtual ~Object() = default;
@@ -46,16 +46,6 @@ public:
 	{
 		return this->IsKindOf<CLS>() ? dynamic_cast<CLS*>(this) : nullptr;
 	}
-};
-
-class Ref : public Object
-{
-public:
-	typedef Object Supper;
-	typedef Ref ThisType;
-
-	Ref() = default;
-	virtual ~Ref() = default;
 };
 
 END_OGS_NAMESPACE

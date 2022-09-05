@@ -21,9 +21,8 @@ enum class LayoutType
 
 class EditorFrame : public EditorUIBase
 {
+	DECLARE_EDITOR_CLASS(EditorFrame)
 public:
-	typedef ThisType Super;
-	typedef EditorFrame ThisType;
 
 	EditorFrame(const std::string& title);
 	virtual ~EditorFrame();

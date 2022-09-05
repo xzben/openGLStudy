@@ -7,9 +7,8 @@ BEGIN_EDITOR_NAMESPACE
 
 class EditorModalDialog : public EditorUIBase
 {
+	DECLARE_EDITOR_CLASS(EditorModalDialog)
 public:
-	typedef ThisType Super;
-	typedef EditorModalDialog ThisType;
 
 	EditorModalDialog();
 	virtual ~EditorModalDialog();

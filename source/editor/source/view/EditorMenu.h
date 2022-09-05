@@ -13,9 +13,8 @@ BEGIN_EDITOR_NAMESPACE
 
 class EditorMenu : public EditorUIBase
 {
+	DECLARE_EDITOR_CLASS(EditorMenu)
 public:
-	typedef ThisType Super;
-	typedef EditorMenu ThisType;
 
 	using MenuClickCallback = std::function<void(bool)>;
 
@@ -27,8 +26,6 @@ public:
 	void setParent(EditorMenu* parent) { m_parent = parent; }
 	int getOrder() const { return m_order; }
 	const std::string& getName() const { return m_name; }
-	bool isEnable()const { return m_enable; }
-	void setEnable(bool enable) { m_enable = enable; }
 	void addMenu(const SharePtr<EditorMenu>& menu) { m_menus.push_back(menu); menu->setParent(this); }
 	SharePtr<EditorMenu> getSubMenuById(IDMainMenu menuid);
 	void setItemCheckable(bool checkable) { m_checkable = checkable; }
@@ -49,7 +46,6 @@ protected:
 	int m_order{0};
 	EditorMenu* m_parent;
 	std::string m_shortcuts{""};
-	bool m_enable{ true };
 	SharePtr<EditorUIBase> m_widget;
 	std::vector<SharePtr<EditorMenu>> m_menus;
 	bool m_checked{false};
