@@ -103,14 +103,14 @@ bool FileSystem::createDirectories(const std::string& path)
 
 std::string FileSystem::getString(const std::string& path)
 {
-	Data data;
-	if (!getContentData(path, &data))
+	SharePtr<Data> data = makeShare<Data>();
+	if (!getContentData(path, data))
 		return "";
 	
-	return (char*)data.getData();
+	return (char*)data->getData();
 }
 
-bool FileSystem::getContentData(const std::string& path, Data* data)
+bool FileSystem::getContentData(const std::string& path, const SharePtr<Data>& data)
 {
 	if (!isFileExists(path)) false;
 
@@ -138,6 +138,27 @@ bool FileSystem::getContentData(const std::string& path, Data* data)
 	data->writeOffset(readsize);
 
 	return true;
+}
+
+//获取文件的文件名部分
+std::string FileSystem::getFilename(const std::string& filepath)
+{
+	fs::path temppath(filepath);
+	return fs::path(filepath).filename().string();
+}
+
+//获取path 去除文件名字的 path 部分
+std::string FileSystem::getPath(const std::string& filepath)
+{
+	fs::path temppath(filepath);
+	return fs::path(filepath).remove_filename().string();
+}
+
+//获取文件的后缀名字
+std::string FileSystem::getFileExt(const std::string& filepath)
+{
+	fs::path temppath(filepath);
+	return fs::path(filepath).extension().string();
 }
 
 END_OGS_NAMESPACE

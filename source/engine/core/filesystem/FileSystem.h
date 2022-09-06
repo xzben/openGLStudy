@@ -27,7 +27,14 @@ public:
 	bool remove(const std::string& path);
 	bool createDirectories(const std::string& path);
 	std::string getString(const std::string& path);
-	bool getContentData(const std::string& path, Data* data);
+	bool getContentData(const std::string& path, const SharePtr<Data>& data);
+
+	//获取文件的文件名部分
+	std::string getFilename(const std::string& filepath);
+	//获取path 去除文件名字的 path 部分
+	std::string getPath(const std::string& filepath);
+	//获取文件的后缀名字
+	std::string getFileExt(const std::string& filepath);
 
 private:
 	std::vector<std::string> m_searchPaths;

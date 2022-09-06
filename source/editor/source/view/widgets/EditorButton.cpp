@@ -10,6 +10,8 @@ bool EditorButton::render()
 	{
 		onClick();
 	}
+
+	return true;
 }
 
 void EditorButton::onClick()

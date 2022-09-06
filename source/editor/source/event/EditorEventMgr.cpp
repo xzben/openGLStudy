@@ -8,7 +8,7 @@ SharePtr<EventNotify>& EditorEventMgr::getNotifybyEvent(EditorEvent event)
 	
 	if (it == m_events.end())
 	{
-		SharePtr<EventNotify> notify = make_share(new EventNotify());
+		SharePtr<EventNotify> notify = makeShare(new EventNotify());
 		it = m_events.insert(std::make_pair(event, notify)).first;
 	}
 	
@@ -26,7 +26,7 @@ SharePtr<EventNotify>& EditorEventMgr::getNotifybyEventAndId(EditorEvent event, 
 	auto idnotify = itmap->second.find(id);
 	if (idnotify == itmap->second.end())
 	{
-		idnotify = itmap->second.insert(std::make_pair(id, make_share(new EventNotify))).first;
+		idnotify = itmap->second.insert(std::make_pair(id, makeShare(new EventNotify))).first;
 	}
 
 	return idnotify->second;

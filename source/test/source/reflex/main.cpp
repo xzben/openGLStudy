@@ -12,17 +12,25 @@ using namespace OGS;
 class SimpeClass
 {
 	DECLARE_CLASS_BASE(SimpeClass);
+	DECLARE_REFLEX_CLASS_FIELD(SimpeClass)
 public:
 	SimpeClass() = default;
 	SimpeClass(int a, int b, int c) : inta(a), intb(b), intc(c) {}
+
+	const std::string& GetVar()const { return funcvar; }
+	void SetVar(const std::string& val) { funcvar = val; }
+
 	int inta;
 	int intb;
 	int intc;
+private:
+	std::string funcvar{"teest"};
 };
 
 class TempClass : public OGS::Object
 {
 	DECLARE_CLASS_BASE(TempClass);
+	DECLARE_REFLEX_CLASS_FIELD(TempClass)
 public:
 	int _inta;
 };
@@ -30,6 +38,7 @@ public:
 class Test : public TempClass
 {
 	DECLARE_CLASS(Test);
+	DECLARE_REFLEX_CLASS_FIELD(Test)
 public:
 	int _inta;
 	std::string _strb;
@@ -45,6 +54,7 @@ BEGIN_REFLEX_CLASS_FIELD(SimpeClass)
 REFLEX_FIELD(int, inta)
 REFLEX_FIELD(int, intb)
 REFLEX_FIELD(int, intc)
+REFLEX_FIELD_GETSET(std::string, funcvar, &SimpeClass::GetVar, &SimpeClass::SetVar)
 END_REFLEX_CLASS_FIELD()
 
 BEGIN_REFLEX_CLASS_FIELD(TempClass)
@@ -67,6 +77,7 @@ int main()
 	obj.simpleC.inta = 11;
 	obj.simpleC.intb = 22;
 	obj.simpleC.intc = 33;
+	obj.simpleC.SetVar("funcvalue");
 	obj._vecSimple.push_back(SimpeClass(1, 2, 3));
 	obj._vecSimple.push_back(SimpeClass(4, 5, 6));
 	obj._vecSimple.push_back(SimpeClass(7, 8, 9));

@@ -11,7 +11,7 @@ BEGIN_EDITOR_NAMESPACE
 
 EditorApp::EditorApp()
 {
-	m_editor_window = make_share(new EditorWindow());
+	m_editor_window = makeShare(new EditorWindow());
 }
 
 EditorApp::~EditorApp()

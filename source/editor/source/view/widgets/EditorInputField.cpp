@@ -37,6 +37,8 @@ bool EditorInputField::render()
 
 	int flag = ImGuiInputTextFlags_CallbackEdit | ImGuiInputTextFlags_CallbackCompletion;
 	ImGui::InputTextEx("input", m_placetips.c_str(), m_text.data(),m_textMaxCount, m_size, flag, EditorInputField::handleInputEventCallback, this);
+	
+	return true;
 }
 
 void EditorInputField::onInputEnd()

@@ -84,6 +84,14 @@ public:
 		ReflexClass<CLS>* cls = GetReflexClass<CLS>();
 		cls->RegisterMember<FieldType>(fieldname, memberptr);
 	}
+
+
+	template<typename CLS, typename FieldType>
+	void RegisterClassMember(const char* fieldname, const FieldType& (CLS::*getfunc)()const, void (CLS::*setfunc)(const FieldType&))
+	{
+		ReflexClass<CLS>* cls = GetReflexClass<CLS>();
+		cls->RegisterMember<FieldType>(fieldname, getfunc, setfunc);
+	}
 private:
 	std::unordered_map<std::string, ReflexClassBase*> m_classes;
 };

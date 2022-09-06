@@ -23,10 +23,13 @@ private:
 	friend class SharePtr;
 
 	template<typename T1, typename ...Args>
-	friend SharePtr<T1> make_share(Args&&... args);
+	friend SharePtr<T1> makeShare(Args&&... args);
 
 	template<typename T1>
-	friend SharePtr<T1> make_share(T1* ptr);
+	friend SharePtr<T1> makeShare(T1* ptr);
+
+	template<typename T1>
+	friend SharePtr<T1> makeShare();
 
 	friend bool operator==(std::nullptr_t nil, const SharePtr<T>& right);
 
@@ -165,9 +168,21 @@ bool operator==(std::nullptr_t nil, const SharePtr<T>& right)
 }
 
 template<typename T>
-SharePtr<T> make_share(T* ptr)
+inline SharePtr<T> makeShare(T* ptr)
 {
 	return SharePtr<T>(ptr);
+}
+
+template<typename T>
+inline SharePtr<T> makeShare()
+{
+	return SharePtr<T>(new T());
+}
+
+template<typename T, typename ...Args>
+inline SharePtr<T> makeShare(Args... args)
+{
+	return SharePtr<T>(new T(args));
 }
 
 END_OGS_NAMESPACE

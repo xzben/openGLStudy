@@ -11,6 +11,8 @@
 #include "core/ptr/WeakPtr.h"
 #include "core/ptr/SharePtr.h"
 #include "core/reflex/reflex.h"
+#include "core/assets/asset_types.h"
+#include "innerJson.h"
 
 #define CCLOG( format, ...) fprintf(stdout, format, ##__VA_ARGS__ )
 #define CCLOG_INFO(format, ...) fprintf(stdout, format, ##__VA_ARGS__ )

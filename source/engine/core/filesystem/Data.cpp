@@ -5,7 +5,7 @@ BEGIN_OGS_NAMESPACE
 
 Data::Data()
 {
-	reverse(1024);
+	reverse(MIN_DATA_BUFF);
 }
 
 Data::~Data()

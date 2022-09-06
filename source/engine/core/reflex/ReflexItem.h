@@ -2,7 +2,7 @@
 
 
 #include "define.h"
-#include "json/json.h"
+#include "innerJson.h"
 #include <functional>
 #include <type_traits>
 #include <unordered_map>
@@ -17,7 +17,7 @@ BEGIN_OGS_NAMESPACE
 
 class Object;
 
-using JSON = Json::Value;
+
 
 namespace reflex_define
 {
@@ -164,6 +164,48 @@ private:
 	FieldPtr m_member;
 };
 
+template<typename CLS, typename FieldType>
+class ReflexClassGetSetField : public ReflexClassMemberBase<CLS>
+{
+public:
+	using GetFunc = const FieldType& (CLS::*)()const;
+	using SetFunc = void (CLS::*)(const FieldType&);
+
+	ReflexClassGetSetField(ReflexClassBase* cls, const char* name, GetFunc getfunc, SetFunc setfunc)
+		: ReflexClassMemberBase<CLS>(cls, name)
+		, m_get(getfunc)
+		, m_set(setfunc)
+	{
+
+	}
+
+	virtual void GetObjectValue(CLS* obj, void* value) override
+	{
+		(*(FieldType*)value) = (obj->*m_get)();
+	}
+
+	virtual void SetObjectValue(CLS* obj, void* value) override
+	{
+		(obj->*m_set)(*(FieldType*)value);
+	}
+
+	virtual void Serialize(CLS* obj, JSON& json) override
+	{
+		FieldType value = (obj->*m_get)();
+		FieldSerialize::Serialize(json[m_name], &value);
+	}
+
+	virtual void Deserialize(CLS* obj, const JSON& json) override
+	{
+		FieldType value;
+		FieldSerialize::Deserialize(json[m_name], &value);
+		(obj->*m_set)(value);
+	}
+private:
+	GetFunc m_get;
+	SetFunc m_set;
+};
+
 class ReflexClassBase
 {
 public:
@@ -200,10 +242,17 @@ public:
 		return new CLS();
 	}
 
-	template<typename MemberType>
-	void RegisterMember(const char* fieldname, MemberType CLS::* ptrmeber)
+	template<typename FieldType>
+	void RegisterMember(const char* fieldname, FieldType CLS::* ptrmeber)
 	{
-		auto item = new ReflexClassCommonField<CLS, MemberType>(this, fieldname, ptrmeber);
+		auto item = new ReflexClassCommonField<CLS, FieldType>(this, fieldname, ptrmeber);
+		m_members.insert(std::make_pair<std::string, ReflexClassMemberBase<CLS>*>(fieldname, item));
+	}
+
+	template<typename FieldType>
+	void RegisterMember(const char* fieldname, const FieldType& (CLS::*getfunc)()const, void (CLS::* setfunc)(const FieldType&))
+	{
+		auto item = new ReflexClassGetSetField<CLS, FieldType>(this, fieldname, getfunc, setfunc);
 		m_members.insert(std::make_pair<std::string, ReflexClassMemberBase<CLS>*>(fieldname, item));
 	}
 

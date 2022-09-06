@@ -25,7 +25,7 @@ public:\
 	virtual ReflexClassBase* GetReflex() { return &Reflex##CLS##Obj;} \
 private:
 
-#define IMPLEMENT_REFLEX_CLASS_BASE( CLS ) \
+#define IMPLEMENT_REFLEX_CLASS_BASE( CLS, ...) \
 	ReflexClass<CLS>  CLS::Reflex##CLS##Obj(#CLS);\
 	static StaticRunObject Static##CLS##RegsiterReflexClass([]() { \
 		ReflexManager::GetInstance()->RegisterReflexClass(#CLS, CLS::GetREFLEX()); \
@@ -62,12 +62,15 @@ private:
 	IMPLEMENT_RUNTIME_CLASS( CLS ) \
 	IMPLEMENT_REFLEX_CLASS( CLS )
 
-	
+
+#define DECLARE_REFLEX_CLASS_FIELD(CLS)  static StaticRunObject Static##CLS##RegsiterReflexClassField;
+
 #define BEGIN_REFLEX_CLASS_FIELD(CLS)\
-	static StaticRunObject Static##CLS##RegsiterReflexClassField([]() { \
+	StaticRunObject CLS::Static##CLS##RegsiterReflexClassField([]() { \
 		using CUR_TYPE = CLS;
 
 #define REFLEX_FIELD(FieldType, field) ReflexManager::GetInstance()->RegisterClassMember<CUR_TYPE, FieldType>(#field, &CUR_TYPE::field);
+#define REFLEX_FIELD_GETSET(FieldType, name, get, set) ReflexManager::GetInstance()->RegisterClassMember<CUR_TYPE, FieldType>(#name, get, set);
 
 #define END_REFLEX_CLASS_FIELD() \
 	});

@@ -2,8 +2,11 @@
 
 #include "common.h"
 #include "core/base/Object.h"
+#include "core/memory/MemoryPool.h"
 
 BEGIN_OGS_NAMESPACE
+
+#define MIN_DATA_BUFF  64
 
 class Data : public Object
 {
@@ -20,6 +23,10 @@ public:
 
 	int writeBuff(byte* dest, int size);
 	int writeOffset(int offset);
+	
+	void resetReadOffset() { m_rIndex = 0; }
+	void resetWriteOffset() { m_size = 0; }
+	void resetBuffer() { resetReadOffset(); resetWriteOffset(); }
 private:
 	byte* m_data{ nullptr };
 	int m_capacity{ 0 };

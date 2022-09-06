@@ -6,29 +6,29 @@ BEGIN_EDITOR_NAMESPACE
 
 static SharePtr<EditorFrame> createNodeTreeFrame(const char* name)
 {
-	return make_share(new EditorFrame(name));
+	return makeShare(new EditorFrame(name));
 }
 
 static SharePtr<EditorFrame> createAssetsFrame(const char* name)
 {
-	return make_share(new EditorFrame(name));
+	return makeShare(new EditorFrame(name));
 }
 
 
 static SharePtr<EditorFrame> createGameViewFrame(const char* name)
 {
-	return make_share(new EditorFrame(name));
+	return makeShare(new EditorFrame(name));
 }
 
 
 static SharePtr<EditorFrame> createConsoleFrame(const char* name)
 {
-	return make_share(new EditorFrame(name));
+	return makeShare(new EditorFrame(name));
 }
 
 static SharePtr<EditorFrame> createAttrFrame(const char* name)
 {
-	return make_share(new EditorFrame(name));
+	return makeShare(new EditorFrame(name));
 }
 
 using EditorFrameCreator = std::function<SharePtr<EditorFrame>(const char*)>;

@@ -11,8 +11,8 @@ GameApp* GameApp::s_instance = nullptr;
 
 GameApp::GameApp()
 {
-	m_gameView = make_share(new GameView) ;
-	m_engine = make_share(new Engine(m_gameView));
+	m_gameView = makeShare(new GameView) ;
+	m_engine = makeShare(new Engine(m_gameView));
 	GameApp::s_instance = this;
 }
 

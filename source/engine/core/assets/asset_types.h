@@ -1,11 +1,12 @@
 #pragma once
 
-#include "editor_define.h"
+#include "define.h"
 
-BEGIN_EDITOR_NAMESPACE
+BEGIN_OGS_NAMESPACE
 
 enum AssetType
 {
+	Unknow = -1,
 	Lua,
 	Txt,
 	Json,
@@ -13,6 +14,9 @@ enum AssetType
 	Model,
 	Image,
 	Shader,
+
+	Prefab,
+	Scene,
 };
 
-END_EDITOR_NAMESPACE
+END_OGS_NAMESPACE

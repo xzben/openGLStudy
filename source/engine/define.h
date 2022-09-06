@@ -42,6 +42,8 @@ enum class GroupMask : unsigned int{
 #define MATH_EPSILON                0.000001f
 
 
+typedef unsigned int  uint32;
+typedef int			  int32;
 typedef unsigned int  uint;
 typedef unsigned char uint8;
 typedef unsigned char byte;
