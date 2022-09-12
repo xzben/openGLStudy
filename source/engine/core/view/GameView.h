@@ -13,6 +13,7 @@ struct WindowCreateInfo
 	int         width{ 1280 };
 	int         height{ 720 };
 	const char* title{ "OpenGLStudy" };
+	bool		maximized{ true }; //是否最大化
 	bool        is_fullscreen{ false };
 };
 
@@ -36,11 +37,11 @@ public:
 	virtual void exit();
 	virtual bool init(WindowCreateInfo info);
 	virtual void destroy();
-	virtual void processEvent() const;
 	virtual bool isShoudleClose()const;
 	virtual void setTitle(const std::string& title);
 	virtual GLFWwindow* GetWindow() const { return m_window; }
 	virtual void getWindowSize(int& width, int& height) { width = m_width; height = m_height; }
+	void setFullscreen();
 protected:
 	static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 	static void charCallback(GLFWwindow* window, unsigned int codepoint);

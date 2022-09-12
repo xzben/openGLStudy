@@ -9,6 +9,8 @@ class GameView;
 class GfxDevice
 {
 public:
+	virtual bool init() { return true; }
+	virtual void processEvent(){}
 	virtual void swapFrameBuffer() {}
 	virtual void clear(Color color) {}
 
@@ -17,5 +19,4 @@ protected:
 	SharePtr<GameView> m_gameview;
 };
 
-GfxDevice* getCurDvice();
 END_OGS_NAMESPACE

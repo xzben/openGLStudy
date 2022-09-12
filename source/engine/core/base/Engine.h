@@ -15,20 +15,13 @@ class GameView;
 class Engine
 {
 public:
-	Engine(const SharePtr<GameView>& gameview);
+	Engine();
 	virtual ~Engine();
 
 	virtual bool init();
 	virtual void update(float dt);
-	virtual void preRender();
-	virtual void render();
-	virtual void postRender();
-
-	virtual void draw();
-	virtual void swapFrameBuffer();
 protected:
 	std::vector<SharePtr<System>> m_systems;
-	GfxDevice* m_device;
 };
 
 END_OGS_NAMESPACE

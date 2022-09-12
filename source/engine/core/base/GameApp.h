@@ -5,6 +5,7 @@
 BEGIN_OGS_NAMESPACE
 class Engine;
 class GameView;
+class GfxDevice;
 
 class GameApp
 {
@@ -22,7 +23,6 @@ public:
 	virtual void run() final;
 	
 	virtual void exit();
-	virtual void processEvent();
 	virtual bool isShoudleClose();
 	virtual void onAppLauch() {};
 	virtual void onAppExit() {};
@@ -44,5 +44,6 @@ protected:
 	float	m_fps = 1.0f/60;
 	uint	m_frameCount = 0;
 	SharePtr<GameView> m_gameView;
+	SharePtr<GfxDevice> m_device;
 };
 END_OGS_NAMESPACE

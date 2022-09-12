@@ -22,13 +22,14 @@ public:
 
 	std::string getFullPath(const std::string& path);
 	bool isFileExists(const std::string& path);
-	bool isDirectorExists(const std::string& path);
+	bool isDirectoryExists(const std::string& path);
 	bool rename(const std::string& from, const std::string& dest);
 	bool remove(const std::string& path);
 	bool createDirectories(const std::string& path);
 	std::string getString(const std::string& path);
 	bool getContentData(const std::string& path, const SharePtr<Data>& data);
 
+	bool getDirectoryFiles(const std::string& path, std::vector<std::string>& files, bool recursive = false);
 	//获取文件的文件名部分
 	std::string getFilename(const std::string& filepath);
 	//获取path 去除文件名字的 path 部分
@@ -36,6 +37,8 @@ public:
 	//获取文件的后缀名字
 	std::string getFileExt(const std::string& filepath);
 
+	bool writeString(const std::string& fullpath, const std::string& content);
+	bool writeData(const std::string& fullpath, const SharePtr<Data>& data);
 private:
 	std::vector<std::string> m_searchPaths;
 	std::unordered_map<std::string, std::string> m_filecaches;

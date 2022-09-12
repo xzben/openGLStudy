@@ -5,10 +5,6 @@
 
 BEGIN_OGS_NAMESPACE
 
-static void glfw_error_callback(int error, const char* description)
-{
-	CCLOG_ERROR("Glfw Error %d: %s\n", error, description);
-}
 
 // window event callbacks
 void GameView::keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
@@ -108,17 +104,11 @@ GameView::~GameView()
 
 bool GameView::init(WindowCreateInfo info)
 {
-	glfwSetErrorCallback(glfw_error_callback);
-	if (!glfwInit())
-		return false;
-
-	const char* glsl_version = "#version 130";
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+	glfwWindowHint(GLFW_MAXIMIZED, info.maximized);
 
 	m_width = info.width;
 	m_height = info.height;
-	GLFWwindow* window = glfwCreateWindow(info.width, info.height, info.title, NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(info.width, info.height, info.title, info.is_fullscreen ? glfwGetPrimaryMonitor() : NULL, NULL);
 	if (window == NULL)
 	{
 		glfwTerminate();
@@ -156,11 +146,6 @@ void GameView::destroy()
 {
 	glfwDestroyWindow((GLFWwindow*)m_window);
 	glfwTerminate();
-}
-
-void GameView::processEvent() const
-{
-	glfwPollEvents();
 }
 
 bool GameView::isShoudleClose()const

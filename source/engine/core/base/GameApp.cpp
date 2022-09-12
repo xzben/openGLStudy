@@ -4,6 +4,11 @@
 #include <chrono>
 #include <thread>
 #include "core/view/GameView.h"
+#include "rendersystem/GfxDevice.h"
+
+#if RENDER_PLAT == RENDER_OPENGL3
+#include "rendersystem/opengl3/OGL3Device.h"
+#endif
 
 BEGIN_OGS_NAMESPACE
 
@@ -12,7 +17,10 @@ GameApp* GameApp::s_instance = nullptr;
 GameApp::GameApp()
 {
 	m_gameView = makeShare(new GameView) ;
-	m_engine = makeShare(new Engine(m_gameView));
+	m_engine = makeShare(new Engine());
+	m_device = makeShare((GfxDevice*)new OGL3Device);
+	m_device->setGameView(m_gameView);
+
 	GameApp::s_instance = this;
 }
 
@@ -34,6 +42,9 @@ void GameApp::exit()
 
 bool GameApp::init()
 {
+	if (!m_device->init())
+		return false;
+
 	if (!m_gameView->init(WindowCreateInfo()))
 	{
 		return false;
@@ -60,17 +71,17 @@ void GameApp::onUpdate(float dt)
 
 void GameApp::onPreRender()
 {
-	m_engine->preRender();
+
 }
  
 void GameApp::onRender()
 {
-	m_engine->render();
+
 }
  
 void GameApp::onPostRender()
 {
-	m_engine->postRender();
+
 }
 
 void GameApp::render()
@@ -82,13 +93,14 @@ void GameApp::render()
 
 void GameApp::onDraw()
 {
-	m_engine->draw();
+
 }
 
 void GameApp::draw()
 {
 	onDraw();
 }
+
 void GameApp::run()
 {
 	time_t lasttime = Time::get_time_stamp_microsec();
@@ -100,18 +112,13 @@ void GameApp::run()
 		if (offettime >= m_fps)
 		{
 			lasttime = curtime;
-			processEvent();
+			m_device->processEvent();
 			update(offettime);
 			render();
 			draw();
-			m_engine->swapFrameBuffer();
+			m_device->swapFrameBuffer();
 		}
 	}
-}
-
-void GameApp::processEvent()
-{
-	m_gameView->processEvent();
 }
 
 bool GameApp::isShoudleClose()
