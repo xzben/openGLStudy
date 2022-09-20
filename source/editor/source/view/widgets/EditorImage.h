@@ -10,7 +10,7 @@ class EditorImage : public EditorUIBase
 public:
 	void setPath(const std::string& path) { m_path = path; }
 	const std::string& getPath() { return m_path; }
-	virtual bool render() override;
+	virtual bool onRender() override;
 protected:
 	std::string m_path;
 };

@@ -12,9 +12,8 @@ EditorModalDialog::~EditorModalDialog()
 
 }
 
-bool EditorModalDialog::render()
+bool EditorModalDialog::onRender()
 {
-	if (!Super::render()) return false;
 
 	return true;
 }

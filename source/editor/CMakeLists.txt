@@ -11,6 +11,7 @@ include_directories(
 )
 
 add_compile_definitions("ENGINE_ASSETS_DIR=${ENGINE_ASSETS_DIR}")
+add_compile_definitions("ENGINE_PROJECT_PATH=${CMAKE_CURRENT_SOURCE_DIR}/project/")
 
 add_executable(${TARGET_NAME} ${EDITOR_HEADERS} ${EDITOR_SOURCES} ${EDITOR_RESOURCE})
 

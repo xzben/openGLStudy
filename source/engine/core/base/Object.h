@@ -2,7 +2,6 @@
 
 #include "macro.h"
 #include "common.h"
-#include "core/reflex/reflex.h"
 
 BEGIN_OGS_NAMESPACE
 
@@ -22,6 +21,8 @@ class Object
 public:
 	Object() = default;
 	virtual ~Object() = default;
+
+	virtual void handleInit() {};
 
 	template<typename CLS>
 	bool IsKindOf()

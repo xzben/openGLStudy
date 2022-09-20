@@ -15,17 +15,17 @@ enum class ItemType
 template<typename Arg>
 using ParmType = std::conditional_t<std::is_pointer_v<Arg>, Arg, const Arg&>;
 
+using ListenerId = uint32;
+
 template<typename ...Args>
 class ListenerItem
 {
 public:
-	ListenerItem(ItemType t):type(t){}
+	ListenerItem(ListenerId id, ItemType t):type(t), m_listenerId(id){}
 	virtual void Call(ParmType<Args>... args) = 0;
-	virtual bool operator==(const ListenerItem<Args...>& rhs)
-	{
-		return type == rhs.type;
-	}
+
 	ItemType type;
+	ListenerId m_listenerId;
 };
 
 template<typename T, typename ...Args>
@@ -38,17 +38,13 @@ public:
 	using Super = ListenerItem<Args...>;
 
 	using ListenerFunc = void (T::*)(ParmType<Args>...);
-	NotifyClassItem(T* owner, ListenerFunc func) : Super(ItemType::ClassFunc), m_owner(owner), m_func(func) {}
+	NotifyClassItem(ListenerId id, T* owner, ListenerFunc func) : Super(id, ItemType::ClassFunc), m_owner(owner), m_func(func) {}
 
 	virtual void Call(ParmType<Args>... args) override
 	{
 		(m_owner->*m_func)(args...);
 	}
 
-	virtual bool operator==(const NotifyClassItem<T, Args...>& rhs)
-	{
-		return m_owner == rhs.m_owner && m_func == rhs.m_func;
-	}
 protected:
 	T* m_owner;
 	ListenerFunc m_func;
@@ -62,16 +58,11 @@ public:
 	friend class Notify;
 	using Super = ListenerItem<Args...>;
 	typedef std::function<void(ParmType<Args>...)> ListenerFunc;
-	NotifyFuncItem(ListenerFunc func) :Super(ItemType::NormalFunc), m_func(func){}
+	NotifyFuncItem(ListenerId id, ListenerFunc func) :Super(id, ItemType::NormalFunc), m_func(func){}
 
 	virtual void Call(ParmType<Args>... args)
 	{
 		m_func(args...);
-	}
-
-	virtual bool operator==(const NotifyFuncItem<Args...>& rhs) override
-	{
-		return m_func == rhs.m_func;
 	}
 protected:
 	ListenerFunc m_func;
@@ -89,19 +80,25 @@ public:
 	}
 
 	template<typename T>
-	void subscribe(T* obj, void (T::* func)(ParmType<Args>...) )
+	ListenerId subscribe(T* obj, void (T::* func)(ParmType<Args>...) )
 	{
-		subscribe(new NotifyClassItem<T, Args...>(obj, func));
+		m_idcount++;
+		subscribe(new NotifyClassItem<T, Args...>(m_idcount, obj, func));
+
+		return m_idcount;
 	}
 
-	void subscribe(std::function<void(ParmType<Args>...)> func)
+	ListenerId subscribe(std::function<void(ParmType<Args>...)> func)
 	{
-		subscribe(new NotifyFuncItem<Args...>(func));
+		m_idcount++;
+		subscribe(new NotifyFuncItem<Args...>(m_idcount, func));
+		
+		return m_idcount;
 	}
 
-	void subscribe(ListenerItemType* item)
+	ListenerId operator+=(std::function<void(ParmType<Args>...)> func)
 	{
-		m_items.push_back(item);
+		return subscribe(func);
 	}
 
 	template<typename T>
@@ -138,27 +135,12 @@ public:
 		}
 	}
 
-	void unsubscribe(std::function<void(ParmType<Args>...)> func)
+	void unsubscribe(ListenerId listenerid)
 	{
 		for (auto it = m_items.begin(); it != m_items.end();)
 		{
 			NotifyFuncItem<Args...>* item = dynamic_cast<NotifyFuncItem<Args...>*>(*it);
-			if (item != nullptr && item->m_func == func)
-			{
-				it = m_items.erase(it);
-			}
-			else
-			{
-				it++;
-			}
-		}
-	}
-
-	void unsubscribe(ListenerItemType* item)
-	{
-		for (auto it = m_items.begin(); it != m_items.end();)
-		{
-			if (item->type == (*it)->type &&  (*it) == item)
+			if (item != nullptr && item->m_listenerId == listenerid)
 			{
 				it = m_items.erase(it);
 			}
@@ -177,7 +159,13 @@ public:
 		}
 	}
 protected:
+	void subscribe(ListenerItemType* item)
+	{
+		m_items.push_back(item);
+	}
+protected:
 	std::vector<ListenerItemType*> m_items;
+	ListenerId  m_idcount;
 };
 
 END_OGS_NAMESPACE

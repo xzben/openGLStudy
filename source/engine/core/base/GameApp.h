@@ -1,6 +1,7 @@
 #pragma once
 
 #include "common.h"
+#include "runtime.h"
 
 BEGIN_OGS_NAMESPACE
 class Engine;
@@ -9,13 +10,14 @@ class GfxDevice;
 
 class GameApp
 {
+	DECLARE_RUNTIME_CLASS_BASE(GameApp)
 public:
 	GameApp();
 	virtual ~GameApp();
 
 	static GameApp* s_instance;
 	static GameApp* GetApp() { return s_instance; }
-	virtual bool init() final;
+	virtual bool init(const WindowCreateInfo& windowinfo) final;
 	virtual void destroy();
 	virtual void update(float dt) final;
 	virtual void render()final;

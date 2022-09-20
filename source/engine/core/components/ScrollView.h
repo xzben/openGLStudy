@@ -5,12 +5,9 @@
 
 BEGIN_OGS_NAMESPACE
 
-class SpriteComponent : public Component
+class ScrollView : public Component
 {
 public:
-	SpriteComponent();
-
-private:
-
+	ScrollView();
 };
 END_OGS_NAMESPACE

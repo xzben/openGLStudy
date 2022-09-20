@@ -10,7 +10,18 @@ bool EditorUIBase::render()
 		onChangeVisible(m_isVisible);
 	}
 
-	return m_isVisible;
+	if (!m_isVisible)
+		return false;
+
+	if (!onRender())
+	{
+		return false;
+	}
+
+	if (!breakLine)
+		ImGui::SameLine();
+
+	return true;
 }
 
 END_EDITOR_NAMESPACE

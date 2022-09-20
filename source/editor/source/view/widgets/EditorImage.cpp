@@ -2,10 +2,8 @@
 
 BEGIN_EDITOR_NAMESPACE
 
-bool EditorImage::render()
+bool EditorImage::onRender()
 {
-	if (!Super::render())
-		return false;
 
 	//ImGui::Image(,m_size)
 	

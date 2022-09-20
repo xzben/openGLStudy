@@ -5,9 +5,11 @@
 
 BEGIN_OGS_NAMESPACE
 
-class ScrollViewComponent : public Component
+class Camera : public Component
 {
+	DECLARE_CLASS(Camera)
 public:
-	ScrollViewComponent();
+	Camera();
 };
+
 END_OGS_NAMESPACE

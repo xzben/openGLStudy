@@ -2,10 +2,8 @@
 
 BEGIN_EDITOR_NAMESPACE
 
-bool EditorButton::render()
+bool EditorButton::onRender()
 {
-	if (!Super::render()) return false;
-
 	if (ImGui::Button(m_text.c_str()))
 	{
 		onClick();
@@ -16,7 +14,7 @@ bool EditorButton::render()
 
 void EditorButton::onClick()
 {
-
+	ClickedEvent.emit();
 }
 
 END_EDITOR_NAMESPACE

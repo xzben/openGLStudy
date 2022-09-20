@@ -12,6 +12,8 @@ public:
 	virtual ~EditorUIBase(){}
 
 	virtual bool render();
+	virtual void handleInit() {}
+	virtual bool onRender() = 0;
 
 	void setVisible(bool visible)
 	{
@@ -30,7 +32,11 @@ public:
 	void setEnable(bool enable) { m_enable = enable; }
 	const ImVec2& getSize() const { return m_size; }
 	void setSize(const ImVec2& size) { m_size = size; }
+	void setParent(EditorUIBase* parent) { m_parent = parent; }
+public:
+	bool breakLine{ true };
 protected:
+	EditorUIBase* m_parent{ nullptr };
 	bool m_isVisible{true};
 	bool m_lastVisibleStatus{ true };
 	bool m_enable{ true };

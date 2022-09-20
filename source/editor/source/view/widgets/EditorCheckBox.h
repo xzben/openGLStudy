@@ -11,7 +11,7 @@ public:
 	void setText(const std::string& text) { m_text = text; }
 	const std::string& getText() { return m_text; }
 	
-	virtual bool render() override;
+	virtual bool onRender() override;
 	bool isChecked() { return m_isChecked; }
 	void setChecked(bool checked) { m_isChecked = checked; }
 protected:

@@ -13,6 +13,15 @@ class EditorMenuBar;
 class EditorMenu;
 class EventData;
 
+using EditorFrameCreator = std::function<SharePtr<EditorFrame>()>;
+struct FrameConfig
+{
+	IDMainFrame id;
+	MainDockSpace spaceid;
+	const char* name;
+	EditorFrameCreator creator;
+};
+
 class EditorWindow
 {
 	DECLARE_EDITOR_CLASS_BASE(EditorWindow)
@@ -38,14 +47,19 @@ private:
 	void createFrameWindowSubMenu(int index, SharePtr<EditorFrame>& frame);
 	void setupMenuBar();
 	void setupFrames();
-	void addFrame(SharePtr<EditorFrame>& frame);
-	bool  initContext();
+	void addFrame(SharePtr<EditorFrame>& frame, const FrameConfig& config);
+	bool initContext();
 	void handleFrameEvent(EventData* event);
 	void EditorWindow::defaultLaytout(int dockspace_id);
 protected:
+	struct MainFrameInfo
+	{
+		SharePtr<EditorFrame> frame;
+		FrameConfig config;
+	};
 	SharePtr<EditorMenuBar> m_menubar;
 	WeakPtr<EditorMenu> m_windowmenu;
-	std::vector<SharePtr<EditorFrame>> m_frames;
+	std::vector<MainFrameInfo> m_frames;
 	WeakPtr<OGS::GameView> m_gameview;
 	std::unordered_map<MainDockSpace, ImGuiID> m_spaceId2GuiId;
 	bool m_isInitDock{ true };

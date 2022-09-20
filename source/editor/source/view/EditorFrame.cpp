@@ -7,7 +7,6 @@ BEGIN_EDITOR_NAMESPACE
 EditorFrame::EditorFrame(const std::string& title)
 	: m_title(title)
 {
-	m_window = EditorApp::GetInstance()->getEditorWindow();
 }
 
 EditorFrame::~EditorFrame()
@@ -23,23 +22,17 @@ void EditorFrame::onChangeVisible(bool visible)
 	SAFE_DELTE(pevent);
 }
 
-bool EditorFrame::render()
+void EditorFrame::setDockspace(ImGuiID dockid)
 {
-	if (!Super::render())
-		return false;
+	if(dockid > 0)
+		ImGui::DockBuilderDockWindow(m_title.c_str(), dockid);
+}
 
-	ImGuiID nodeid;
-	if (m_dockspaceId != 0 && (nodeid = m_window->getDockspaceId(m_dockspaceId)) > 0)
+bool EditorFrame::onRender()
+{	
+	if(ImGui::Begin(m_title.c_str(), &m_isVisible, m_windowflag))
 	{
-		ImGui::DockBuilderDockWindow(m_title.c_str(), nodeid);
-	}
-	
-	if(ImGui::Begin(m_title.c_str(), &m_isVisible))
-	{
-		for (auto it : m_childrens)
-		{
-			it->render();
-		}
+		EditorUIContainor::onRender();
 	}
 	ImGui::End();
 

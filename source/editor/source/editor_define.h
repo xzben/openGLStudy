@@ -13,4 +13,9 @@ private:
 public: \
 	typedef ThisType Super; \
 	typedef CLS ThisType; \
+	static SharePtr<CLS> create(){ \
+		auto obj = makeShare<CLS>(new CLS()); \
+		obj->handleInit(); \
+		return obj; \
+	}\
 private:

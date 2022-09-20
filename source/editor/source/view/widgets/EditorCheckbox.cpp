@@ -3,12 +3,9 @@
 
 BEGIN_EDITOR_NAMESPACE
 
-bool EditorCheckBox::render()
+bool EditorCheckBox::onRender()
 {
-	if (!Super::render()) return false;
-
 	ImGui::Checkbox(m_text.c_str(), &m_isChecked);
-
 	return true;
 }
 

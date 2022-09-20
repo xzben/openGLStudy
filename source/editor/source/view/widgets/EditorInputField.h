@@ -11,7 +11,7 @@ public:
 	EditorInputField();
 	void setText(const std::string& text) { m_text = text; }
 	const std::string& getText() { return m_text; }
-	virtual bool render() override;
+	virtual bool onRender() override;
 	void setTextMaxCount(int maxCount) { m_textMaxCount = maxCount; m_text.reserve(maxCount); }
 	int getTextMaxCount() { return m_textMaxCount; }
 protected:

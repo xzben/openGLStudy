@@ -17,15 +17,11 @@ BEGIN_OGS_NAMESPACE
 
 class Object;
 
-
-
 namespace reflex_define
 {
 	template <class _Ty>
 	using valid_mapkey_t = std::enable_if_t<std::_Is_any_of_v<_Ty, bool, char, int, unsigned int, float, double, JSON::Int64, JSON::UInt64, std::string>, _Ty>;
 }
-
-
 
 namespace FieldSerialize
 {
@@ -158,6 +154,11 @@ public:
 
 	virtual void Deserialize(CLS* obj, const JSON& json) override
 	{
+		if (!json.isMember(m_name))
+		{
+			ASSERT(false, "must have field [%s]", m_name.c_str());
+			return;
+		}
 		FieldSerialize::Deserialize(json[m_name], &(obj->*m_member));
 	}
 private:
@@ -197,6 +198,11 @@ public:
 
 	virtual void Deserialize(CLS* obj, const JSON& json) override
 	{
+		if (!json.isMember(m_name))
+		{
+			ASSERT(false, "must have field [%s]", m_name.c_str());
+			return;
+		}
 		FieldType value;
 		FieldSerialize::Deserialize(json[m_name], &value);
 		(obj->*m_set)(value);
@@ -239,7 +245,8 @@ public:
 
 	virtual void* NewInstance() override
 	{
-		return new CLS();
+		auto obj = new CLS();
+		return obj;
 	}
 
 	template<typename FieldType>
@@ -267,9 +274,18 @@ public:
 
 	virtual void Deserialize(void* obj, const JSON& json) override
 	{
+		if (!json.isMember(CLASS_OBJ_KEY))
+		{
+			ASSERT(false, "Must has member %s", CLASS_OBJ_KEY);
+			return;
+		}
 		std::string classname = json[CLASS_OBJ_KEY].asCString();
-		ASSERT(classname == this->m_name, "muset been same class name");
-
+		if (classname != this->m_name)
+		{
+			ASSERT(false, "muset been same class name");
+			return;
+		}
+		
 		for (auto item : m_members)
 		{
 			item.second->Deserialize(static_cast<CLS*>(obj), json);

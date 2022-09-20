@@ -121,6 +121,12 @@ public:
 		return m_data;
 	}
 
+	template<typename NewT>
+	operator SharePtr<NewT>() const
+	{
+		return ToCast<NewT>();
+	}
+
 	operator bool() const
 	{
 		return m_data != nullptr;

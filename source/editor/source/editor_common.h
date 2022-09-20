@@ -2,6 +2,7 @@
 
 #include "common.h"
 #include "editor_define.h"
+#include "editor_types.h"
 #include "view/DefineId.h"
 #include "event/eventid.h"
 #include "imgui.h"

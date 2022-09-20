@@ -4,7 +4,7 @@
 #include "core/tool/Singleton.h"
 BEGIN_EDITOR_NAMESPACE
 
-class EditorAssetsManager : public OGS::Singleton<EditorAssetsManager>
+class EditorControl : public OGS::Singleton<EditorControl>
 {
 public:
 

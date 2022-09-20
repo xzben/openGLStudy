@@ -33,4 +33,12 @@ void OGL3Device::swapFrameBuffer()
 	glfwSwapBuffers(m_gameview->GetWindow());
 }
 
+void OGL3Device::GetScreenSize(int& width, int& height)
+{
+	const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+
+	width = mode->width;
+	height = mode->height;
+}
+
 END_OGS_NAMESPACE

@@ -102,12 +102,14 @@ GameView::~GameView()
 {
 }
 
-bool GameView::init(WindowCreateInfo info)
+bool GameView::init(const WindowCreateInfo& info)
 {
 	glfwWindowHint(GLFW_MAXIMIZED, info.maximized);
 
 	m_width = info.width;
 	m_height = info.height;
+	m_posx = 0;
+	m_posy = 0;
 	GLFWwindow* window = glfwCreateWindow(info.width, info.height, info.title, info.is_fullscreen ? glfwGetPrimaryMonitor() : NULL, NULL);
 	if (window == NULL)
 	{
@@ -156,6 +158,41 @@ bool GameView::isShoudleClose()const
 void GameView::setTitle(const std::string& title)
 {
 	glfwSetWindowTitle((GLFWwindow*)m_window, title.c_str());
+}
+
+void GameView::setPosition(int x, int y)
+{
+	m_posx = x;
+	m_posy = y;
+	glfwSetWindowPos(m_window, x, y);
+}
+
+void GameView::show()
+{
+	glfwShowWindow(m_window);
+}
+
+void GameView::hide()
+{
+	glfwHideWindow(m_window);
+}
+void GameView::focus()
+{
+	glfwFocusWindow(m_window);
+}
+void GameView::setfullscreen(bool fullscreen)
+{
+	m_fullscreen = fullscreen;
+	glfwSetWindowMonitor
+	(
+		m_window,
+		fullscreen ? glfwGetPrimaryMonitor() : nullptr,
+		m_posx,
+		m_posy,
+		m_width,
+		m_height,
+		-1
+	);
 }
 
 void GameView::exit()

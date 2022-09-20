@@ -17,11 +17,8 @@ EditorMenuBar::~EditorMenuBar()
 	m_mapMenus.clear();
 }
 
-bool EditorMenuBar::render()
+bool EditorMenuBar::onRender()
 {
-	if (!Super::render())
-		return false;
-
 	if (ImGui::BeginMainMenuBar())
 	{
 		for (auto menu : m_arrMenus)

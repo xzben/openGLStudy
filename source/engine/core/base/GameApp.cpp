@@ -6,11 +6,9 @@
 #include "core/view/GameView.h"
 #include "rendersystem/GfxDevice.h"
 
-#if RENDER_PLAT == RENDER_OPENGL3
-#include "rendersystem/opengl3/OGL3Device.h"
-#endif
-
 BEGIN_OGS_NAMESPACE
+
+IMPLEMENT_RUNTIME_CLASS_BASE(GameApp)
 
 GameApp* GameApp::s_instance = nullptr;
 
@@ -18,7 +16,7 @@ GameApp::GameApp()
 {
 	m_gameView = makeShare(new GameView) ;
 	m_engine = makeShare(new Engine());
-	m_device = makeShare((GfxDevice*)new OGL3Device);
+	m_device = createCurDevice();
 	m_device->setGameView(m_gameView);
 
 	GameApp::s_instance = this;
@@ -40,12 +38,12 @@ void GameApp::exit()
 	m_gameView->exit();
 }
 
-bool GameApp::init()
+bool GameApp::init(const WindowCreateInfo& windowinfo)
 {
 	if (!m_device->init())
 		return false;
 
-	if (!m_gameView->init(WindowCreateInfo()))
+	if (!m_gameView->init(windowinfo))
 	{
 		return false;
 	}

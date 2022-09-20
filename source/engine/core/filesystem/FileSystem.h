@@ -4,10 +4,10 @@
 #include <vector>
 #include <string>
 #include <unordered_map>
-#include "core/base/Object.h"
-#include "Data.h"
 
 BEGIN_OGS_NAMESPACE
+
+class Data;
 
 class FileSystem : public Singleton<FileSystem>
 {
@@ -22,14 +22,16 @@ public:
 
 	std::string getFullPath(const std::string& path);
 	bool isFileExists(const std::string& path);
+	bool isDirectory(const std::string& path);
 	bool isDirectoryExists(const std::string& path);
 	bool rename(const std::string& from, const std::string& dest);
 	bool remove(const std::string& path);
 	bool createDirectories(const std::string& path);
 	std::string getString(const std::string& path);
 	bool getContentData(const std::string& path, const SharePtr<Data>& data);
-
-	bool getDirectoryFiles(const std::string& path, std::vector<std::string>& files, bool recursive = false);
+	
+	bool getDirectoryContents(const std::string& path, std::vector<std::string>& files, std::vector<std::string>& directories, bool recursive = false);
+	bool getDirectoryFiles(const std::string& path, std::vector<std::string>& files, bool recursive = false, bool filterDirectory = true);
 	//获取文件的文件名部分
 	std::string getFilename(const std::string& filepath);
 	//获取path 去除文件名字的 path 部分

@@ -13,7 +13,7 @@ public:
 	EditorModalDialog();
 	virtual ~EditorModalDialog();
 
-	virtual bool render() override;
+	virtual bool onRender() override;
 
 };
 END_EDITOR_NAMESPACE

@@ -1,13 +1,13 @@
 #pragma once
 
 #include "common.h"
-#include "core/base/Ref.h"
+#include "core/base/Object.h"
 
 BEGIN_OGS_NAMESPACE
 
 class Mesh;
 
-class Model : public Ref
+class Model : public Object
 {
 public:
 	Model();

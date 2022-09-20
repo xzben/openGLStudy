@@ -2,7 +2,7 @@
 #define __COMMON_2021_09_06_H__
 #include <string>
 #include <vector>
-
+#include <type_traits>
 #include "define.h"
 #include "define/shader_define.h"
 #include "define/event_define.h"

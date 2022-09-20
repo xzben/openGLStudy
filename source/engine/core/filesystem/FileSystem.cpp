@@ -4,6 +4,7 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include "Data.h"
 BEGIN_OGS_NAMESPACE
 
 namespace fs = std::filesystem;
@@ -81,7 +82,7 @@ bool FileSystem::isFileExists(const std::string& path)
 	return fullpath != "";
 }
 
-bool FileSystem::isDirectoryExists(const std::string& path)
+bool FileSystem::isDirectory(const std::string& path)
 {
 	std::string fullpath = getFullPath(path);
 	if (fullpath == "")
@@ -89,6 +90,11 @@ bool FileSystem::isDirectoryExists(const std::string& path)
 
 	fs::path temppath(fullpath);
 	return fs::is_directory(temppath);
+}
+
+bool FileSystem::isDirectoryExists(const std::string& path)
+{
+	return isDirectory(path);
 }
 
 static void get_directory_files(std::string& fullpath, std::vector<std::string>& files)
@@ -107,7 +113,7 @@ static void get_directory_files(std::string& fullpath, std::vector<std::string>&
 	}
 }
 
-bool FileSystem::getDirectoryFiles(const std::string& path, std::vector<std::string>& files, bool recursive /*= false*/)
+bool FileSystem::getDirectoryContents(const std::string& path, std::vector<std::string>& files, std::vector<std::string>& directories, bool recursive /*= false*/)
 {
 	std::string fullpath = getFullPath(path);
 	if (fullpath == "")
@@ -125,6 +131,10 @@ bool FileSystem::getDirectoryFiles(const std::string& path, std::vector<std::str
 			{
 				files.push_back(directory_entry.path().lexically_relative(directory).string());
 			}
+			else
+			{
+				directories.push_back(directory_entry.path().lexically_relative(directory).string());
+			}
 		}
 	}
 	else
@@ -132,7 +142,61 @@ bool FileSystem::getDirectoryFiles(const std::string& path, std::vector<std::str
 		fs::directory_iterator list(directory);
 		for (auto& it : list)
 		{
-			if (it.is_regular_file())
+			
+				if (it.is_regular_file())
+				{
+					files.push_back(it.path().lexically_relative(directory).string());
+				}
+				else
+				{
+					directories.push_back(it.path().lexically_relative(directory).string());
+				}
+		}
+	}
+
+	return true;
+}
+
+bool FileSystem::getDirectoryFiles(const std::string& path, std::vector<std::string>& files, bool recursive /*= false*/, bool filterDirectory /*= true*/)
+{
+	std::string fullpath = getFullPath(path);
+	if (fullpath == "")
+		return false;
+
+	fs::path directory(fullpath);
+	if (!fs::is_directory(directory))
+		return false;
+
+	if (recursive)
+	{
+		for (auto const& directory_entry : fs::recursive_directory_iterator{ directory })
+		{
+			if (filterDirectory)
+			{
+				if (directory_entry.is_regular_file())
+				{
+					files.push_back(directory_entry.path().lexically_relative(directory).string());
+				}
+			}
+			else
+			{
+				files.push_back(directory_entry.path().lexically_relative(directory).string());
+			}
+		}
+	}
+	else
+	{
+		fs::directory_iterator list(directory);
+		for (auto& it : list)
+		{
+			if (filterDirectory)
+			{
+				if (it.is_regular_file())
+				{
+					files.push_back(it.path().lexically_relative(directory).string());
+				}
+			}
+			else
 			{
 				files.push_back(it.path().lexically_relative(directory).string());
 			}

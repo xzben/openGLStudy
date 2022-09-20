@@ -2,13 +2,17 @@
 
 #include "common.h"
 #include "core/base/Component.h"
+#include "core/base/Notify.h"
 
 BEGIN_OGS_NAMESPACE
 
-class LabelComponent : public Component
+class Button : public Component
 {
 public:
-	LabelComponent();
+	Button();
 
+public:
+	Notify<> ClickEvent;
 };
+
 END_OGS_NAMESPACE

@@ -6,17 +6,17 @@ BEGIN_OGS_NAMESPACE
 
 enum AssetType
 {
-	Unknow = -1,
-	Lua,
-	Txt,
-	Json,
-	Material,
-	Model,
-	Image,
-	Shader,
+	TUnknow = -1,
+	TLua,
+	TTxt,
+	TJson,
+	TMaterial,
+	TModel,
+	TImage,
+	TShader,
 
-	Prefab,
-	Scene,
+	TPrefab,
+	TScene,
 };
 
 END_OGS_NAMESPACE

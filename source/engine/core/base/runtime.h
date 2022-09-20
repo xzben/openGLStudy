@@ -25,6 +25,7 @@ public:\
 	static Runtime Runtime##CLS##Obj; \
 	static Runtime* GetRUNTIME(){ return &Runtime##CLS##Obj; } \
 	virtual Runtime* GetRuntime() { return &Runtime##CLS##Obj; }\
+	static CLS* create(){ return new CLS();} \
 private:
 
 #define IMPLEMENT_RUNTIME_CLASS_BASE( CLS ) \

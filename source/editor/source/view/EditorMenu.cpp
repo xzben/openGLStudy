@@ -5,9 +5,8 @@
 
 BEGIN_EDITOR_NAMESPACE
 
-bool EditorMenu::render()
+bool EditorMenu::onRender()
 {
-
 	if (renderAsContainor()) return true;
 	if (renderAsWidget()) return true;
 

@@ -31,10 +31,8 @@ EditorInputField::EditorInputField()
 	m_size = DEFAULT_INPUTFIELD_SIZE;
 }
 
-bool EditorInputField::render()
+bool EditorInputField::onRender()
 {
-	if (!Super::render()) return false;
-
 	int flag = ImGuiInputTextFlags_CallbackEdit | ImGuiInputTextFlags_CallbackCompletion;
 	ImGui::InputTextEx("input", m_placetips.c_str(), m_text.data(),m_textMaxCount, m_size, flag, EditorInputField::handleInputEventCallback, this);
 	

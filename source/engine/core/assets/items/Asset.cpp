@@ -1,28 +1,29 @@
 #include "Asset.h"
 #include <unordered_map>
 #include "core/filesystem/FileSystem.h"
+#include "core/filesystem/Data.h"
 BEGIN_OGS_NAMESPACE
 
 IMPLEMENT_CLASS(Asset)
 
 static std::unordered_map<std::string, AssetType> Suffix2AssetType{
-	{ "png", AssetType::Image },
-	{ "jpeg", AssetType::Image },
-	{ "jpg", AssetType::Image },
+	{ "png", AssetType::TImage },
+	{ "jpeg", AssetType::TImage },
+	{ "jpg", AssetType::TImage },
 
-	{ "obj", AssetType::Model },
-	{ "json", AssetType::Json },
-	{ "lua", AssetType::Lua },
-	{ "luac", AssetType::Lua },
+	{ "obj", AssetType::TModel },
+	{ "json", AssetType::TJson },
+	{ "lua", AssetType::TLua },
+	{ "luac", AssetType::TLua },
 
-	{ "mat", AssetType::Material },
-	{ "fs", AssetType::Shader },
-	{ "vs", AssetType::Shader },
+	{ "mat", AssetType::TMaterial },
+	{ "fs", AssetType::TShader },
+	{ "vs", AssetType::TShader },
 
-	{ "txt", AssetType::Txt },
+	{ "txt", AssetType::TTxt },
 
-	{ "prefab", AssetType::Prefab },
-	{ "scene", AssetType::Scene },
+	{ "prefab", AssetType::TPrefab },
+	{ "scene", AssetType::TScene },
 };
 
 AssetType Asset::GetAssetType(const std::string& filename)
@@ -31,7 +32,7 @@ AssetType Asset::GetAssetType(const std::string& filename)
 	auto it = Suffix2AssetType.find(ext);
 	if (it == Suffix2AssetType.end())
 	{
-		return AssetType::Unknow;
+		return AssetType::TUnknow;
 	}
 
 	return it->second;

@@ -24,7 +24,7 @@ public:
 	virtual void onUnload(){};
 protected:
 	bool m_loaded{ false };
-	AssetType m_type{AssetType::Unknow};
+	AssetType m_type{AssetType::TUnknow};
 	std::string m_path{ "" };
 };
 END_OGS_NAMESPACE

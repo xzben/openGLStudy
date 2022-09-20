@@ -19,7 +19,7 @@ public:
 	void addSubMenu(const std::string& parent, SharePtr<EditorMenu> menu);
 	EditorMenu* getMenu(const std::string& name);
 
-	virtual bool render() override;
+	virtual bool onRender() override;
 	int getHeight() { return m_heigth; }
 
 private:

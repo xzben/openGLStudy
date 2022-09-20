@@ -8,15 +8,6 @@ struct GLFWwindow;
 
 BEGIN_OGS_NAMESPACE
 
-struct WindowCreateInfo
-{
-	int         width{ 1280 };
-	int         height{ 720 };
-	const char* title{ "OpenGLStudy" };
-	bool		maximized{ true }; //是否最大化
-	bool        is_fullscreen{ false };
-};
-
 class GameView
 {
 public:
@@ -35,13 +26,17 @@ public:
 	virtual ~GameView();
 
 	virtual void exit();
-	virtual bool init(WindowCreateInfo info);
+	virtual bool init(const WindowCreateInfo& info);
 	virtual void destroy();
 	virtual bool isShoudleClose()const;
 	virtual void setTitle(const std::string& title);
 	virtual GLFWwindow* GetWindow() const { return m_window; }
 	virtual void getWindowSize(int& width, int& height) { width = m_width; height = m_height; }
-	void setFullscreen();
+	void setPosition(int x, int y);
+	void show();
+	void hide();
+	void focus();
+	void setfullscreen(bool fullscreen);
 protected:
 	static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 	static void charCallback(GLFWwindow* window, unsigned int codepoint);
@@ -68,8 +63,10 @@ protected:
 	GLFWwindow* m_window{ nullptr };
 	int m_width{ 0 };
 	int m_height{ 0 };
-
+	int m_posx{ 0 };
+	int m_posy{ 0 };
 	bool m_is_focus_mode{ false };
+	bool m_fullscreen{ false };
 
 	std::vector<onResetFunc>       m_onResetFunc;
 	std::vector<onKeyFunc>         m_onKeyFunc;

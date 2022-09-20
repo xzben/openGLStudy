@@ -192,7 +192,9 @@ void EditorWindow::render()
 	renderMainDockSpace();
 	for (auto it : m_frames)
 	{
-		it->render();
+		ImGuiID spaceid = this->getDockspaceId(it.config.spaceid);
+		it.frame->setDockspace(spaceid);
+		it.frame->render();
 	}
 }
 

@@ -1,59 +1,29 @@
 #include "EditorWindow.h"
 #include "DefineId.h"
 #include "EditorFrame.h"
+#include "frames/AssetsFrame.h"
+#include "frames/ConsoleFrame.h"
+#include "frames/GameViewFrame.h"
+#include "frames/SceneViewFrame.h"
+#include "frames/InspectorFrame.h"
+#include "frames/NodeTreeFrame.h"
 
 BEGIN_EDITOR_NAMESPACE
 
-static SharePtr<EditorFrame> createNodeTreeFrame(const char* name)
-{
-	return makeShare(new EditorFrame(name));
-}
-
-static SharePtr<EditorFrame> createAssetsFrame(const char* name)
-{
-	return makeShare(new EditorFrame(name));
-}
-
-
-static SharePtr<EditorFrame> createGameViewFrame(const char* name)
-{
-	return makeShare(new EditorFrame(name));
-}
-
-
-static SharePtr<EditorFrame> createConsoleFrame(const char* name)
-{
-	return makeShare(new EditorFrame(name));
-}
-
-static SharePtr<EditorFrame> createAttrFrame(const char* name)
-{
-	return makeShare(new EditorFrame(name));
-}
-
-using EditorFrameCreator = std::function<SharePtr<EditorFrame>(const char*)>;
-
-struct FrameConfig
-{
-	IDMainFrame id;
-	MainDockSpace spaceid;
-	const char* name;
-	EditorFrameCreator creator;
-};
-
 static FrameConfig DefaultFrames[] = {
-	{ IDMainFrame::NODE_TREE,	MainDockSpace::LEFT_TOP,		"node tree",	&createNodeTreeFrame},
-	{ IDMainFrame::ASSET_VIEW,	MainDockSpace::LEFT_BOTTOM,		"assets",		&createAssetsFrame},
-	{ IDMainFrame::GAME_VIEW,	MainDockSpace::CENTER_TOP,		"game view",	&createGameViewFrame},
-	{ IDMainFrame::CONSOLE_VIEW,MainDockSpace::CENTER_BOTTOM,	"console",		&createConsoleFrame},
-	{ IDMainFrame::ATTR_VIEW,	MainDockSpace::RIGHT,			"attr view",	&createAttrFrame},
+	{ IDMainFrame::NODE_TREE,	MainDockSpace::LEFT_TOP,		"NodeTree",	&NodeTreeFrame::create},
+	{ IDMainFrame::ASSET_VIEW,	MainDockSpace::LEFT_BOTTOM,		"Assets",		&AssetsFrame::create},
+	{ IDMainFrame::SCENE_VIEW,	MainDockSpace::CENTER_TOP,		"SceneView",	&SceneViewFrame::create},
+	{ IDMainFrame::GAME_VIEW,	MainDockSpace::CENTER_TOP,		"GameView",	&GameViewFrame::create},
+	{ IDMainFrame::CONSOLE_VIEW,MainDockSpace::CENTER_BOTTOM,	"Console",		&ConsoleFrame::create},
+	{ IDMainFrame::INSPECTOR_VIEW,	MainDockSpace::RIGHT,		"Inspector",	&InspectorFrame::create},
 	//{ IDMainFrame::ATTR_VIEW_2,	MainDockSpace::RIGHT,			"attr view2",	&createAttrFrame},
 };
 
 SharePtr<EditorFrame> createFrameByConfig(const FrameConfig& config )
 {
-	SharePtr<EditorFrame> frame = config.creator(config.name);
-	frame->setDockspaceId(config.spaceid);
+	SharePtr<EditorFrame> frame = config.creator();
+	frame->setTitle(config.name);
 	frame->setMainFrameId(config.id);
 	return frame;
 }
@@ -65,13 +35,13 @@ void EditorWindow::setupFrames()
 	{
 		FrameConfig& config = DefaultFrames[i];
 		SharePtr<EditorFrame> frame = createFrameByConfig(config);
-		addFrame(frame);
+		addFrame(frame, config);
 	}
 }
 
-void EditorWindow::addFrame(SharePtr<EditorFrame>& frame)
+void EditorWindow::addFrame(SharePtr<EditorFrame>& frame, const FrameConfig& config)
 {
-	m_frames.push_back(frame);
+	m_frames.push_back({ frame, config });
 	createFrameWindowSubMenu(m_frames.size(), frame);
 }
 

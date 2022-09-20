@@ -3,6 +3,7 @@
 #include "editor_common.h"
 #include "EditorUIBase.h"
 #include "DefineId.h"
+#include "UIContainor.h"
 #include "imgui.h"
 #include <string>
 #include <vector>
@@ -19,27 +20,25 @@ enum class LayoutType
 	TOP_DOWN,
 };
 
-class EditorFrame : public EditorUIBase
+class EditorFrame : public EditorUIBase, public EditorUIContainor
 {
 	DECLARE_EDITOR_CLASS(EditorFrame)
 public:
-
+	EditorFrame() = default;
 	EditorFrame(const std::string& title);
 	virtual ~EditorFrame();
 	IDMainFrame getMainFrameId() { return m_frameid; }
 	void setMainFrameId(IDMainFrame id) { m_frameid = id; }
-	void setDockspaceId(MainDockSpace spaceid) { m_dockspaceId = spaceid; }
 	void setDockFlag(ImGuiDockNodeFlags dockflag) { m_dockflag = dockflag; }
 	void setWindowFlag(ImGuiWindowFlags windowflag) { m_windowflag = windowflag; }
-	virtual bool render() override;
-	void addChild(SharePtr<EditorUIBase>& child) { m_childrens.push_back(child); }
+	void setDockspace(ImGuiID dockid);
+	virtual bool onRender() override;
+
 	const std::string& getTitle() { return m_title; }
-	virtual void onChangeVisible(bool visible)override;
+	void setTitle(const std::string& title) { m_title = title; }
+	virtual void onChangeVisible(bool visible)override;	
 protected:
-	std::string m_title;
-	std::vector<SharePtr<EditorUIBase>> m_childrens;
-	MainDockSpace m_dockspaceId{ MainDockSpace::EMPTY};
-	WeakPtr<EditorWindow> m_window;
+	std::string m_title{""};
 	ImGuiDockNodeFlags m_dockflag{0};
 	ImGuiWindowFlags m_windowflag{0};
 	IDMainFrame m_frameid{0};

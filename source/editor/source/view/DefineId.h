@@ -22,8 +22,9 @@ enum IDMainFrame : unsigned short
 	NODE_TREE = 1,
 	ASSET_VIEW,
 	GAME_VIEW,
+	SCENE_VIEW,
 	CONSOLE_VIEW,
-	ATTR_VIEW,
+	INSPECTOR_VIEW,
 	ATTR_VIEW_2,
 };
 

@@ -7,14 +7,15 @@ USING_OGS_NAMESPACE;
 
 BEGIN_EDITOR_NAMESPACE
 
-class EditorAsset : public OGS::Object
+class EditorMeta
 {
-	DECLARE_CLASS(EditorAsset);
+	DECLARE_CLASS_BASE(EditorMeta)
 public:
-	EditorAsset();
-	virtual ~EditorAsset();
-private:
-	AssetType m_type;
-};
+	EditorMeta();
+	virtual ~EditorMeta();
 
+
+protected:
+	GUID m_guid;
+};
 END_EDITOR_NAMESPACE

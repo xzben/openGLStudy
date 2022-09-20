@@ -1,0 +1,7 @@
+#include "Camera.h"
+
+BEGIN_OGS_NAMESPACE
+
+IMPLEMENT_CLASS(Camera)
+
+END_OGS_NAMESPACE

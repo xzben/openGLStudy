@@ -4,10 +4,13 @@
 #include "core/view/GameView.h"
 #include "event/EditorEventMgr.h"
 #include "view/DefineId.h"
+#include "project/GameProject.h"
 
 USING_OGS_NAMESPACE;
 
 BEGIN_EDITOR_NAMESPACE
+
+IMPLEMENT_RUNTIME_CLASS(EditorApp)
 
 EditorApp::EditorApp()
 {
@@ -16,6 +19,15 @@ EditorApp::EditorApp()
 
 EditorApp::~EditorApp()
 {
+
+}
+
+void EditorApp::init(SharePtr<GameProject> project)
+{
+	m_project = project;
+
+	WindowCreateInfo info;
+	Super::init(info);
 }
 
 void EditorApp::initEvent()

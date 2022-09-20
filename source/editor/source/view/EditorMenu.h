@@ -15,9 +15,8 @@ class EditorMenu : public EditorUIBase
 {
 	DECLARE_EDITOR_CLASS(EditorMenu)
 public:
-
 	using MenuClickCallback = std::function<void(bool)>;
-
+	EditorMenu() = default;
 	EditorMenu(IDMainMenu id, const std::string& name, const std::string& shortcuts) :m_name(name), m_menuId(id), m_shortcuts(shortcuts) {}
 	virtual ~EditorMenu() = default;
 
@@ -32,7 +31,7 @@ public:
 	void setClickCallback(MenuClickCallback callback) { m_clickcall = callback; }
 	void setChecked(bool check) { m_checked = check; }
 	IDMainMenu getMenuId() { return m_menuId; }
-	virtual bool render() override;
+	virtual bool onRender() override;
 protected:
 	virtual void onClick(bool ischeck);
 private:

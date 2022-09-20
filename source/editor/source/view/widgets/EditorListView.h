@@ -9,7 +9,7 @@ class EditorListView : public EditorUIBase
 {
 	DECLARE_EDITOR_CLASS(EditorListView)
 public:
-	virtual bool render() override;
+	virtual bool onRender() override;
 
 	void addItem(SharePtr<EditorUIBase> item) { m_items.push_back(item); }
 private:

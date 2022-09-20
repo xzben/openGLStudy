@@ -2,10 +2,8 @@
 
 BEGIN_EDITOR_NAMESPACE
 
-bool EditorListView::render()
+bool EditorListView::onRender()
 {
-	if (!Super::render()) return false;
-
 	ImGui::BeginChild("", m_size, true);
 	for (auto item : m_items)
 	{
