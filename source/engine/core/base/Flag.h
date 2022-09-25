@@ -4,41 +4,51 @@
 
 BEGIN_OGS_NAMESPACE
 
-template<typename T>
+template<int FLAG_SIZE>
 class Flag
 {
 public:
+	enum
+	{
+		MIN_SIZE = 8,
+		BYTE_COUNT = (FLAG_SIZE + MIN_SIZE - 1) / MIN_SIZE,
+	};
+
+	Flag()
+	{
+		memset(m_value, 0, BYTE_COUNT);
+	}
+
 	void checkFlag(const int type)
 	{
-		ASSERT(type >= 0 && type < s_maxlen, "type must in range %d - %d", 0, s_maxlen);
+		ASSERT(type >= 0 && type < FLAG_SIZE, "type must in range %d - %d", 0, FLAG_SIZE);
 
-		unsigned char* pbyte = &m_value;
-		int index = type / 8;
-		int flag = type % 8;
+		byte* pbyte = m_value;
+		int index = type / MIN_SIZE;
+		int flag = type % MIN_SIZE;
 
 		pbyte[index] |= (1 << flag);
 	}
 
 	bool isOpen(const int type)
 	{
-		ASSERT(type >= 0 && type < s_maxlen, "type must in range %d - %d", 0, s_maxlen);
+		ASSERT(type >= 0 && type < FLAG_SIZE, "type must in range %d - %d", 0, FLAG_SIZE);
 
-		unsigned char* pbyte = &m_value;
-		int index = type / 8;
-		int flag = type % 8;
+		byte* pbyte = m_value;
+		int index = type / MIN_SIZE;
+		int flag = type % MIN_SIZE;
 
 		unsigned char checkflag = 1 << flag;
 
 		return pbyte[index] & checkflag == checkflag;
 	}
 
-	bool operator==(const Flag<T>& other)
+	bool operator==(const Flag<FLAG_SIZE>& other)
 	{
-		int count = s_maxlen / 8;
-		unsigned char* pbyte1 = &m_value;
-		unsigned char* pbyte2 = &other.m_value;
+		byte* pbyte1 = m_value;
+		byte* pbyte2 = other.m_value;
 
-		for (int i = 0; i < count; i++)
+		for (int i = 0; i < BYTE_COUNT; i++)
 		{
 			if (pbyte1[i] != pbyte2[i])
 			{
@@ -49,25 +59,20 @@ public:
 		return true;
 	}
 
-	bool operator!=(const Flag<T>& other)
+	bool operator!=(const Flag<FLAG_SIZE>& other)
 	{
 		return !this->operator==(other);
 	}
 
 protected:
-	static const int s_maxlen = sizeof(T);
-	T m_value = 0;
+	byte m_value[BYTE_COUNT];
+
 };
 
-typedef struct 
-{
-	unsigned char data[16];
-}Flag128Data;
-
-using Flag8 = Flag<char>;
-using Flag16 = Flag<short>;
-using Flag32 = Flag<int>;
-using Flag64 = Flag<long long>;
-using Flag128 = Flag<Flag128Data>;
+using Flag8 = Flag<8>;
+using Flag16 = Flag<16>;
+using Flag32 = Flag<32>;
+using Flag64 = Flag<64>;
+using Flag128 = Flag<128>;
 
 END_OGS_NAMESPACE

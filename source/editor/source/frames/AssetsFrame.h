@@ -11,7 +11,7 @@ class AssetsFrame : public EditorFrame
 	DECLARE_EDITOR_CLASS(AssetsFrame)
 public:
 
-	AssetsFrame() :EditorFrame("Assets") {}
+	AssetsFrame(){}
 	void handleInit() override;
 private:
 	SharePtr<EditorTreeNode> m_assets;

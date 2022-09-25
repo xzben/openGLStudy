@@ -8,7 +8,9 @@ BEGIN_REFLEX_CLASS_FIELD(Component)
 REFLEX_FIELD(std::string, Component::m_name)
 END_REFLEX_CLASS_FIELD()
 
+END_OGS_NAMESPACE
 
+BEGIN_OGS_NAMESPACE
 bool Component::isEnable() 
 { 
 	return m_enable && m_node->isActive(); 

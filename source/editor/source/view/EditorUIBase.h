@@ -12,6 +12,7 @@ public:
 	virtual ~EditorUIBase(){}
 
 	virtual bool render();
+	virtual bool init() { this->handleInit();  return true; }
 	virtual void handleInit() {}
 	virtual bool onRender() = 0;
 

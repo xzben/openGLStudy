@@ -4,19 +4,19 @@
 
 BEGIN_OGS_NAMESPACE
 
-enum AssetType
+enum class AssetType : int
 {
-	TUnknow = -1,
-	TLua,
-	TTxt,
-	TJson,
-	TMaterial,
-	TModel,
-	TImage,
-	TShader,
+	Unknow = -1,
+	Lua,
+	Txt,
+	Json,
+	Material,
+	Model,
+	Image,
+	Shader,
 
-	TPrefab,
-	TScene,
+	Prefab,
+	Scene,
 };
 
 END_OGS_NAMESPACE

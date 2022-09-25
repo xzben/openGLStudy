@@ -21,7 +21,6 @@ class Object
 public:
 	Object() = default;
 	virtual ~Object() = default;
-
 	virtual void handleInit() {};
 
 	template<typename CLS>

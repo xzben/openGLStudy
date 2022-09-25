@@ -54,7 +54,9 @@ std::string FileSystem::getFullPath(const std::string& path)
 {
 	fs::path temppath(path);
 	if (temppath.is_absolute())
+	{
 		return path;
+	}
 
 	auto it = m_filecaches.find(path);
 	if ( it != m_filecaches.end())
@@ -78,8 +80,10 @@ std::string FileSystem::getFullPath(const std::string& path)
 bool FileSystem::isFileExists(const std::string& path)
 {
 	std::string fullpath = getFullPath(path);
+	if (fullpath == "")
+		return false;
 
-	return fullpath != "";
+	return fs::exists(fullpath);
 }
 
 bool FileSystem::isDirectory(const std::string& path)

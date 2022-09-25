@@ -5,7 +5,7 @@
 #include "view/widgets/EditorTreeNode.h"
 BEGIN_EDITOR_NAMESPACE
 
-static void buildAssetsTree(SharePtr<EditorTreeNode> rootnode, const std::string& path)
+static void buildAssetsTree(WeakPtr<EditorTreeNode> rootnode, const std::string& path)
 {
 	std::vector<std::string> files;
 	std::vector<std::string> directories;

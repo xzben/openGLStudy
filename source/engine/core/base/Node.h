@@ -5,6 +5,8 @@
 #include "Object.h"
 #include "Component.h"
 #include "NodeContainor.h"
+#include "core/base/Flag.h"
+
 BEGIN_OGS_NAMESPACE
 
 class Component;
@@ -70,7 +72,8 @@ public:
 	}
 protected:
 	std::vector<Component*> m_components;
-	std::string m_name{""};
+	std::string m_name{"Node"};
+	Flag32 m_visible;
 	Node* m_parent{nullptr};
 	bool m_active{true};
 };

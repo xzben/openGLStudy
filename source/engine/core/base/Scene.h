@@ -1,21 +1,17 @@
 #pragma once
 
 #include "common.h"
-#include "Object.h"
-#include "NodeContainor.h"
+#include "Node.h"
 
 BEGIN_OGS_NAMESPACE
 
-class Scene : public NodeContainor,  public Object
+class Scene : public Node
 {
 	DECLARE_CLASS(Scene)
 	DECLARE_REFLEX_CLASS_FIELD(Scene)
 public:
 	static Scene* createDefaultScene();
 	Scene();
-
-protected:
-	std::string m_name;
 };
 
 END_OGS_NAMESPACE

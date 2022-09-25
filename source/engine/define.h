@@ -3,6 +3,7 @@
 
 #include <cassert>
 #include <cstdio>
+#include <string>
 
 #define RENDER_OPENGL2	 0
 #define RENDER_OPENGL3   1
@@ -57,6 +58,7 @@ typedef unsigned int  uint;
 typedef unsigned char uint8;
 typedef unsigned char byte;
 typedef unsigned int  GL_HANDLE;
+typedef std::string   GUID;
 
 #define DEFINE_XSTR(s) DEFINE_STR(s)
 #define DEFINE_STR(s) #s

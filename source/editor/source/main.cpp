@@ -15,7 +15,7 @@ int main()
 	bool ready = true;
 	SharePtr<GameProject> project = makeShare(new GameProject("project"));
 	project->setPath(MACRO_XSTR(ENGINE_PROJECT_PATH));
-
+	project->loadFromFile();
 	//ProjectHub hub;
 	//hub.init();
 	//std::tie(ready, project) =  hub.run();

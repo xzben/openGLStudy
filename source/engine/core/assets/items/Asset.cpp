@@ -2,28 +2,39 @@
 #include <unordered_map>
 #include "core/filesystem/FileSystem.h"
 #include "core/filesystem/Data.h"
+
+
 BEGIN_OGS_NAMESPACE
 
 IMPLEMENT_CLASS(Asset)
 
+BEGIN_REFLEX_CLASS_FIELD(Asset)
+REFLEX_FIELD(int, m_type)
+END_REFLEX_CLASS_FIELD()
+
+
+
+END_OGS_NAMESPACE
+
+BEGIN_OGS_NAMESPACE
 static std::unordered_map<std::string, AssetType> Suffix2AssetType{
-	{ "png", AssetType::TImage },
-	{ "jpeg", AssetType::TImage },
-	{ "jpg", AssetType::TImage },
+	{ "png", AssetType::Image },
+	{ "jpeg", AssetType::Image },
+	{ "jpg", AssetType::Image },
 
-	{ "obj", AssetType::TModel },
-	{ "json", AssetType::TJson },
-	{ "lua", AssetType::TLua },
-	{ "luac", AssetType::TLua },
+	{ "obj", AssetType::Model },
+	{ "json", AssetType::Json },
+	{ "lua", AssetType::Lua },
+	{ "luac", AssetType::Lua },
 
-	{ "mat", AssetType::TMaterial },
-	{ "fs", AssetType::TShader },
-	{ "vs", AssetType::TShader },
+	{ "mat", AssetType::Material },
+	{ "fs", AssetType::Shader },
+	{ "vs", AssetType::Shader },
 
-	{ "txt", AssetType::TTxt },
+	{ "txt", AssetType::Txt },
 
-	{ "prefab", AssetType::TPrefab },
-	{ "scene", AssetType::TScene },
+	{ "prefab", AssetType::Prefab },
+	{ "scene", AssetType::Scene },
 };
 
 AssetType Asset::GetAssetType(const std::string& filename)
@@ -32,15 +43,20 @@ AssetType Asset::GetAssetType(const std::string& filename)
 	auto it = Suffix2AssetType.find(ext);
 	if (it == Suffix2AssetType.end())
 	{
-		return AssetType::TUnknow;
+		return AssetType::Unknow;
 	}
 
 	return it->second;
 }
 
+Asset::Asset()
+{
+
+}
+
 Asset::Asset(const std::string& path)
 {
-	m_type = Asset::GetAssetType(path);
+	setPath(path);
 }
 
 Asset::~Asset()
@@ -56,12 +72,13 @@ void Asset::loadAsset()
 
 	FileSystem::GetInstance()->getContentData(m_path, data);
 	this->onLoad(data);
-	
 }
 
 void Asset::unloadAsset()
 {
-
+	if (!m_loaded)return;
+	this->onUnload();
+	m_loaded = false;
 }
 
 END_OGS_NAMESPACE
