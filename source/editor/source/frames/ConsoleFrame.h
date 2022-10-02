@@ -7,7 +7,7 @@ BEGIN_EDITOR_NAMESPACE
 
 class ConsoleFrame : public EditorFrame
 {
-	DECLARE_EDITOR_CLASS(ConsoleFrame)
+	DECLARE_RUNTIME_CLASS(ConsoleFrame)
 public:
 	ConsoleFrame(){}
 	void handleInit() override;

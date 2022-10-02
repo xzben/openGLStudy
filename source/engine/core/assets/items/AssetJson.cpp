@@ -4,7 +4,7 @@ BEGIN_OGS_NAMESPACE
 
 IMPLEMENT_CLASS(AssetJson)
 
-void AssetJson::onLoad(SharePtr<Data>& data)
+void AssetJson::onLoad(const AutoRef<Data>& data)
 {
 
 }

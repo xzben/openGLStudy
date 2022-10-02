@@ -6,7 +6,7 @@ BEGIN_EDITOR_NAMESPACE
 
 class EditorImage : public EditorUIBase
 {
-	DECLARE_EDITOR_CLASS(EditorImage)
+	DECLARE_RUNTIME_CLASS(EditorImage)
 public:
 	void setPath(const std::string& path) { m_path = path; }
 	const std::string& getPath() { return m_path; }

@@ -13,7 +13,7 @@ class EditorMenuBar;
 class EditorMenu;
 class EventData;
 
-using EditorFrameCreator = std::function<SharePtr<EditorFrame>()>;
+using EditorFrameCreator = std::function<EditorFrame*()>;
 struct FrameConfig
 {
 	IDMainFrame id;
@@ -22,9 +22,9 @@ struct FrameConfig
 	EditorFrameCreator creator;
 };
 
-class EditorWindow
+class EditorWindow : public OGS::Object
 {
-	DECLARE_EDITOR_CLASS_BASE(EditorWindow)
+	DECLARE_RUNTIME_CLASS(EditorWindow)
 public:
 	EditorWindow();
 	virtual ~EditorWindow();
@@ -36,7 +36,7 @@ protected:
 	friend class EditorApp;
 	void initEvent();
 	void uninitEvent();
-	virtual bool init(SharePtr<OGS::GameView>& view);
+	virtual bool init(OGS::GameView* view);
 	virtual void preRender();
 	virtual void render();
 	virtual void postRender();
@@ -44,23 +44,23 @@ protected:
 private:
 	bool initUI();
 	void renderMainDockSpace();
-	void createFrameWindowSubMenu(int index, SharePtr<EditorFrame>& frame);
+	void createFrameWindowSubMenu(int index, EditorFrame* frame);
 	void setupMenuBar();
 	void setupFrames();
-	void addFrame(SharePtr<EditorFrame>& frame, const FrameConfig& config);
+	void addFrame(EditorFrame* frame, const FrameConfig& config);
 	bool initContext();
 	void handleFrameEvent(EventData* event);
 	void EditorWindow::defaultLaytout(int dockspace_id);
 protected:
 	struct MainFrameInfo
 	{
-		SharePtr<EditorFrame> frame;
+		AutoRef<EditorFrame> frame;
 		FrameConfig config;
 	};
-	SharePtr<EditorMenuBar> m_menubar;
-	WeakPtr<EditorMenu> m_windowmenu;
+	AutoRef<EditorMenuBar> m_menubar;
+	WeakRef<EditorMenu> m_windowmenu;
 	std::vector<MainFrameInfo> m_frames;
-	WeakPtr<OGS::GameView> m_gameview;
+	WeakRef<OGS::GameView> m_gameview;
 	std::unordered_map<MainDockSpace, ImGuiID> m_spaceId2GuiId;
 	bool m_isInitDock{ true };
 };

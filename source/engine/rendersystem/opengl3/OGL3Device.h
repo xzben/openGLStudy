@@ -5,6 +5,7 @@
 BEGIN_OGS_NAMESPACE
 class OGL3Device : public GfxDevice
 {
+	DECLARE_RUNTIME_CLASS(OGL3Device)
 public:
 	virtual bool init() override;
 	virtual void processEvent() override;

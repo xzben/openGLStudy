@@ -8,7 +8,7 @@ class AssetLua : public AssetText
 {
 	DECLARE_CLASS(AssetLua)
 public:
-	virtual void onLoad(SharePtr<Data>& data)override;
+	virtual void onLoad(const AutoRef<Data>& data)override;
 	virtual void onUnload()override;
 };
 

@@ -2,7 +2,6 @@
 
 #include "editor_common.h"
 #include "EditorUIBase.h"
-#include "core/ptr/SharePtr.h"
 #include <vector>
 #include <string>
 #include <functional>
@@ -13,7 +12,7 @@ BEGIN_EDITOR_NAMESPACE
 
 class EditorMenu : public EditorUIBase
 {
-	DECLARE_EDITOR_CLASS(EditorMenu)
+	DECLARE_RUNTIME_CLASS(EditorMenu)
 public:
 	using MenuClickCallback = std::function<void(bool)>;
 	EditorMenu() = default;
@@ -25,8 +24,8 @@ public:
 	void setParent(EditorMenu* parent) { m_parent = parent; }
 	int getOrder() const { return m_order; }
 	const std::string& getName() const { return m_name; }
-	void addMenu(const SharePtr<EditorMenu>& menu) { m_menus.push_back(menu); menu->setParent(this); }
-	SharePtr<EditorMenu> getSubMenuById(IDMainMenu menuid);
+	void addMenu(EditorMenu* menu) { m_menus.push_back(menu); menu->setParent(this); }
+	EditorMenu* getSubMenuById(IDMainMenu menuid);
 	void setItemCheckable(bool checkable) { m_checkable = checkable; }
 	void setClickCallback(MenuClickCallback callback) { m_clickcall = callback; }
 	void setChecked(bool check) { m_checked = check; }
@@ -45,8 +44,8 @@ protected:
 	int m_order{0};
 	EditorMenu* m_parent;
 	std::string m_shortcuts{""};
-	SharePtr<EditorUIBase> m_widget;
-	std::vector<SharePtr<EditorMenu>> m_menus;
+	AutoRef<EditorUIBase> m_widget;
+	std::vector<AutoRef<EditorMenu>> m_menus;
 	bool m_checked{false};
 	bool m_checkable{ false };
 };

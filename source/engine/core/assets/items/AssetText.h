@@ -8,7 +8,7 @@ class AssetText : public Asset
 {
 	DECLARE_CLASS(AssetText)
 public:
-	virtual void onLoad(SharePtr<Data>& data)override;
+	virtual void onLoad(const AutoRef<Data>& data)override;
 	virtual void onUnload()override;
 	const std::string& getContent() { return m_content; }
 protected:

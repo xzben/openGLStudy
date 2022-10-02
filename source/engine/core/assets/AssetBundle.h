@@ -16,12 +16,12 @@ public:
 	AssetBundle();
 	AssetBundle(const std::string& path);
 
-	const SharePtr<Asset> getAsset(const std::string& name);
+	const AutoRef<Asset> getAsset(const std::string& name);
 	void releaseAsset(const std::string& name);
 
-	virtual void onLoad(SharePtr<Data>& data) override;
+	virtual void onLoad(const AutoRef<Data>& data) override;
 	virtual void onUnload() override;
 private:
-	std::unordered_map<std::string, SharePtr<Asset>> m_assets;
+	std::unordered_map<std::string, AutoRef<Asset>> m_assets;
 };
 END_OGS_NAMESPACE

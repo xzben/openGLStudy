@@ -11,7 +11,7 @@ END_REFLEX_CLASS_FIELD()
 END_OGS_NAMESPACE
 
 BEGIN_OGS_NAMESPACE
-void AssetScene::onLoad(SharePtr<Data>& data)
+void AssetScene::onLoad(const AutoRef<Data>& data)
 {
 
 }

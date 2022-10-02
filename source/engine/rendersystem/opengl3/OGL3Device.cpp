@@ -4,6 +4,8 @@
 
 BEGIN_OGS_NAMESPACE
 
+IMPLEMENT_RUNTIME_CLASS(OGL3Device)
+
 static void glfw_error_callback(int error, const char* description)
 {
 	CCLOG_ERROR("Glfw Error %d: %s\n", error, description);

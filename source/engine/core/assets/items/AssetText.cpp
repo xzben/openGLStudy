@@ -5,7 +5,7 @@ BEGIN_OGS_NAMESPACE
 
 IMPLEMENT_CLASS(AssetText)
 
-void AssetText::onLoad(SharePtr<Data>& data)
+void AssetText::onLoad(const AutoRef<Data>& data)
 {
 	m_content = (char*)data->getData();
 }

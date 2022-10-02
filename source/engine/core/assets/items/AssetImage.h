@@ -8,7 +8,7 @@ class AssetImage : public Asset
 {
 	DECLARE_CLASS(AssetImage)
 public:
-	virtual void onLoad(SharePtr<Data>& data)override;
+	virtual void onLoad(const AutoRef<Data>& data)override;
 	virtual void onUnload()override;
 protected:
 	int m_width;

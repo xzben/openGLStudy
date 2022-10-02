@@ -4,7 +4,7 @@ BEGIN_OGS_NAMESPACE
 
 IMPLEMENT_CLASS(AssetModel)
 
-void AssetModel::onLoad(SharePtr<Data>& data)
+void AssetModel::onLoad(const AutoRef<Data>& data)
 {
 
 }

@@ -7,10 +7,10 @@ BEGIN_EDITOR_NAMESPACE
 
 class EditorButton : public EditorUIBase
 {
-	DECLARE_EDITOR_CLASS(EditorButton)
+	DECLARE_RUNTIME_CLASS(EditorButton)
 public:
 	EditorButton() = default;
-	EditorButton(const std::string& text) : m_text(text){}
+	virtual bool init(const std::string& text);
 
 	void setText(const std::string& text) { m_text = text; }
 	const std::string& getText() { return m_text; }

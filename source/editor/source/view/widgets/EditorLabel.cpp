@@ -2,6 +2,8 @@
 
 BEGIN_EDITOR_NAMESPACE
 
+IMPLEMENT_RUNTIME_CLASS(EditorLabel)
+
 bool EditorLabel::onRender()
 {
 	ImGui::PushStyleColor(ImGuiCol_Text, m_color);

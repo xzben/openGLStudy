@@ -42,23 +42,23 @@ static MenuDefineItem MainMenuConfig[] = {
 	},
 };
 
-static SharePtr<EditorMenu> CreateMenuByConfig(const MenuDefineItem& config)
+static EditorMenu* CreateMenuByConfig(const MenuDefineItem& config)
 {
-	SharePtr<EditorMenu> menu = makeShare(new EditorMenu(config.id, config.name, config.shortcuts == nullptr ? "" : config.shortcuts));
+	EditorMenu* menu = new EditorMenu(config.id, config.name, config.shortcuts == nullptr ? "" : config.shortcuts);
 
 	for (auto sub : config.items)
 	{
-		SharePtr<EditorMenu> submenu = CreateMenuByConfig(sub);
+		EditorMenu* submenu = CreateMenuByConfig(sub);
 		menu->addMenu(submenu);
 	}
 
 	return menu;
 }
 
-void EditorWindow::createFrameWindowSubMenu(int index, SharePtr<EditorFrame>& frame)
+void EditorWindow::createFrameWindowSubMenu(int index, EditorFrame* frame)
 {
 	IDMainMenu subid = IDMainMenu((int)IDMainMenu::Window + frame->getMainFrameId());
-	SharePtr<EditorMenu> submenu = makeShare(new EditorMenu(subid, frame->getTitle().c_str(), ""));
+	EditorMenu* submenu = new EditorMenu(subid, frame->getTitle().c_str(), "");
 	submenu->setItemCheckable(true);
 	submenu->setClickCallback([=](bool ischeck) {
 		frame->setVisible(ischeck);
@@ -81,11 +81,11 @@ void EditorWindow::handleFrameEvent(EventData* event)
 
 void EditorWindow::setupMenuBar()
 {
-	m_menubar = makeShare(new EditorMenuBar());
+	m_menubar = new EditorMenuBar();
 	int size = sizeof(MainMenuConfig) / sizeof(MenuDefineItem);
 	for (int i = 0; i < size; i++)
 	{
-		SharePtr<EditorMenu> menu = CreateMenuByConfig(MainMenuConfig[i]);
+		EditorMenu* menu = CreateMenuByConfig(MainMenuConfig[i]);
 		m_menubar->addMenu(menu);
 		if (menu->getMenuId() == IDMainMenu::Window)
 		{

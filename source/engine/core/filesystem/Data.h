@@ -1,13 +1,14 @@
 #pragma once
 
 #include "common.h"
+#include "core/base/Object.h"
 #include "core/memory/MemoryPool.h"
 
 BEGIN_OGS_NAMESPACE
 
 #define MIN_DATA_BUFF  64
 
-class Data
+class Data : public Object
 {
 public:
 	Data();

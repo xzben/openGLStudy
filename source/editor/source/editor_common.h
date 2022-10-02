@@ -9,6 +9,6 @@
 #include "imgui_internal.h"
 #include "core/base/Object.h"
 
-using OGS::SharePtr;
-using OGS::WeakPtr;
-using OGS::makeShare;
+using OGS::AutoRef;
+using OGS::WeakRef;
+using OGS::Object;

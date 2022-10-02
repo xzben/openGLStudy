@@ -7,7 +7,7 @@ BEGIN_EDITOR_NAMESPACE
 
 class GameViewFrame : public EditorFrame
 {
-	DECLARE_EDITOR_CLASS(GameViewFrame)
+	DECLARE_RUNTIME_CLASS(GameViewFrame)
 public:
 	GameViewFrame(){}
 	void handleInit() override;

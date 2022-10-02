@@ -1,7 +1,7 @@
 #pragma once
 #include "reflexClassFieldBase.h"
 #include "core/reflex/serializer/Serializer.h"
-#include "core/ptr//SharePtr.h"
+#include "core/ptr/SharePtr.h"
 BEGIN_OGS_NAMESPACE
 
 template<typename CLS, typename FieldType>
@@ -9,7 +9,9 @@ class ReflexClassSharePtrField : public ReflexClassMemberBase<CLS>
 {
 public:
 	using FieldPtr = SharePtr<FieldType> CLS::*;
-	ReflexClassPtrField(ReflexClassBase* cls, const char* name, FieldPtr member)
+	using Field = SharePtr<FieldType>;
+
+	ReflexClassSharePtrField(ReflexClassBase* cls, const char* name, FieldPtr member)
 		: ReflexClassMemberBase<CLS>(cls, name)
 		, m_member(member)
 	{
@@ -18,17 +20,17 @@ public:
 
 	virtual void GetObjectValue(CLS* obj, void* value) override
 	{
-		(*(SharePtr<FieldType>*)value) = obj->*m_member;
+		(*(Field*)value) = obj->*m_member;
 	}
 
 	virtual void SetObjectValue(CLS* obj, void* value) override
 	{
-		obj->*m_member = *((SharePtr<FieldType>*)value);
+		obj->*m_member = *((Field*)value);
 	}
 
 	virtual bool Serialize(CLS* obj, JSON& json) override
 	{
-		SharePtr<FieldType> value = (obj->*m_member);
+		Field value = (obj->*m_member);
 		if (value == nullptr) return true;
 
 		return FieldSerialize::Serialize(json[m_name], value);

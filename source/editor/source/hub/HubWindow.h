@@ -7,7 +7,7 @@ BEGIN_EDITOR_NAMESPACE
 class HubWindow : public EditorUIContainor
 {
 public:
-	HubWindow(SharePtr<OGS::GameView>& gameview);
+	HubWindow(OGS::GameView* gameview);
 public:
 	virtual bool init();
 	void preRender();
@@ -18,7 +18,7 @@ protected:
 	bool initContext();
 	bool initUI();
 private:
-	SharePtr<OGS::GameView> m_gameview;
+	AutoRef<OGS::GameView> m_gameview;
 };
 
 END_EDITOR_NAMESPACE

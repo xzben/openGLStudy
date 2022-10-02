@@ -1,6 +1,7 @@
 #pragma once
 
 #include "common.h"
+#include "core/base/Object.h"
 #include <vector>
 #include <functional>
 
@@ -18,7 +19,7 @@ using ParmType = std::conditional_t<std::is_pointer_v<Arg>, Arg, const Arg&>;
 using ListenerId = uint32;
 
 template<typename ...Args>
-class ListenerItem
+class ListenerItem : public Object
 {
 public:
 	ListenerItem(ListenerId id, ItemType t):type(t), m_listenerId(id){}
@@ -69,7 +70,7 @@ protected:
 };
 
 template<typename ...Args>
-class Notify
+class Notify : public Object
 {
 public:
 	typedef ListenerItem<Args...> ListenerItemType;
@@ -123,7 +124,7 @@ public:
 	{
 		for (auto it = m_items.begin(); it != m_items.end();)
 		{
-			NotifyClassItem<T, Args...>* item = dynamic_cast<NotifyClassItem<T, Args...>*>(*it);
+			NotifyClassItem<T, Args...>* item = dynamic_cast<NotifyClassItem<T, Args...>*>((*it).get());
 			if (item != nullptr && item->m_owner == obj && item->m_func == func)
 			{
 				it = m_items.erase(it);
@@ -164,7 +165,7 @@ protected:
 		m_items.push_back(item);
 	}
 protected:
-	std::vector<ListenerItemType*> m_items;
+	std::vector<AutoRef<ListenerItemType>> m_items;
 	ListenerId  m_idcount;
 };
 

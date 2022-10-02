@@ -3,6 +3,8 @@
 
 BEGIN_EDITOR_NAMESPACE
 
+IMPLEMENT_RUNTIME_CLASS(EditorCheckBox)
+
 bool EditorCheckBox::onRender()
 {
 	ImGui::Checkbox(m_text.c_str(), &m_isChecked);

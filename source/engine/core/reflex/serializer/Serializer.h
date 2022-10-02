@@ -2,7 +2,6 @@
 
 #include "define.h"
 #include "core/reflex/reflex_define.h"
-#include "core/reflex/ReflexManager.h"
 
 BEGIN_OGS_NAMESPACE
 
@@ -111,32 +110,7 @@ public:
 		return Deserialize<CLS>(root);
 	}
 
-	static void* Deserialize(const JSON& json)
-	{
-		if (!json.isMember(CLASS_OBJ_KEY))
-			return nullptr;
-
-		const char* objname = json[CLASS_OBJ_KEY].asCString();
-		ReflexClassBase* cls = ReflexManager::GetInstance()->GetReflexClass(objname);
-		if (cls == nullptr)
-			return nullptr;
-
-		void* obj = cls->NewInstance();
-
-		ReflexClassBase* parent = cls;
-		const JSON* pJson = &json;
-		while (parent)
-		{
-			parent->Deserialize(obj, *pJson);
-			parent = parent->m_parent;
-			if (parent)
-			{
-				pJson = &(*pJson)[CLASS_SUPER_KEY];
-			}
-		}
-
-		return obj;
-	}
+	static void* Deserialize(const JSON& json);
 
 	template<typename CLS>
 	static CLS* Deserialize(const JSON& json)

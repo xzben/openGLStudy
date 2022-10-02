@@ -4,6 +4,8 @@
 #include "event/EditorEventMgr.h"
 BEGIN_EDITOR_NAMESPACE
 
+IMPLEMENT_RUNTIME_CLASS(EditorFrame)
+
 EditorFrame::EditorFrame(const std::string& title)
 	: m_title(title)
 {

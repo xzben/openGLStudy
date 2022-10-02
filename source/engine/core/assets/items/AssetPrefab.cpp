@@ -13,7 +13,7 @@ END_REFLEX_CLASS_FIELD()
 END_OGS_NAMESPACE
 
 BEGIN_OGS_NAMESPACE
-void AssetPrefab::onLoad(SharePtr<Data>& data)
+void AssetPrefab::onLoad(const AutoRef<Data>& data)
 {
 
 }

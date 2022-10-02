@@ -8,16 +8,16 @@
 
 BEGIN_OGS_NAMESPACE
 
-IMPLEMENT_RUNTIME_CLASS_BASE(GameApp)
+IMPLEMENT_RUNTIME_CLASS(GameApp)
 
 GameApp* GameApp::s_instance = nullptr;
 
 GameApp::GameApp()
 {
-	m_gameView = makeShare(new GameView) ;
-	m_engine = makeShare(new Engine());
+	m_gameView = new GameView;
+	m_engine = new Engine();
 	m_device = createCurDevice();
-	m_device->setGameView(m_gameView);
+	m_device->setGameView(m_gameView.get());
 
 	GameApp::s_instance = this;
 }

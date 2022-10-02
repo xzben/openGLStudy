@@ -2,6 +2,8 @@
 
 BEGIN_EDITOR_NAMESPACE
 
+IMPLEMENT_RUNTIME_CLASS(EditorListView)
+
 bool EditorListView::onRender()
 {
 	ImGui::BeginChild("", m_size, true);

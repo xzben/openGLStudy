@@ -13,7 +13,7 @@ int main()
 {
 
 	bool ready = true;
-	SharePtr<GameProject> project = makeShare(new GameProject("project"));
+	AutoRef<GameProject> project = new GameProject("project");
 	project->setPath(MACRO_XSTR(ENGINE_PROJECT_PATH));
 	project->loadFromFile();
 	//ProjectHub hub;

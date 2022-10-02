@@ -2,10 +2,7 @@
 
 BEGIN_EDITOR_NAMESPACE
 
-void EditorTreeNode::onClick()
-{
-	
-}
+IMPLEMENT_RUNTIME_CLASS(EditorTreeNode)
 
 void EditorTreeNode::open()
 {
@@ -35,6 +32,7 @@ bool EditorTreeNode::onRender()
 	}
 
 	ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_None;
+	if(doubleClickOpen)  flags |= ImGuiTreeNodeFlags_OpenOnDoubleClick; //Ë«»÷´ò¿ª
 	if (m_arrowClickOpen) flags |= ImGuiTreeNodeFlags_OpenOnArrow;
 	if (selected)			flags |= ImGuiTreeNodeFlags_Selected;
 	if (leaf)				flags |= ImGuiTreeNodeFlags_Leaf;
@@ -42,11 +40,18 @@ bool EditorTreeNode::onRender()
 	bool isOpen = ImGui::TreeNodeEx(name.c_str(), flags);
 	if (ImGui::IsItemClicked())
 	{
-		ClickedEvent.emit();
+		if (!selected)
+		{
+			selected = true;
+			SelectEvent.emit(this);
+		}
 
+		ClickedEvent.emit(this);
+
+		
 		if (ImGui::IsMouseDoubleClicked(0))
 		{
-			DoubleClickEvent.emit();
+			DoubleClickEvent.emit(this);
 		}
 	}
 
@@ -60,7 +65,7 @@ bool EditorTreeNode::onRender()
 	if (isOpen)
 	{
 		if (!preOpened)
-			OpenEvent.emit();
+			OpenEvent.emit(this);
 		m_opened = true;
 		EditorUIContainor::onRender();
 
@@ -70,7 +75,7 @@ bool EditorTreeNode::onRender()
 	{
 		if (preOpened)
 		{
-			ClosedEvent.emit();
+			ClosedEvent.emit(this);
 		}
 
 		m_opened = false;

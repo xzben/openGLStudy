@@ -2,7 +2,6 @@
 
 #include "common.h"
 #include "core/tool/Singleton.h"
-#include "core/ptr/SharePtr.h"
 #include "core/base/System.h"
 
 #include <vector>
@@ -12,8 +11,9 @@ BEGIN_OGS_NAMESPACE
 class GfxDevice;
 class GameView;
 
-class Engine
+class Engine : public Object
 {
+	DECLARE_RUNTIME_CLASS(Engine)
 public:
 	Engine();
 	virtual ~Engine();
@@ -21,7 +21,7 @@ public:
 	virtual bool init();
 	virtual void update(float dt);
 protected:
-	std::vector<SharePtr<System>> m_systems;
+	std::vector<AutoRef<System>> m_systems;
 };
 
 END_OGS_NAMESPACE

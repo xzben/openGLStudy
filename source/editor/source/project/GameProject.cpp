@@ -10,7 +10,8 @@ USING_OGS_NAMESPACE;
 
 BEGIN_EDITOR_NAMESPACE
 
-IMPLEMENT_CLASS(GameProject)
+IMPLEMENT_RUNTIME_CLASS(GameProject)
+IMPLEMENT_REFLEX_CLASS_BASE(GameProject)
 
 BEGIN_REFLEX_CLASS_FIELD(GameProject)
 REFLEX_FIELD(std::string, m_version)
@@ -25,6 +26,18 @@ BEGIN_EDITOR_NAMESPACE
 GameProject::~GameProject()
 {
 
+}
+
+void GameProject::setActiveAsset(OGS::Asset* asset)
+{
+	m_activeAsset = asset;
+	EventActiveAssetChange.emit(m_activeAsset.get());
+}
+
+void GameProject::setActiveNode(OGS::Node* node)
+{
+	m_activeNode = node;
+	EventActiveNodeChange.emit(m_activeNode.get());
 }
 
 std::string GameProject::getProjectFilename()
@@ -43,9 +56,9 @@ bool GameProject::loadFromFile()
 
 void GameProject::handleLoadFileDone()
 {
-	SharePtr<AssetScene> asset = makeShare<AssetScene>();
+	AutoRef<AssetScene> asset = new AssetScene();
 	asset->setScene(Scene::createDefaultScene());
-	m_editorAsset = asset;
+	m_activeAsset = asset;
 }
 
 void GameProject::saveToFile()

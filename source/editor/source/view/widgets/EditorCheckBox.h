@@ -6,7 +6,7 @@ BEGIN_EDITOR_NAMESPACE
 
 class EditorCheckBox : public EditorUIBase
 {
-	DECLARE_EDITOR_CLASS(EditorCheckBox)
+	DECLARE_RUNTIME_CLASS(EditorCheckBox)
 public:
 	void setText(const std::string& text) { m_text = text; }
 	const std::string& getText() { return m_text; }

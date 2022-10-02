@@ -10,16 +10,18 @@ END_OGS_NAMESPACE
 
 BEGIN_EDITOR_NAMESPACE
 
-class EditorTreeNode;
+class EditorTreeNodeRoot;
 
 class NodeTreeFrame : public EditorFrame
 {
-	DECLARE_EDITOR_CLASS(NodeTreeFrame)
+	DECLARE_RUNTIME_CLASS(NodeTreeFrame)
 public:
 	NodeTreeFrame(){}
+protected:
+	void updateShowAsset();
 	void handleInit() override;
 
 protected:
-	SharePtr<EditorTreeNode> m_treenode;
+	AutoRef<EditorTreeNodeRoot> m_treenode;
 };
 END_EDITOR_NAMESPACE

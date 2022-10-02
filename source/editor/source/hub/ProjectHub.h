@@ -18,11 +18,10 @@ protected:
 	void render();
 	void draw();
 private:
-	SharePtr<OGS::GameView> m_gameview;
-	SharePtr<OGS::GfxDevice> m_device;
-	SharePtr<HubWindow> m_hubwindow;
-
-	GameProject* m_openProject{ nullptr };
+	AutoRef<OGS::GameView> m_gameview;
+	AutoRef<OGS::GfxDevice> m_device;
+	AutoRef<HubWindow> m_hubwindow;
+	AutoRef<GameProject> m_openProject;
 	bool		m_ready;
 };
 

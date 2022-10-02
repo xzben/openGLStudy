@@ -5,6 +5,7 @@
 
 BEGIN_OGS_NAMESPACE
 
+IMPLEMENT_RUNTIME_CLASS(GameView)
 
 // window event callbacks
 void GameView::keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)

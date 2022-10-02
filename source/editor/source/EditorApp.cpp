@@ -14,7 +14,7 @@ IMPLEMENT_RUNTIME_CLASS(EditorApp)
 
 EditorApp::EditorApp()
 {
-	m_editor_window = makeShare(new EditorWindow());
+	m_editor_window = new EditorWindow();
 }
 
 EditorApp::~EditorApp()
@@ -22,7 +22,7 @@ EditorApp::~EditorApp()
 
 }
 
-void EditorApp::init(SharePtr<GameProject> project)
+void EditorApp::init(AutoRef<GameProject> project)
 {
 	m_project = project;
 
@@ -51,7 +51,7 @@ void EditorApp::unInitEvent()
 void EditorApp::onInit()
 {
 	initEvent();
-	m_editor_window->init(m_gameView);
+	m_editor_window->init(m_gameView.get());
 }
 
 void EditorApp::onDestroy()

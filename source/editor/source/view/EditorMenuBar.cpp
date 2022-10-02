@@ -6,6 +6,8 @@
 
 BEGIN_EDITOR_NAMESPACE
 
+IMPLEMENT_RUNTIME_CLASS(EditorMenuBar)
+
 EditorMenuBar::EditorMenuBar()
 {
 
@@ -31,13 +33,13 @@ bool EditorMenuBar::onRender()
 	return true;
 }
 
-void EditorMenuBar::addMenu(SharePtr<EditorMenu> pmenu)
+void EditorMenuBar::addMenu(EditorMenu* pmenu)
 {
 	m_arrMenus.push_back(pmenu);
 	m_mapMenus.insert(std::make_pair(pmenu->getName(), pmenu));
 }
 
-void EditorMenuBar::addSubMenu(const std::string& parent, SharePtr<EditorMenu> pmenu)
+void EditorMenuBar::addSubMenu(const std::string& parent, EditorMenu* pmenu)
 {
 	if (pmenu == nullptr) return;
 

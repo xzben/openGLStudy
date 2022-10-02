@@ -5,6 +5,8 @@
 
 BEGIN_EDITOR_NAMESPACE
 
+IMPLEMENT_RUNTIME_CLASS(EditorMenu)
+
 bool EditorMenu::onRender()
 {
 	if (renderAsContainor()) return true;
@@ -59,17 +61,17 @@ void EditorMenu::onClick(bool ischeck)
 	}
 }
 
-SharePtr<EditorMenu> EditorMenu::getSubMenuById(IDMainMenu menuid)
+EditorMenu* EditorMenu::getSubMenuById(IDMainMenu menuid)
 {
 	for (auto it : m_menus)
 	{
 		if (it->getMenuId() == menuid)
 		{
-			return it;
+			return it.get();
 		}
 	}
 
-	return SharePtr<EditorMenu>();
+	return nullptr;
 }
 
 bool EditorMenu::renderAsItem()

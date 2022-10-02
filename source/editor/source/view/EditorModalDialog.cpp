@@ -2,6 +2,8 @@
 
 BEGIN_EDITOR_NAMESPACE
 
+IMPLEMENT_RUNTIME_CLASS(EditorModalDialog)
+
 EditorModalDialog::EditorModalDialog()
 {
 

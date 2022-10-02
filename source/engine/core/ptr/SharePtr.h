@@ -18,8 +18,10 @@ template<typename T>
 class SharePtr final
 {
 private:
-	friend class WeakPtr<T>;
+	template<typename TT>
+	friend class WeakPtr;
 
+	template<typename TT>
 	friend class SharePtr;
 
 	template<typename T1, typename ...Args>
@@ -57,6 +59,19 @@ private:
 	}
 public:
 	SharePtr(){}
+	SharePtr(std::nullptr_t)
+	{
+		m_data = nullptr;
+		m_count = nullptr;
+	}
+
+	SharePtr(SharePtr<T>&& other)
+	{
+		m_data = other.m_data;
+		m_count = other.m_count;
+		other.m_data = nullptr;
+		other.m_count = nullptr;
+	}
 
 	SharePtr(const SharePtr<T>& other)
 	{
@@ -86,21 +101,6 @@ public:
 		return *this;
 	}
 
-	template<typename NewT>
-	SharePtr<NewT> ToCast() const
-	{
-		SharePtr<NewT> ret;
-		if (m_data)
-		{
-			ret.m_data = static_cast<NewT*>(m_data);
-			m_count->share++;
-			m_count->weak++;
-			ret.m_count = m_count;
-		}
-
-		return std::move(ret);
-	}
-
 	bool operator==(const SharePtr<T>& right)const
 	{
 		return m_data == right.m_data;
@@ -116,6 +116,11 @@ public:
 		return m_data == nullptr;
 	}
 	
+	operator T* () const
+	{
+		return m_data;
+	}
+
 	T* operator->() const
 	{
 		return m_data;
@@ -126,6 +131,7 @@ public:
 	{
 		return ToCast<NewT>();
 	}
+
 
 	operator bool() const
 	{
@@ -161,6 +167,21 @@ public:
 		}
 		m_data = nullptr;
 		m_count = nullptr;
+	}
+protected:
+	template<typename NewT>
+	SharePtr<NewT> ToCast() const
+	{
+		SharePtr<NewT> ret;
+		if (m_data)
+		{
+			ret.m_data = static_cast<NewT*>(m_data);
+			m_count->share++;
+			m_count->weak++;
+			ret.m_count = m_count;
+		}
+
+		return std::move(ret);
 	}
 private:
 	Counter* m_count = nullptr;

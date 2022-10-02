@@ -2,6 +2,8 @@
 
 BEGIN_EDITOR_NAMESPACE
 
+IMPLEMENT_RUNTIME_CLASS(EditorUIBase)
+
 bool EditorUIBase::render()
 {
 	if (m_lastVisibleStatus != m_isVisible)

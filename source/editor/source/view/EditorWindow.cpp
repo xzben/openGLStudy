@@ -15,6 +15,8 @@ USING_OGS_NAMESPACE;
 
 BEGIN_EDITOR_NAMESPACE
 
+IMPLEMENT_RUNTIME_CLASS(EditorWindow)
+
 EditorWindow::EditorWindow()
 {
 
@@ -29,7 +31,7 @@ EditorWindow::~EditorWindow()
 	m_frames.clear();
 }
 
-bool EditorWindow::init(SharePtr<OGS::GameView>& view)
+bool EditorWindow::init(OGS::GameView* view)
 {
 	m_gameview = view;
 	if (!initContext())

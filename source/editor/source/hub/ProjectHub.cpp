@@ -24,16 +24,16 @@ void ProjectHub::init()
 	info.title = "OpenGLStudy Hub";
 	info.width = 1000;
 	info.height = 580;
-	m_gameview = makeShare(new GameView());
+	m_gameview = new GameView();
 	m_gameview->init(info);
 	
-	m_device->setGameView(m_gameview);
+	m_device->setGameView(m_gameview.get());
 
 	int sw, sh;
 	m_device->GetScreenSize(sw, sh);
 	m_gameview->setPosition(sw / 2 - info.width/2, sh / 2 - info.height/2);
 
-	m_hubwindow = makeShare(new HubWindow(m_gameview));
+	m_hubwindow = new HubWindow(m_gameview.get());
 
 	m_hubwindow->init();
 }
@@ -58,7 +58,7 @@ std::tuple<bool, GameProject*> ProjectHub::run()
 		m_device->swapFrameBuffer();
 	}
 
-	return { m_ready, m_openProject };
+	return { m_ready, m_openProject.get() };
 }
 
 END_EDITOR_NAMESPACE

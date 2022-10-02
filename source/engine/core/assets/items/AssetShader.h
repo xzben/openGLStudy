@@ -8,7 +8,7 @@ class AssetShader : public AssetText
 {
 	DECLARE_CLASS(AssetShader)
 public:
-	virtual void onLoad(SharePtr<Data>& data)override;
+	virtual void onLoad(const AutoRef<Data>& data)override;
 	virtual void onUnload()override;
 };
 

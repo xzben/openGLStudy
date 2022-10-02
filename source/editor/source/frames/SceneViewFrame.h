@@ -7,7 +7,7 @@ BEGIN_EDITOR_NAMESPACE
 
 class SceneViewFrame : public EditorFrame
 {
-	DECLARE_EDITOR_CLASS(SceneViewFrame)
+	DECLARE_RUNTIME_CLASS(SceneViewFrame)
 public:
 	SceneViewFrame(){}
 	void handleInit() override;

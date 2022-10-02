@@ -10,11 +10,8 @@ class System : public Object, public NoCopy
 {
 public:
 	explicit System(std::string& name);
-
 	virtual ~System() {};
-
 public:
-	virtual bool init() { return true; };
 	virtual void update(float dt) {};
 	virtual void destroy() {};
 private:

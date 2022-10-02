@@ -11,7 +11,7 @@
 BEGIN_EDITOR_NAMESPACE
 
 
-HubWindow::HubWindow(SharePtr<OGS::GameView>& gameview)
+HubWindow::HubWindow(OGS::GameView* gameview)
 	:m_gameview(gameview)
 {
 

@@ -2,15 +2,16 @@
 
 #include "common.h"
 #include "runtime.h"
+#include "core/base/Object.h"
 
 BEGIN_OGS_NAMESPACE
 class Engine;
 class GameView;
 class GfxDevice;
 
-class GameApp
+class GameApp : public Object
 {
-	DECLARE_RUNTIME_CLASS_BASE(GameApp)
+	DECLARE_RUNTIME_CLASS(GameApp)
 public:
 	GameApp();
 	virtual ~GameApp();
@@ -40,12 +41,12 @@ public:
 	
 	void setFps(int fps) { ASSERT(fps > 0, "framecount must > 0");  m_fps = 1.0f / fps; }
 	uint getFrameCount() { return m_frameCount; }
-	SharePtr<GameView>& GetGameView() { return m_gameView; }
+	AutoRef<GameView>& GetGameView() { return m_gameView; }
 protected:
-	SharePtr<Engine> m_engine;
+	AutoRef<Engine> m_engine;
 	float	m_fps = 1.0f/60;
 	uint	m_frameCount = 0;
-	SharePtr<GameView> m_gameView;
-	SharePtr<GfxDevice> m_device;
+	AutoRef<GameView> m_gameView;
+	AutoRef<GfxDevice> m_device;
 };
 END_OGS_NAMESPACE

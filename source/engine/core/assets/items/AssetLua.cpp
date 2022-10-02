@@ -4,7 +4,7 @@ BEGIN_OGS_NAMESPACE
 
 IMPLEMENT_CLASS(AssetLua)
 
-void AssetLua::onLoad(SharePtr<Data>& data)
+void AssetLua::onLoad(const AutoRef<Data>& data)
 {
 
 }

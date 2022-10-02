@@ -2,6 +2,8 @@
 
 BEGIN_EDITOR_NAMESPACE
 
+IMPLEMENT_RUNTIME_CLASS(SceneViewFrame)
+
 void SceneViewFrame::handleInit()
 {
 

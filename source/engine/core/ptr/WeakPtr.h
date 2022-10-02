@@ -8,7 +8,11 @@ template<typename T>
 class WeakPtr final
 {
 public:
-	friend class SharePtr<T>;
+	template<typename TT>
+	friend class SharePtr;
+
+	template<typename TT>
+	friend class WeakPtr;
 
 	friend bool operator==(std::nullptr_t nil, const WeakPtr<T>& right);
 
@@ -16,6 +20,12 @@ public:
 
 	~WeakPtr() {
 		release();
+	}
+
+	WeakPtr(std::nullptr_t)
+	{
+		m_data = nullptr;
+		m_count = nullptr;
 	}
 
 	WeakPtr(const SharePtr<T>& ptr) 
@@ -29,9 +39,17 @@ public:
 		}
 	}
 
+	WeakPtr(WeakPtr<T>&& other)
+	{
+		m_data = other.m_data;
+		m_count = other.m_count;
+		other.m_data = nullptr;
+		other.m_count = nullptr;
+	}
+
 	WeakPtr(const WeakPtr<T>& other) 
 	{
-		if (!other->expired())
+		if (!other.expired())
 		{
 			m_data = other.m_data;
 			m_count = other.m_count;
@@ -74,10 +92,16 @@ public:
 		return m_data == nullptr;
 	}
 
+	template<typename NewT>
+	operator WeakPtr<NewT>() const
+	{
+		return ToCast<NewT>();
+	}
+
 	WeakPtr<T>& operator=(const WeakPtr<T>& other)
 	{
 		release();
-		if (!other->expired())
+		if (!other.expired())
 		{
 			m_data = other.m_data;
 			m_count = other.m_count;
@@ -94,7 +118,7 @@ public:
 			m_count->weak++;
 		}
 
-		*this;
+		return *this;
 	}
 
 	SharePtr<T> lock()
@@ -102,6 +126,15 @@ public:
 		return SharePtr<T>(*this);
 	}
 	
+	operator bool() const
+	{
+		return !expired();
+	}
+
+	operator T*()
+	{
+		return get();
+	}
 
 	T* operator->() const
 	{
@@ -121,7 +154,7 @@ public:
 	//指针是否过期
 	bool expired() const
 	{
-		if (m_count)
+		if (m_data && m_count)
 		{
 			if (m_count->share > 0)
 			{
@@ -145,6 +178,20 @@ public:
 
 		m_count = nullptr;
 		m_data = nullptr;
+	}
+protected:
+	template<typename NewT>
+	WeakPtr<NewT> ToCast() const
+	{
+		WeakPtr<NewT> ret;
+		if (!expired())
+		{
+			ret.m_data = static_cast<NewT*>(m_data);
+			m_count->weak++;
+			ret.m_count = m_count;
+		}
+
+		return std::move(ret);
 	}
 private:
 	T* m_data = nullptr;

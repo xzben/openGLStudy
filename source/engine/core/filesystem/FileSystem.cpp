@@ -232,14 +232,14 @@ bool FileSystem::createDirectories(const std::string& path)
 
 std::string FileSystem::getString(const std::string& path)
 {
-	SharePtr<Data> data = makeShare<Data>();
+	AutoRef<Data> data = new Data();
 	if (!getContentData(path, data))
 		return "";
 	
 	return (char*)data->getData();
 }
 
-bool FileSystem::getContentData(const std::string& path, const SharePtr<Data>& data)
+bool FileSystem::getContentData(const std::string& path, const AutoRef<Data>& data)
 {
 	if (!isFileExists(path)) false;
 
@@ -309,7 +309,7 @@ bool FileSystem::writeString(const std::string& fullpath, const std::string& con
 	return true;
 }
 
-bool FileSystem::writeData(const std::string& fullpath, const SharePtr<Data>& data)
+bool FileSystem::writeData(const std::string& fullpath, const AutoRef<Data>& data)
 {
 	FILE* fp = fopen(fullpath.c_str(), "wb+");
 	if (!fp)

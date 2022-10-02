@@ -20,9 +20,9 @@ enum class LayoutType
 	TOP_DOWN,
 };
 
-class EditorFrame : public EditorUIBase, public EditorUIContainor
+class EditorFrame : public EditorUIContainor
 {
-	DECLARE_EDITOR_CLASS(EditorFrame)
+	DECLARE_RUNTIME_CLASS(EditorFrame)
 public:
 	EditorFrame() = default;
 	EditorFrame(const std::string& title);

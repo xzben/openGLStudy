@@ -20,6 +20,23 @@ namespace OGS {
 		std::string m_name;
 	};
 }
+
+// create func declare
+#define DECLARE_CREATE_FUN(CLS) \
+public: \
+	template<typename ...Args> \
+	static CLS* create(const Args&... args)\
+	{\
+		CLS* obj = new CLS(); \
+		if (!obj->init(args...)) \
+		{ \
+			ASSERT(false, "init failed %s", #CLS); \
+			return nullptr; \
+		} \
+		return obj; \
+	} \
+private:
+
 /// Runtime define base
 #define DECLARE_RUNTIME_CLASS_BASE(CLS) \
 public:\
@@ -27,11 +44,10 @@ public:\
 	static OGS::Runtime Runtime##CLS##Obj; \
 	static OGS::Runtime* GetRUNTIME(){ return &Runtime##CLS##Obj; } \
 	virtual OGS::Runtime* GetRuntime() { return &Runtime##CLS##Obj; }\
-	static CLS* create(){ \
-		CLS* obj = new CLS(); \
-		return obj; \
-	} \
-private:
+	DECLARE_CREATE_FUN(CLS)
+
+
+
 
 #define IMPLEMENT_RUNTIME_CLASS_BASE( CLS ) \
 	OGS::Runtime CLS::Runtime##CLS##Obj(#CLS);

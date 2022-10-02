@@ -7,12 +7,12 @@ BEGIN_EDITOR_NAMESPACE
 
 class EditorListView : public EditorUIBase
 {
-	DECLARE_EDITOR_CLASS(EditorListView)
+	DECLARE_RUNTIME_CLASS(EditorListView)
 public:
 	virtual bool onRender() override;
 
-	void addItem(SharePtr<EditorUIBase> item) { m_items.push_back(item); }
+	void addItem(AutoRef<EditorUIBase> item) { m_items.push_back(item); }
 private:
-	std::vector<SharePtr<EditorUIBase>> m_items;
+	std::vector<AutoRef<EditorUIBase>> m_items;
 };
 END_EDITOR_NAMESPACE

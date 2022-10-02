@@ -8,7 +8,7 @@ class AssetJson : public AssetText
 {
 	DECLARE_CLASS(AssetJson)
 public:
-	virtual void onLoad(SharePtr<Data>& data)override;
+	virtual void onLoad(const AutoRef<Data>& data)override;
 	virtual void onUnload()override;
 protected:
 	JSON m_json;

@@ -4,16 +4,17 @@
 #include "view/EditorFrame.h"
 
 BEGIN_EDITOR_NAMESPACE
-class EditorTreeNode;
+class EditorTreeNodeRoot;
 
 class AssetsFrame : public EditorFrame
 {
-	DECLARE_EDITOR_CLASS(AssetsFrame)
+	DECLARE_RUNTIME_CLASS(AssetsFrame)
 public:
 
 	AssetsFrame(){}
 	void handleInit() override;
 private:
-	SharePtr<EditorTreeNode> m_assets;
+	WeakRef<EditorTreeNodeRoot> m_assets;
 };
+
 END_EDITOR_NAMESPACE

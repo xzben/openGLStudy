@@ -1,20 +1,15 @@
 #pragma once
 
+
 #include "common.h"
 #include "core/base/Object.h"
 
 BEGIN_OGS_NAMESPACE
 
-class Mesh;
-
 class Model : public Object
 {
+	DECLARE_CLASS(Model)
 public:
-	Model();
-	virtual ~Model();
-
-
-private:
-	std::vector<Mesh*> 
 };
+
 END_OGS_NAMESPACE

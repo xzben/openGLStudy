@@ -7,7 +7,7 @@ BEGIN_EDITOR_NAMESPACE
 
 class EditorModalDialog : public EditorUIBase
 {
-	DECLARE_EDITOR_CLASS(EditorModalDialog)
+	DECLARE_RUNTIME_CLASS(EditorModalDialog)
 public:
 
 	EditorModalDialog();

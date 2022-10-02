@@ -1,20 +1,20 @@
 #pragma once
 
 #include "editor_common.h"
-
+#include "core/base/Object.h"
 BEGIN_EDITOR_NAMESPACE
 
-class EditorUIBase
+class EditorUIContainor;
+
+class EditorUIBase : public OGS::Object
 {
-	DECLARE_EDITOR_CLASS_BASE(EditorUIBase)
+	DECLARE_RUNTIME_CLASS(EditorUIBase)
 public:
 	EditorUIBase() {};
 	virtual ~EditorUIBase(){}
 
 	virtual bool render();
-	virtual bool init() { this->handleInit();  return true; }
-	virtual void handleInit() {}
-	virtual bool onRender() = 0;
+	virtual bool onRender() { return true; };
 
 	void setVisible(bool visible)
 	{
@@ -33,11 +33,11 @@ public:
 	void setEnable(bool enable) { m_enable = enable; }
 	const ImVec2& getSize() const { return m_size; }
 	void setSize(const ImVec2& size) { m_size = size; }
-	void setParent(EditorUIBase* parent) { m_parent = parent; }
+	void setParent(EditorUIContainor* parent) { m_parent = parent; }
 public:
 	bool breakLine{ true };
 protected:
-	EditorUIBase* m_parent{ nullptr };
+	EditorUIContainor* m_parent{ nullptr };
 	bool m_isVisible{true};
 	bool m_lastVisibleStatus{ true };
 	bool m_enable{ true };

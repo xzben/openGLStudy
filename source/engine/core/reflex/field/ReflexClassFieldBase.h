@@ -1,7 +1,7 @@
 #pragma once
 
 #include "core/reflex/reflex_define.h"
-#include "core/reflex/reflexClass.h"
+#include "core/reflex/reflexClassBase.h"
 
 BEGIN_OGS_NAMESPACE
 

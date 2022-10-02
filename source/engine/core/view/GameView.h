@@ -1,5 +1,6 @@
 #pragma once
 #include "common.h"
+#include "core/base/Object.h"
 #include <functional>
 #include <string>
 
@@ -8,8 +9,9 @@ struct GLFWwindow;
 
 BEGIN_OGS_NAMESPACE
 
-class GameView
+class GameView : public Object
 {
+	DECLARE_RUNTIME_CLASS(GameView)
 public:
 	typedef std::function<void()>                   onResetFunc;
 	typedef std::function<void(int, int, int, int)> onKeyFunc;

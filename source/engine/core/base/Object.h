@@ -1,9 +1,11 @@
 #pragma once
 
 #include "macro.h"
-#include "common.h"
+#include "define.h"
+#include "core/base/runtime.h"
 
 BEGIN_OGS_NAMESPACE
+class WeakLinker;
 
 class NoCopy
 {
@@ -17,10 +19,17 @@ public:
 
 class Object
 {
-	DECLARE_CLASS_BASE(Object)
+	DECLARE_RUNTIME_CLASS_BASE(Object);
 public:
-	Object() = default;
-	virtual ~Object() = default;
+	template<typename T>
+	friend class AutoRef;
+
+	template<typename T>
+	friend class WeakRef;
+
+	Object();
+	virtual ~Object();
+	virtual bool init() { handleInit(); return true; }
 	virtual void handleInit() {};
 
 	template<typename CLS>
@@ -46,6 +55,28 @@ public:
 	{
 		return this->IsKindOf<CLS>() ? dynamic_cast<CLS*>(this) : nullptr;
 	}
+	void release();
+
+	void addRef()
+	{
+		m_refcount++;
+	}
+
+	void delRef()
+	{
+		ASSERT(m_refcount > 0, "refcount must > 0");
+		m_refcount--;
+
+		if (m_refcount <= 0)
+		{
+			release();
+		}
+	}
+private:
+	WeakLinker* getLinker();
+protected:
+	int m_refcount{ 0 };
+	WeakLinker* m_linker{ nullptr };
 };
 
 END_OGS_NAMESPACE

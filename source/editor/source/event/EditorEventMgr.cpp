@@ -2,31 +2,31 @@
 
 BEGIN_EDITOR_NAMESPACE
 
-SharePtr<EventNotify>& EditorEventMgr::getNotifybyEvent(EditorEvent event)
+AutoRef<EventNotify>& EditorEventMgr::getNotifybyEvent(EditorEvent event)
 {
 	auto it = m_events.find(event);
 	
 	if (it == m_events.end())
 	{
-		SharePtr<EventNotify> notify = makeShare(new EventNotify());
+		EventNotify* notify = new EventNotify();
 		it = m_events.insert(std::make_pair(event, notify)).first;
 	}
 	
 	return it->second;
 }
 
-SharePtr<EventNotify>& EditorEventMgr::getNotifybyEventAndId(EditorEvent event, int id)
+AutoRef<EventNotify>& EditorEventMgr::getNotifybyEventAndId(EditorEvent event, int id)
 {
 	auto itmap = m_eventIdEvent.find(event);
 	if (itmap == m_eventIdEvent.end())
 	{
-		itmap = m_eventIdEvent.insert(std::make_pair(event, std::unordered_map<int, SharePtr<EventNotify>> {})).first;
+		itmap = m_eventIdEvent.insert(std::make_pair(event, std::unordered_map<int, AutoRef<EventNotify>> {})).first;
 	}
 
 	auto idnotify = itmap->second.find(id);
 	if (idnotify == itmap->second.end())
 	{
-		idnotify = itmap->second.insert(std::make_pair(id, makeShare(new EventNotify))).first;
+		idnotify = itmap->second.insert(std::make_pair(id, new EventNotify)).first;
 	}
 
 	return idnotify->second;

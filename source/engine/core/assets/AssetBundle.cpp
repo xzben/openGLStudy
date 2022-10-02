@@ -14,12 +14,12 @@ AssetBundle::AssetBundle(const std::string& path)
 
 }
 
-const SharePtr<Asset> AssetBundle::getAsset(const std::string& name)
+const AutoRef<Asset> AssetBundle::getAsset(const std::string& name)
 {
 	auto it = m_assets.find(name);
 	if ( it == m_assets.end())
 	{
-		return SharePtr<Asset>();
+		return AutoRef<Asset>();
 	}
 
 	if (it->second == nullptr)
@@ -40,7 +40,7 @@ void AssetBundle::releaseAsset(const std::string& name)
 	m_assets.erase(it);
 }
 
-void AssetBundle::onLoad(SharePtr<Data>& data)
+void AssetBundle::onLoad(const AutoRef<Data>& data)
 {
 
 }

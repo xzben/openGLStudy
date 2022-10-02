@@ -4,7 +4,7 @@ BEGIN_OGS_NAMESPACE
 
 IMPLEMENT_CLASS(AssetShader)
 
-void AssetShader::onLoad(SharePtr<Data>& data)
+void AssetShader::onLoad(const AutoRef<Data>& data)
 {
 
 }

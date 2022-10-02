@@ -28,7 +28,7 @@ public:
 	bool remove(const std::string& path);
 	bool createDirectories(const std::string& path);
 	std::string getString(const std::string& path);
-	bool getContentData(const std::string& path, const SharePtr<Data>& data);
+	bool getContentData(const std::string& path, const AutoRef<Data>& data);
 	
 	bool getDirectoryContents(const std::string& path, std::vector<std::string>& files, std::vector<std::string>& directories, bool recursive = false);
 	bool getDirectoryFiles(const std::string& path, std::vector<std::string>& files, bool recursive = false, bool filterDirectory = true);
@@ -40,7 +40,7 @@ public:
 	std::string getFileExt(const std::string& filepath);
 
 	bool writeString(const std::string& fullpath, const std::string& content);
-	bool writeData(const std::string& fullpath, const SharePtr<Data>& data);
+	bool writeData(const std::string& fullpath, const AutoRef<Data>& data);
 private:
 	std::vector<std::string> m_searchPaths;
 	std::unordered_map<std::string, std::string> m_filecaches;

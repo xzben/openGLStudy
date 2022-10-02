@@ -6,7 +6,7 @@ BEGIN_EDITOR_NAMESPACE
 
 class EditorLabel : public EditorUIBase
 {
-	DECLARE_EDITOR_CLASS(EditorLabel)
+	DECLARE_RUNTIME_CLASS(EditorLabel)
 public:
 	void setText(const std::string& text) { m_text = text; }
 	const std::string& getText() { return m_text; }

@@ -19,7 +19,7 @@ class EditorApp : public OGS::GameApp, public Singleton<EditorApp>
 public:
 	EditorApp();
 	virtual ~EditorApp();
-	void init(SharePtr<GameProject> project);
+	void init(AutoRef<GameProject> project);
 	virtual void onInit() override;
 	virtual void onDestroy() override;
 	
@@ -31,14 +31,14 @@ public:
 	virtual void onPostRender() override;
 	virtual void onDraw() override;
 	virtual void onUpdate(float dt) override;
-	SharePtr<GameProject> GetProject() { return m_project; }
-	SharePtr<EditorWindow> getEditorWindow() { return m_editor_window; }
+	AutoRef<GameProject> GetProject() { return m_project; }
+	AutoRef<EditorWindow> getEditorWindow() { return m_editor_window; }
 protected:
 	void handleMenuEvent(EventData* event);
 	void initEvent();
 	void unInitEvent();
 private:
-	SharePtr<EditorWindow> m_editor_window;
-	SharePtr<GameProject>  m_project;
+	AutoRef<EditorWindow> m_editor_window;
+	AutoRef<GameProject>  m_project;
 };
 END_EDITOR_NAMESPACE
