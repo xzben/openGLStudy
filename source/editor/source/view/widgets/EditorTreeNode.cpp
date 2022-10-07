@@ -55,13 +55,6 @@ bool EditorTreeNode::onRender()
 		}
 	}
 
-	if (m_dragable && ImGui::BeginDragDropSource())
-	{
-		ImGui::SetDragDropPayload("_TREENODE", NULL, 0);
-		ImGui::Text(name.c_str());
-		ImGui::EndDragDropSource();
-	}
-
 	if (isOpen)
 	{
 		if (!preOpened)

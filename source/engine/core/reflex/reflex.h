@@ -70,7 +70,8 @@ private:
 		using CUR_TYPE = CLS;
 
 #define REFLEX_FIELD(FieldType, field) OGS::ReflexManager::GetInstance()->RegisterClassMember<CUR_TYPE, FieldType>(#field, (FieldType CUR_TYPE::*)(&CUR_TYPE::field));
-#define REFLEX_FIELD_GETSET(FieldType, name, get, set) OGS::ReflexManager::GetInstance()->RegisterClassMember<CUR_TYPE, FieldType>(#name, get, set);
+#define REFLEX_FIELD_NAME(FieldType, field, name) OGS::ReflexManager::GetInstance()->RegisterClassMember<CUR_TYPE, FieldType>(name, (FieldType CUR_TYPE::*)(&CUR_TYPE::field));
+#define REFLEX_FIELD_GETSET(FieldType, name, get, set) OGS::ReflexManager::GetInstance()->RegisterClassMember<CUR_TYPE, FieldType>(name, get, set);
 
 #define END_REFLEX_CLASS_FIELD() \
 	});

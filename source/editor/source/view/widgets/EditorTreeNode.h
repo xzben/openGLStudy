@@ -15,8 +15,6 @@ class EditorTreeNode : public EditorUIContainor
 public:
 	void setName(const std::string& name) { this->name = name; }
 	virtual bool onRender() override;
-	void setDragable(bool dragable) { m_dragable = dragable; }
-	bool isDragable() { return m_dragable; }
 	void open();
 	void close();
 	void setCustomData(OGS::Object* customdata) { m_customData = customdata; }
@@ -38,7 +36,6 @@ protected:
 	bool m_shouldOpen{ false };
 	bool m_shouldClose{ false };
 	bool m_opened{ false };
-	bool m_dragable{ false };
 };
 
 END_EDITOR_NAMESPACE

@@ -6,3 +6,5 @@
 #define END_EDITOR_NAMESPACE }
 #define USING_EDITOR_NAMESPACE  using namespace OGS_EDITOR
 
+#define MACRO_XSTR(s) MACRO_STR(s)
+#define MACRO_STR(s) #s

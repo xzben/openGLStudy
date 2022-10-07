@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ReflexItem.h"
-
+#include "math/math.h"
 BEGIN_OGS_NAMESPACE
 
 namespace FieldSerialize
@@ -35,6 +35,7 @@ namespace FieldSerialize
 	bool Serialize<unsigned int>(JSON& json, unsigned int* field);
 	template<>
 	bool Deserialize<unsigned int>(const JSON& json, unsigned int* field);
+
 #if defined(JSON_HAS_INT64)
 	template<>
 	bool Serialize<JSON::UInt64>(JSON& json, JSON::UInt64* field);

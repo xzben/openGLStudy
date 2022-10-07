@@ -5,7 +5,7 @@ BEGIN_EDITOR_NAMESPACE
 IMPLEMENT_RUNTIME_CLASS(EditorInputField)
 
 #define DEFAULT_TEXT_MAX_SIZE 64
-#define DEFAULT_INPUTFIELD_SIZE  { 100, 50 }
+#define DEFAULT_INPUTFIELD_SIZE  { 0, 0 }
 
 int EditorInputField::handleInputEventCallback(ImGuiInputTextCallbackData* data)
 {
@@ -19,7 +19,10 @@ int EditorInputField::handleInputEventCallback(ImGuiInputTextCallbackData* data)
 		}
 		case ImGuiInputTextFlags_CallbackEdit:
 		{
-			input->onInputChange();
+			if (input->doChangeText(data->Buf))
+			{
+				input->onInputChange(data->Buf);
+			}
 			break;
 		}
 	}
@@ -36,18 +39,24 @@ EditorInputField::EditorInputField()
 bool EditorInputField::onRender()
 {
 	int flag = ImGuiInputTextFlags_CallbackEdit | ImGuiInputTextFlags_CallbackCompletion;
-	ImGui::InputTextEx("input", m_placetips.c_str(), m_text.data(),m_textMaxCount, m_size, flag, EditorInputField::handleInputEventCallback, this);
+	ImGui::InputTextEx(m_guid.c_str(), m_placetips.c_str(), m_text.data(),m_textMaxCount, m_size, flag, EditorInputField::handleInputEventCallback, this);
 	
 	return true;
 }
 
 void EditorInputField::onInputEnd()
 {
-
+	EventInputEnd.emit(this);
 }
 
-void EditorInputField::onInputChange()
+bool EditorInputField::doChangeText(const char* text)
 {
-
+	m_text = text;
+	return true;
 }
+void EditorInputField::onInputChange(const char* text)
+{
+	EventInputChange.emit(this);
+}
+
 END_EDITOR_NAMESPACE

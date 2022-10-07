@@ -12,6 +12,7 @@ BEGIN_EDITOR_NAMESPACE
 class EditorWindow;
 class EventData;
 class GameProject;
+class EditorContext;
 
 class EditorApp : public OGS::GameApp, public Singleton<EditorApp>
 {
@@ -40,5 +41,6 @@ protected:
 private:
 	AutoRef<EditorWindow> m_editor_window;
 	AutoRef<GameProject>  m_project;
+	EditorContext* m_context{ nullptr };
 };
 END_EDITOR_NAMESPACE

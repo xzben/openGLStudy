@@ -11,32 +11,48 @@ public:
 	using FieldPtr = WeakRef<FieldType> CLS::*;
 	using Field = WeakRef<FieldType>;
 
-	ReflexClassWeakRefPtrField(ReflexClassBase* cls, const char* name, FieldPtr member)
-		: ReflexClassMemberBase<CLS>(cls, name)
+	ReflexClassWeakRefPtrField(ReflexClassBase* cls, const char* name, FieldPtr member, int flag)
+		: ReflexClassMemberBase<CLS>(cls, name, flag)
 		, m_member(member)
 	{
 
 	}
 
-	virtual void GetObjectValue(CLS* obj, void* value) override
+	virtual const char* getRawTypeName() override
 	{
-		(*(Field*)value) = obj->*m_member;
+		return typeid(FieldType).name();
 	}
 
-	virtual void SetObjectValue(CLS* obj, void* value) override
+	virtual void* getFieldData(void* obj) override
 	{
-		obj->*m_member = *((Field*)value);
+		CLS* clsobj = (CLS*)obj;
+		Field ptr = clsobj->*m_member;
+
+		return ptr.get();
 	}
 
-	virtual bool Serialize(CLS* obj, JSON& json) override
+	virtual void GetObjectValue(void* obj, void* value) override
 	{
-		Field value = (obj->*m_member);
+		CLS* clsobj = (CLS*)obj;
+		(*(Field*)value) = clsobj->*m_member;
+	}
+
+	virtual void SetObjectValue(void* obj, void* value) override
+	{
+		CLS* clsobj = (CLS*)obj;
+		clsobj->*m_member = *((Field*)value);
+	}
+
+	virtual bool Serialize(void* obj, JSON& json) override
+	{
+		CLS* clsobj = (CLS*)obj;
+		Field value = (clsobj->*m_member);
 		if (value == nullptr) return true;
 
 		return FieldSerialize::Serialize(json[m_name], value.get());
 	}
 
-	virtual bool Deserialize(CLS* obj, const JSON& json) override
+	virtual bool Deserialize(void* obj, const JSON& json) override
 	{
 		FieldType* value = nullptr;
 		if (json.isMember(m_name))

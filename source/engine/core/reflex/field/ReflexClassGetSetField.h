@@ -9,32 +9,47 @@ public:
 	using GetFunc = const FieldType& (CLS::*)()const;
 	using SetFunc = void (CLS::*)(const FieldType&);
 
-	ReflexClassGetSetField(ReflexClassBase* cls, const char* name, GetFunc getfunc, SetFunc setfunc)
-		: ReflexClassMemberBase<CLS>(cls, name)
+	ReflexClassGetSetField(ReflexClassBase* cls, const char* name, GetFunc getfunc, SetFunc setfunc, int flag)
+		: ReflexClassMemberBase<CLS>(cls, name, flag)
 		, m_get(getfunc)
 		, m_set(setfunc)
 	{
-
+		m_flags |= (int)ReflexConfig::NO_Edit;
 	}
 
-	virtual void GetObjectValue(CLS* obj, void* value) override
+	virtual const char* getRawTypeName() override
 	{
-		(*(FieldType*)value) = (obj->*m_get)();
+		return typeid(FieldType).name();
 	}
 
-	virtual void SetObjectValue(CLS* obj, void* value) override
+	virtual void* getFieldData(void* obj) override
 	{
-		(obj->*m_set)(*(FieldType*)value);
+		ASSERT(false, "get set can't field data");
+		return nullptr;
 	}
 
-	virtual bool Serialize(CLS* obj, JSON& json) override
+	virtual void GetObjectValue(void* obj, void* value) override
 	{
-		FieldType value = (obj->*m_get)();
+		CLS* clsobj = (CLS*)obj;
+		(*(FieldType*)value) = (clsobj->*m_get)();
+	}
+
+	virtual void SetObjectValue(void* obj, void* value) override
+	{
+		CLS* clsobj = (CLS*)obj;
+		(clsobj->*m_set)(*(FieldType*)value);
+	}
+
+	virtual bool Serialize(void* obj, JSON& json) override
+	{
+		CLS* clsobj = (CLS*)obj;
+		FieldType value = (clsobj->*m_get)();
 		return FieldSerialize::Serialize(json[m_name], &value);
 	}
 
-	virtual bool Deserialize(CLS* obj, const JSON& json) override
+	virtual bool Deserialize(void* obj, const JSON& json) override
 	{
+		CLS* clsobj = (CLS*)obj;
 		if (!json.isMember(m_name))
 		{
 			ASSERT(false, "must have field [%s]", m_name.c_str());
@@ -45,7 +60,7 @@ public:
 		{
 			return false;
 		}
-		(obj->*m_set)(value);
+		(clsobj->*m_set)(value);
 
 		return true;
 	}

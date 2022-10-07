@@ -8,7 +8,7 @@
 #include <functional>
 BEGIN_OGS_NAMESPACE
 
-enum InputType
+enum class InputType
 {
 	TOUCH,
 	KEYBOARD,
@@ -17,7 +17,7 @@ enum InputType
 	COUNT, // must been end
 };
 
-enum InputState
+enum class InputState
 {
 	BEGIN,
 	CHANGE,

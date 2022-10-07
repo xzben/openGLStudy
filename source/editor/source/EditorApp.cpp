@@ -5,7 +5,8 @@
 #include "event/EditorEventMgr.h"
 #include "view/DefineId.h"
 #include "project/GameProject.h"
-
+#include "core/filesystem/FileSystem.h"
+#include "context/EditorContext.h"
 USING_OGS_NAMESPACE;
 
 BEGIN_EDITOR_NAMESPACE
@@ -25,9 +26,13 @@ EditorApp::~EditorApp()
 void EditorApp::init(AutoRef<GameProject> project)
 {
 	m_project = project;
-
 	WindowCreateInfo info;
 	Super::init(info);
+
+	FileSystem::GetInstance()->addSearchPath(m_project->getAssetRoot());
+	FileSystem::GetInstance()->addSearchPath(MACRO_XSTR(EDITOR_ASSETS_DIR));
+	m_context = EditorContext::create();
+	m_context->setLayoutSaveFilename(project->getPath() + "/layout.ini");
 }
 
 void EditorApp::initEvent()

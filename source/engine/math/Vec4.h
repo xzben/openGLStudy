@@ -10,7 +10,7 @@
 #ifndef __2022_01_05_MATH_VEC4_H__
 #define __2022_01_05_MATH_VEC4_H__
 
-#include "common.h"
+#include "define.h"
 
 BEGIN_NAMESPACE
 
@@ -19,10 +19,25 @@ template<class TYPENAME>
 class Vec4
 {
 public:
-	TYPENAME x;
-	TYPENAME y;
-	TYPENAME z;
-	TYPENAME w;
+	union 
+	{
+		struct  
+		{
+			TYPENAME x;
+			TYPENAME y;
+			TYPENAME z;
+			TYPENAME w;
+		};
+
+		struct
+		{
+			TYPENAME r;
+			TYPENAME g;
+			TYPENAME b;
+			TYPENAME a;
+		};
+	};
+	
 public:
 	Vec4() {
 

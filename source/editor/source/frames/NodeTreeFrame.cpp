@@ -34,7 +34,7 @@ static void updateTreeNode(EditorTreeNodeRoot* rootnode, EditorTreeNode* treenod
 void NodeTreeFrame::updateShowAsset()
 {
 	auto project = EditorApp::GetInstance()->GetProject();
-	WeakRef<Asset> asset = project->getActiveAsset();
+	WeakRef<Asset> asset = project->getOpenAsset();
 	if (!asset) return;
 	Node* showNode = nullptr;
 
@@ -55,14 +55,17 @@ void NodeTreeFrame::updateShowAsset()
 void NodeTreeFrame::handleInit()
 {
 	auto project = EditorApp::GetInstance()->GetProject();
-	project->EventActiveAssetChange += [this](OGS::Asset* asset) {
+	project->EventOpenAssetChange += [this](OGS::Asset* asset) {
 		this->updateShowAsset();
 	};
 	m_treenode = CreateUI<EditorTreeNodeRoot>();
 	m_treenode->setName("Null");
 	m_treenode->EventChangeSelect += [](EditorTreeNode* treenode) {
-		auto node = treenode->getCustomData()->ToCast<OGS::Node>();
-		EditorApp::GetInstance()->GetProject()->setActiveNode(node);
+		if (treenode->getCustomData())
+		{
+			auto node = treenode->getCustomData()->ToCast<OGS::Node>();
+			EditorApp::GetInstance()->GetProject()->setActiveNode(node);
+		}
 	};
 	updateShowAsset();
 }

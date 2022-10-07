@@ -14,6 +14,29 @@ EditorUIContainor::~EditorUIContainor()
 
 }
 
+void EditorUIContainor::collectGarbage()
+{
+	for (auto it = m_childrens.begin(); it != m_childrens.end();)
+	{
+		if ((*it)->isDirtyRemove())
+		{
+			it = m_childrens.erase(it);
+		}
+		else
+		{
+			it++;
+		}
+	}
+}
+
+bool EditorUIContainor::render()
+{
+	bool ok = Super::render();
+	collectGarbage();
+
+	return ok;
+}
+
 bool EditorUIContainor::onRender()
 {
 	for (auto ui : m_childrens)

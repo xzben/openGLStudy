@@ -6,12 +6,8 @@
 USING_OGS_NAMESPACE;
 USING_EDITOR_NAMESPACE;
 
-#define MACRO_XSTR(s) MACRO_STR(s)
-#define MACRO_STR(s) #s
-
 int main() 
 {
-
 	bool ready = true;
 	AutoRef<GameProject> project = new GameProject("project");
 	project->setPath(MACRO_XSTR(ENGINE_PROJECT_PATH));

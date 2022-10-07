@@ -7,3 +7,4 @@ set(TEST_COMMON_INCLUDE ${THIRD_SOURCE_DIR}/glm/
 set(TEST_RESOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/resources/)
 
 add_subdirectory(source/reflex)
+add_subdirectory(source/test)

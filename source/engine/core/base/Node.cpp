@@ -33,4 +33,30 @@ Node* Node::getParent()
 	return m_parent;
 }
 
+Component* Node::getComponet(const std::string& name)
+{
+	for (auto com : m_components)
+	{
+		if (com->GetRuntime()->getName() == name)
+		{
+			return com;
+		}
+	}
+
+	return nullptr;
+}
+
+std::vector<Component*> Node::getComponents(const std::string& name)
+{
+	std::vector<Component*> rets;
+	for (auto com : m_components)
+	{
+		if (com->GetRuntime()->getName() == name)
+		{
+			rets.push_back(com);
+		}
+	}
+
+	return rets;
+}
 END_OGS_NAMESPACE

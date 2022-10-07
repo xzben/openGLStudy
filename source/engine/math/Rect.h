@@ -1,7 +1,7 @@
 #ifndef __2022_01_04_MATH_RECT_H__
 #define __2022_01_04_MATH_RECT_H__
 
-#include "common.h"
+#include "define.h"
 
 BEGIN_NAMESPACE
 

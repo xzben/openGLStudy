@@ -53,12 +53,14 @@ enum class GroupMask : unsigned int{
 
 
 typedef unsigned int  uint32;
+typedef long long	  int64;
+typedef unsigned long long uint64;
 typedef int			  int32;
 typedef unsigned int  uint;
 typedef unsigned char uint8;
 typedef unsigned char byte;
 typedef unsigned int  GL_HANDLE;
-typedef std::string   GUID;
+typedef std::conditional_t<sizeof(void*) == 4, int32, int64> ptrsize;
 
 #define DEFINE_XSTR(s) DEFINE_STR(s)
 #define DEFINE_STR(s) #s

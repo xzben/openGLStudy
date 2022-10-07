@@ -15,8 +15,9 @@ public:
 	ReflexClass(const char* name, ReflexClassBase* parent = nullptr)
 		: ReflexClassBase(name, parent)
 	{
+		
 	}
-
+	
 	virtual void* NewInstance() override
 	{
 		auto obj = new CLS();
@@ -24,37 +25,37 @@ public:
 	}
 
 	template<typename FieldType>
-	void RegisterMember(const char* fieldname, std::remove_pointer_t<FieldType> CLS::* ptrmeber)
+	void RegisterMember(const char* fieldname, std::remove_pointer_t<FieldType> CLS::* ptrmeber, int flag)
 	{
-		auto item = new ReflexClassCommonField<CLS, std::remove_pointer_t<FieldType>>(this, fieldname, ptrmeber);
+		auto item = new ReflexClassCommonField<CLS, std::remove_pointer_t<FieldType>>(this, fieldname, ptrmeber, flag);
 		m_members.insert(std::make_pair<std::string, ReflexClassMemberBase<CLS>*>(fieldname, item));
 	}
 
 	template<typename FieldType>
-	void RegisterMember(const char* fieldname, std::remove_pointer_t<FieldType>* CLS::* ptrmeber)
+	void RegisterMember(const char* fieldname, std::remove_pointer_t<FieldType>* CLS::* ptrmeber, int flag)
 	{
-		auto item = new ReflexClassPtrField<CLS, std::remove_pointer_t<FieldType>>(this, fieldname, ptrmeber);
+		auto item = new ReflexClassPtrField<CLS, std::remove_pointer_t<FieldType>>(this, fieldname, ptrmeber, flag);
 		m_members.insert(std::make_pair<std::string, ReflexClassMemberBase<CLS>*>(fieldname, item));
 	}
 
 	template<typename FieldType>
-	void RegisterMember(const char* fieldname, AutoRef<FieldType> CLS::* ptrmeber)
+	void RegisterMember(const char* fieldname, AutoRef<FieldType> CLS::* ptrmeber, int flag)
 	{
-		auto item = new ReflexClassAutoRefPtrField<CLS, FieldType>(this, fieldname, ptrmeber);
+		auto item = new ReflexClassAutoRefPtrField<CLS, FieldType>(this, fieldname, ptrmeber, flag);
 		m_members.insert(std::make_pair<std::string, ReflexClassMemberBase<CLS>*>(fieldname, item));
 	}
 
 	template<typename FieldType>
-	void RegisterMember(const char* fieldname, WeakRef<FieldType> CLS::* ptrmeber)
+	void RegisterMember(const char* fieldname, WeakRef<FieldType> CLS::* ptrmeber, int flag)
 	{
-		auto item = new ReflexClassWeakRefPtrField<CLS, FieldType>(this, fieldname, ptrmeber);
+		auto item = new ReflexClassWeakRefPtrField<CLS, FieldType>(this, fieldname, ptrmeber, flag);
 		m_members.insert(std::make_pair<std::string, ReflexClassMemberBase<CLS>*>(fieldname, item));
 	}
 
 	template<typename FieldType>
-	void RegisterMember(const char* fieldname, const FieldType& (CLS::* getfunc)()const, void (CLS::* setfunc)(const FieldType&))
+	void RegisterMember(const char* fieldname, const FieldType& (CLS::* getfunc)()const, void (CLS::* setfunc)(const FieldType&), int flag)
 	{
-		auto item = new ReflexClassGetSetField<CLS, FieldType>(this, fieldname, getfunc, setfunc);
+		auto item = new ReflexClassGetSetField<CLS, FieldType>(this, fieldname, getfunc, setfunc, flag);
 		m_members.insert(std::make_pair<std::string, ReflexClassMemberBase<CLS>*>(fieldname, item));
 	}
 
@@ -95,6 +96,34 @@ public:
 		}
 
 		return true;
+	}
+
+	virtual void getFields(std::vector<ReflexClassFieldBase*>& fields) override
+	{
+		if (m_parent)
+		{
+			m_parent->getFields(fields);
+		}
+
+		for (auto it = m_members.begin(); it != m_members.end() ; it++)
+		{
+			ReflexClassFieldBase* field = it->second;
+			fields.push_back(field);
+		}
+	}
+
+	virtual void foreachFields(std::function<void(ReflexClassFieldBase*)> func) override
+	{
+		if (m_parent)
+		{
+			m_parent->foreachFields(func);
+		}
+
+		for (auto it = m_members.begin(); it != m_members.end(); it++)
+		{
+			ReflexClassFieldBase* field = it->second;
+			func(field);
+		}
 	}
 private:
 	std::unordered_map<std::string, ReflexClassMemberBase<CLS>*> m_members;

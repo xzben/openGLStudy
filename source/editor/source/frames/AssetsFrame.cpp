@@ -31,7 +31,6 @@ static void buildAssetsTree(EditorTreeNodeRoot* rootnode, EditorTreeNode* curnod
 		OGS::Asset* asset = AssetsMgr::GetInstance()->getAsset(path+"/"+file);
 		node->setCustomData(asset);
 		node->leaf = true;
-		node->setDragable(true);
 		node->setName(file);
 	}
 }
@@ -43,11 +42,26 @@ void AssetsFrame::handleInit()
 
 	m_assets = CreateUI<EditorTreeNodeRoot>();
 	m_assets->setName("Assets");
+
 	m_assets->EventChangeSelect += [](EditorTreeNode* node) {
-		OGS::Asset* asset = node->getCustomData()->ToCast<OGS::Asset>();
-		if (asset)
+		if (node->getCustomData())
 		{
-			EditorApp::GetInstance()->GetProject()->setActiveAsset(asset);
+			OGS::Asset* asset = node->getCustomData()->ToCast<OGS::Asset>();
+			if (asset)
+			{
+				EditorApp::GetInstance()->GetProject()->setActiveAsset(asset);
+			}
+		}
+	};
+
+	m_assets->DoubleClickEvent += [](EditorTreeNode* node) {
+		if (node->getCustomData())
+		{
+			OGS::Asset* asset = node->getCustomData()->ToCast<OGS::Asset>();
+			if (asset)
+			{
+				EditorApp::GetInstance()->GetProject()->setOpenAsset(asset);
+			}
 		}
 	};
 	buildAssetsTree(m_assets.get(), m_assets.get(), rootpath);

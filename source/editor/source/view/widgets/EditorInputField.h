@@ -2,6 +2,7 @@
 
 #include "editor_common.h"
 #include "view/EditorUIBase.h"
+#include "core/base/Notify.h"
 BEGIN_EDITOR_NAMESPACE
 
 class EditorInputField : public EditorUIBase
@@ -17,7 +18,11 @@ public:
 protected:
 	static int handleInputEventCallback(ImGuiInputTextCallbackData* data);
 	void onInputEnd();
-	void onInputChange();
+	void onInputChange(const char* text);
+	bool doChangeText(const char* text);
+public:
+	OGS::Notify<EditorInputField*> EventInputEnd;
+	OGS::Notify<EditorInputField*> EventInputChange;
 protected:
 	int m_textMaxCount{64};
 	std::string m_text{ "" };

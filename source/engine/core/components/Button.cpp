@@ -3,7 +3,6 @@
 BEGIN_OGS_NAMESPACE
 
 Button::Button()
-	:Component("button")
 {
 
 }

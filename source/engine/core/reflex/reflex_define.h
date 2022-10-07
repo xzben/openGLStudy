@@ -15,4 +15,12 @@ namespace reflex_define
 #define MAP_VALUE  "map_value"
 
 
+enum class ReflexConfig
+{
+	ALL = 0,		// 默认全部可用
+	NO_Edit = 1,		// 编辑器可以编辑
+	NO_Serialize = 2,	// 序列化可用
+	COUNT, //全部标签，保持最下面
+};
+
 END_OGS_NAMESPACE

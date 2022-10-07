@@ -2,7 +2,6 @@
 #define __2022_03_17_QUATERNION_H__
 #include "math/Vec3.h"
 #include "math/Mat4.h"
-#include "common.h"
 
 BEGIN_NAMESPACE
 class Quaternion

@@ -16,6 +16,6 @@ public:
 
 
 protected:
-	GUID m_guid;
+	std::string m_guid;
 };
 END_EDITOR_NAMESPACE

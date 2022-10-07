@@ -1,7 +1,7 @@
 #pragma once
 
 #include "common.h"
-#include "math/math.h"
+#include "core/math/math.h"
 #include "core/base/Object.h"
 
 BEGIN_OGS_NAMESPACE

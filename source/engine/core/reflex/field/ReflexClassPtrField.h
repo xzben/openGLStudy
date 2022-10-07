@@ -13,42 +13,55 @@ template<typename CLS, typename FieldType>
 class ReflexClassPtrField : public ReflexClassMemberBase<CLS>
 {
 public:
-	using FieldPtr = FieldType * CLS::*;
-	ReflexClassPtrField(ReflexClassBase* cls, const char* name, FieldPtr member)
-		: ReflexClassMemberBase<CLS>(cls, name)
+	using FieldPtr = FieldType* CLS::*;
+	ReflexClassPtrField(ReflexClassBase* cls, const char* name, FieldPtr member, int flag)
+		: ReflexClassMemberBase<CLS>(cls, name, flag)
 		, m_member(member)
 	{
 
 	}
 
-	virtual void GetObjectValue(CLS* obj, void* value) override
+	virtual const char* getRawTypeName() override
 	{
-		if (value == nullptr) return;
-
-		(*(FieldType**)value) = obj->*m_member;
+		return typeid(FieldType).name();
 	}
 
-	virtual void SetObjectValue(CLS* obj, void* value) override
+	virtual void* getFieldData(void* obj) override
 	{
+		CLS* clsobj = (CLS*)obj;
+		return (clsobj->*m_member);
+	}
+
+	virtual void GetObjectValue(void* obj, void* value) override
+	{
+		if (value == nullptr) return;
+		CLS* clsobj = (CLS*)obj;
+		(*(FieldType**)value) = clsobj->*m_member;
+	}
+
+	virtual void SetObjectValue(void* obj, void* value) override
+	{
+		CLS* clsobj = (CLS*)obj;
 		if (value == nullptr)
 		{
-			obj->*m_member = nullptr;
+			clsobj->*m_member = nullptr;
 		}
 		else
 		{
-			obj->*m_member = *((FieldType**)value);
+			clsobj->*m_member = *((FieldType**)value);
 		}
 	}
 
-	virtual bool Serialize(CLS* obj, JSON& json) override
+	virtual bool Serialize(void* obj, JSON& json) override
 	{
-		FieldType* value = (obj->*m_member);
+		CLS* clsobj = (CLS*)obj;
+		FieldType* value = (clsobj->*m_member);
 		if (value == nullptr) return true;
 
 		return FieldSerialize::Serialize(json[m_name], value);
 	}
 
-	virtual bool Deserialize(CLS* obj, const JSON& json) override
+	virtual bool Deserialize(void* obj, const JSON& json) override
 	{
 		FieldType* value = nullptr;
 		if (json.isMember(m_name))

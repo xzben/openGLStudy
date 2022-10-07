@@ -2,7 +2,6 @@
 #define __2022_01_04_VEC3_H__
 
 #include <cmath>
-#include "common.h"
 #include "define.h"
 
 BEGIN_NAMESPACE

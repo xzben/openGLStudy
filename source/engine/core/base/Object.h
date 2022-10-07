@@ -29,7 +29,7 @@ public:
 
 	Object();
 	virtual ~Object();
-	virtual bool init() { handleInit(); return true; }
+	virtual bool init() { return true; }
 	virtual void handleInit() {};
 
 	template<typename CLS>

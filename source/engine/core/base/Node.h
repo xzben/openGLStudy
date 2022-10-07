@@ -16,7 +16,7 @@ class Node : public NodeContainor,  public Object
 	DECLARE_CLASS(Node)
 	DECLARE_REFLEX_CLASS_FIELD(Node)
 public:
-	void setName(const std::string&& name) { m_name = name; }
+	void setName(const std::string& name) { m_name = name; }
 	const std::string& getName() { return m_name; }
 	void setActive(bool active) { m_active = active; }
 	bool isActive() { return m_active; }
@@ -54,6 +54,8 @@ public:
 		return nullptr;
 	}
 
+	Component* getComponet(const std::string& name);
+	std::vector<Component*> getComponents(const std::string& name);
 
 	template<typename T>
 	std::vector<T*> getComponents()

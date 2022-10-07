@@ -1,6 +1,6 @@
 #ifndef __2022_01_04_VEC2_H__
 #define __2022_01_04_VEC2_H__
-#include "common.h"
+#include "define.h"
 
 BEGIN_NAMESPACE
 

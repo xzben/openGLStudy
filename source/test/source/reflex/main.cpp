@@ -66,7 +66,7 @@ REFLEX_FIELD(int, intb)
 REFLEX_FIELD(int, intc)
 REFLEX_FIELD(int*, ptra)
 REFLEX_FIELD(int, enume)
-REFLEX_FIELD_GETSET(std::string, funcvar, &SimpeClass::GetVar, &SimpeClass::SetVar)
+REFLEX_FIELD_GETSET(std::string, "funcvar", &SimpeClass::GetVar, &SimpeClass::SetVar)
 END_REFLEX_CLASS_FIELD()
 
 BEGIN_REFLEX_CLASS_FIELD(TempClass)

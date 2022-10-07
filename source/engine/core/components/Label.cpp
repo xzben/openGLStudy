@@ -3,7 +3,6 @@
 BEGIN_OGS_NAMESPACE
 
 Label::Label()
-	:Component("label")
 {
 
 }

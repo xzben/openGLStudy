@@ -5,6 +5,7 @@
 #include "core/assets/items/AssetPrefab.h"
 #include "core/reflex/serializer/Serializer.h"
 #include "core/assets/items/AssetScene.h"
+#include "core/filesystem/FileSystem.h"
 #include "core/base/Scene.h"
 USING_OGS_NAMESPACE;
 
@@ -30,12 +31,21 @@ GameProject::~GameProject()
 
 void GameProject::setActiveAsset(OGS::Asset* asset)
 {
+	if (m_activeAsset == asset) return;
 	m_activeAsset = asset;
 	EventActiveAssetChange.emit(m_activeAsset.get());
 }
 
+void GameProject::setOpenAsset(OGS::Asset* asset)
+{
+	if (m_openAsset = asset) return;
+	m_openAsset = asset;
+	EventActiveAssetChange.emit(m_openAsset.get());
+}
+
 void GameProject::setActiveNode(OGS::Node* node)
 {
+	if (m_activeNode == node) return;
 	m_activeNode = node;
 	EventActiveNodeChange.emit(m_activeNode.get());
 }
@@ -58,7 +68,7 @@ void GameProject::handleLoadFileDone()
 {
 	AutoRef<AssetScene> asset = new AssetScene();
 	asset->setScene(Scene::createDefaultScene());
-	m_activeAsset = asset;
+	m_openAsset = asset;
 }
 
 void GameProject::saveToFile()

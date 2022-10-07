@@ -15,6 +15,11 @@ namespace OGS {
 		{
 			return m_pBase;
 		}
+
+		const std::string& getName()
+		{
+			return m_name;
+		}
 	private:
 		Runtime* m_pBase;
 		std::string m_name;
@@ -33,6 +38,7 @@ public: \
 			ASSERT(false, "init failed %s", #CLS); \
 			return nullptr; \
 		} \
+		obj->handleInit(); \
 		return obj; \
 	} \
 private:
@@ -43,7 +49,7 @@ public:\
 	typedef CLS ThisType; \
 	static OGS::Runtime Runtime##CLS##Obj; \
 	static OGS::Runtime* GetRUNTIME(){ return &Runtime##CLS##Obj; } \
-	virtual OGS::Runtime* GetRuntime() { return &Runtime##CLS##Obj; }\
+	virtual OGS::Runtime* GetRuntime() { return &Runtime##CLS##Obj; } \
 	DECLARE_CREATE_FUN(CLS)
 
 
@@ -60,3 +66,21 @@ public: \
 
 #define IMPLEMENT_RUNTIME_CLASS(CLS) \
 	OGS::Runtime CLS::Runtime##CLS##Obj(#CLS, CLS::Super::GetRUNTIME());
+
+/// Runtime define base
+#define DECLARE_RUNTIME_TEMPLATE_CLASS_BASE(CLS, T) \
+public:\
+	typedef CLS<T> ThisType; \
+	static OGS::Runtime Runtime##CLS##Obj; \
+	static OGS::Runtime* GetRUNTIME(){ return &Runtime##CLS##Obj; } \
+	virtual OGS::Runtime* GetRuntime() { return &Runtime##CLS##Obj; } \
+	DECLARE_CREATE_FUN(CLS<T>)
+
+#define DECLARE_RUNTIME_TEMPLATE_CLASS( CLS, T) \
+public: \
+	typedef ThisType Super; \
+	DECLARE_RUNTIME_TEMPLATE_CLASS_BASE(CLS, T)
+
+#define IMPLEMENT_RUNTIME_TEMPLATE_CLASS(CLS, T) \
+	template<T> \
+	OGS::Runtime CLS<T>::Runtime##CLS##Obj(#CLS<T>, CLS::Super::GetRUNTIME());
