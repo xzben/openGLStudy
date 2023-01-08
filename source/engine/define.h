@@ -5,6 +5,9 @@
 #include <cstdio>
 #include <string>
 
+
+#define OGS_DEBUG 1
+
 #define RENDER_OPENGL2	 0
 #define RENDER_OPENGL3   1
 #define RENDER_VULKAN	 2
@@ -52,6 +55,8 @@ enum class GroupMask : unsigned int{
 #define MATH_EPSILON                0.000001f
 
 
+typedef short		  int16;
+typedef unsigned short uint16;
 typedef unsigned int  uint32;
 typedef long long	  int64;
 typedef unsigned long long uint64;
@@ -60,6 +65,8 @@ typedef unsigned int  uint;
 typedef unsigned char uint8;
 typedef unsigned char byte;
 typedef unsigned int  GL_HANDLE;
+typedef std::size_t  HASH_CODE;
+
 typedef std::conditional_t<sizeof(void*) == 4, int32, int64> ptrsize;
 
 #define DEFINE_XSTR(s) DEFINE_STR(s)
@@ -102,6 +109,12 @@ typedef std::conditional_t<sizeof(void*) == 4, int32, int64> ptrsize;
 #define BEGIN_OGS_NAMESPACE  namespace OGS{
 #define END_OGS_NAMESPACE }
 #define USING_OGS_NAMESPACE using namespace OGS
+
+#define BEGIN_OGS_GFX_NAMESPACE namespace OGS{ namespace Gfx{
+#define END_OGS_GFX_NAMESPACE }}
+
+#define BEGIN_OGS_PIPLINE_NAMESPACE namespace OGS{ namespace Pipeline{
+#define END_OGS_PIPLINE_NAMESPACE }}
 
 #define SAFE_DELTE( ptr ) do{ if((ptr) != nullptr){ delete (ptr);} ptr = nullptr; } while(false)
 

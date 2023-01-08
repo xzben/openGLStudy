@@ -20,6 +20,7 @@ include_directories(
 	${CMAKE_CURRENT_SOURCE_DIR}
 	${THIRD_SOURCE_DIR}/glad/include/
 	${THIRD_LIB_DIR}/jsoncpp/include/
+	${THIRD_LIB_DIR}/assimp/include/
 )
 
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES 

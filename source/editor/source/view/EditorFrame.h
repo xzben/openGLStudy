@@ -5,6 +5,7 @@
 #include "DefineId.h"
 #include "UIContainor.h"
 #include "imgui.h"
+#include "core/math/Rect.h"
 #include <string>
 #include <vector>
 #include <functional>
@@ -32,16 +33,21 @@ public:
 	void setDockFlag(ImGuiDockNodeFlags dockflag) { m_dockflag = dockflag; }
 	void setWindowFlag(ImGuiWindowFlags windowflag) { m_windowflag = windowflag; }
 	void setDockspace(ImGuiID dockid);
+	virtual void renderImp() {}
 	virtual bool onRender() override;
 
 	const std::string& getTitle() { return m_title; }
 	void setTitle(const std::string& title) { m_title = title; }
-	virtual void onChangeVisible(bool visible)override;	
+protected:
+	virtual void onChangeVisible(bool visible)override;
+	void checkFrameSizeChange();
+	virtual void handleFrameSizeChange();
 protected:
 	std::string m_title{""};
 	ImGuiDockNodeFlags m_dockflag{0};
 	ImGuiWindowFlags m_windowflag{0};
 	IDMainFrame m_frameid{0};
+	OGS::Rect   m_windowRect{0,0,0,0};
 };
 
 

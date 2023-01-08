@@ -18,21 +18,24 @@ public:
 	Asset(const std::string& path);
 	virtual ~Asset();
 
-	void setPath(const std::string& path) { m_path = path; }
+	std::string getFileExt();
+	void setPath(const std::string& path);
 	const std::string& getPath() { return m_path; }
 	const std::string& getGUID() const;
-	void loadAsset();
+	virtual void loadAsset();
 	void unloadAsset();
 	virtual void onLoad(const AutoRef<Data>& data) {};
 	virtual void onUnload(){};
 protected:
 	void setGUID(const std::string& guid);
+	bool checkAssetValid();
 public:
 
 protected:
 	bool m_loaded{ false };
 	AssetType m_type{AssetType::Unknow};
 	std::string m_guid{ "" };
-	std::string m_path{ "" };
+	std::string m_path{ "" }; //资源的相对路径
+	std::string m_nativePath{ "" }; //资源对应的实际的绝对路径
 };
 END_OGS_NAMESPACE

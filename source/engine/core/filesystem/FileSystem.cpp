@@ -7,6 +7,8 @@
 #include "Data.h"
 BEGIN_OGS_NAMESPACE
 
+IMPLEMENT_RUNTIME_CLASS(FileSystem)
+
 namespace fs = std::filesystem;
 
 FileSystem::FileSystem()

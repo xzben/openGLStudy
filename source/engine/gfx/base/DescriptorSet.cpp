@@ -1,0 +1,7 @@
+#include "DescriptorSet.h"
+
+BEGIN_OGS_GFX_NAMESPACE
+
+IMPLEMENT_RUNTIME_CLASS(DescriptorSet)
+
+END_OGS_GFX_NAMESPACE

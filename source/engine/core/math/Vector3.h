@@ -23,7 +23,12 @@ public:
 
 	Vector3()
 	{
-		value[0] = value[1] = value[2] = 0;
+		memset(value, 0, sizeof(float) * 3);
+	}
+
+	Vector3(const Vector3& rhs)
+	{
+		memcpy(value, rhs.value, sizeof(float) * 3);
 	}
 
 	Vector3(float xx, float yy, float zz)
@@ -31,5 +36,34 @@ public:
 	{
 
 	}
+
+	Vector3 operator-(const Vector3& rhs) const
+	{
+		Vector3 r;
+		r.x = x - rhs.x;
+		r.y = y - rhs.y;
+		r.z = z - rhs.z;
+
+		return r;
+	}
+
+	void operator-(float v)
+	{
+		x -= v;
+		y -= v;
+		z -= v;
+	}
+
+	void operator+(float v)
+	{
+		x += v;
+		y += v;
+		z += v;
+	}
+
+	float length() const;
+	float dot(const Vector3& rhs) const;
+	Vector3 cross(const Vector3& rhs) const;
+	void normalize();
 };
 END_OGS_NAMESPACE

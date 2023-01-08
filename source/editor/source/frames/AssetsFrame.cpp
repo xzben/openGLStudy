@@ -14,7 +14,7 @@ static void buildAssetsTree(EditorTreeNodeRoot* rootnode, EditorTreeNode* curnod
 {
 	std::vector<std::string> files;
 	std::vector<std::string> directories;
-	FileSystem::GetInstance()->getDirectoryContents(path, files, directories, false);
+	FileSystem::getInstance()->getDirectoryContents(path, files, directories, false);
 	for (auto dir : directories)
 	{
 		auto node = rootnode->createTreeNode();
@@ -28,7 +28,7 @@ static void buildAssetsTree(EditorTreeNodeRoot* rootnode, EditorTreeNode* curnod
 	{
 		auto node = rootnode->createTreeNode();
 		curnodee->addChild(node);
-		OGS::Asset* asset = AssetsMgr::GetInstance()->getAsset(path+"/"+file);
+		OGS::Asset* asset = AssetsMgr::getInstance()->getAsset(path+"/"+file);
 		node->setCustomData(asset);
 		node->leaf = true;
 		node->setName(file);
@@ -37,7 +37,7 @@ static void buildAssetsTree(EditorTreeNodeRoot* rootnode, EditorTreeNode* curnod
 
 void AssetsFrame::handleInit()
 {
-	auto project = EditorApp::GetInstance()->GetProject();
+	auto project = EditorApp::getInstance()->GetProject();
 	std::string rootpath = project->getAssetRoot();
 
 	m_assets = CreateUI<EditorTreeNodeRoot>();
@@ -49,7 +49,7 @@ void AssetsFrame::handleInit()
 			OGS::Asset* asset = node->getCustomData()->ToCast<OGS::Asset>();
 			if (asset)
 			{
-				EditorApp::GetInstance()->GetProject()->setActiveAsset(asset);
+				EditorApp::getInstance()->GetProject()->setActiveAsset(asset);
 			}
 		}
 	};
@@ -60,7 +60,7 @@ void AssetsFrame::handleInit()
 			OGS::Asset* asset = node->getCustomData()->ToCast<OGS::Asset>();
 			if (asset)
 			{
-				EditorApp::GetInstance()->GetProject()->setOpenAsset(asset);
+				EditorApp::getInstance()->GetProject()->setOpenAsset(asset);
 			}
 		}
 	};

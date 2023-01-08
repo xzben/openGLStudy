@@ -38,6 +38,9 @@ namespace OGS_OLD {
 
 int main()
 {
-	std::cout << Utils::create_guide() << std::endl;
+	float values[16];
+
+
+	std::cout << sizeof(values) << std::endl;
 	return 0;
 }

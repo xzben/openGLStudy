@@ -11,12 +11,12 @@ public:
 	template<typename CLS>
 	static bool Parse(CLS* obj, const std::string& path)
 	{
-		if (!FileSystem::GetInstance()->isFileExists(path))
+		if (!FileSystem::getInstance()->isFileExists(path))
 		{
 			return false;
 		}
 
-		std::string content = FileSystem::GetInstance()->getString(path);
+		std::string content = FileSystem::getInstance()->getString(path);
 		Json::Value root;
 		Json::Reader reader;
 		reader.parse(content, root);
@@ -69,7 +69,7 @@ public:
 			return false;
 
 		Json::StyledWriter swriter;
-		return FileSystem::GetInstance()->writeString(path, swriter.write(root).c_str());
+		return FileSystem::getInstance()->writeString(path, swriter.write(root).c_str());
 	}
 
 	template<typename CLS>
@@ -97,12 +97,12 @@ public:
 	template<typename CLS>
 	static CLS* Deserialize(const std::string& path)
 	{
-		if (!FileSystem::GetInstance()->isFileExists(path))
+		if (!FileSystem::getInstance()->isFileExists(path))
 		{
 			return nullptr;
 		}
 
-		std::string content = FileSystem::GetInstance()->getString(path);
+		std::string content = FileSystem::getInstance()->getString(path);
 		Json::Value root;
 		Json::Reader reader;
 		reader.parse(content, root);

@@ -20,6 +20,8 @@ public:
 class Object
 {
 	DECLARE_RUNTIME_CLASS_BASE(Object);
+protected:
+	Object(); //将构造函数隐藏使 Object 对象只能走 create 这种内置构造接口构造对象
 public:
 	template<typename T>
 	friend class AutoRef;
@@ -27,7 +29,7 @@ public:
 	template<typename T>
 	friend class WeakRef;
 
-	Object();
+
 	virtual ~Object();
 	virtual bool init() { return true; }
 	virtual void handleInit() {};

@@ -5,6 +5,8 @@
 
 BEGIN_OGS_NAMESPACE
 
+class CameraComponent;
+
 class Scene : public Node
 {
 	DECLARE_CLASS(Scene)

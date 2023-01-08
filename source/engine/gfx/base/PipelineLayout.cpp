@@ -1,0 +1,7 @@
+#include "PipelineLayout.h"
+
+BEGIN_OGS_GFX_NAMESPACE
+
+IMPLEMENT_RUNTIME_CLASS(PipelineLayout)
+
+END_OGS_GFX_NAMESPACE

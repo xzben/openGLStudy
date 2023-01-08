@@ -1,6 +1,6 @@
 #include "ProjectHub.h"
 #include "core/view/GameView.h"
-#include "rendersystem/GfxDevice.h"
+#include "gfx/Device.h"
 #include "HubWindow.h"
 
 USING_OGS_NAMESPACE;
@@ -15,7 +15,7 @@ ProjectHub::ProjectHub()
 
 void ProjectHub::init()
 {
-	m_device = createCurDevice();
+	m_device = Gfx::createCurDevice();
 	m_device->init();
 
 	WindowCreateInfo info;

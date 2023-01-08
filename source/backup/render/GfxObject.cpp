@@ -1,0 +1,7 @@
+#include "GfxObject.h"
+
+BEGIN_OGS_NAMESPACE
+
+IMPLEMENT_RUNTIME_CLASS(GfxObject)
+
+END_OGS_NAMESPACE

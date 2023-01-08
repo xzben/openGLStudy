@@ -55,12 +55,12 @@ bool  EditorWindow::initUI()
 
 void EditorWindow::initEvent()
 {
-	EditorEventMgr::GetInstance()->getNotifybyEvent(EditorEvent::FRAME)->subscribe(this, &EditorWindow::handleFrameEvent);
+	EditorEventMgr::getInstance()->getNotifybyEvent(EditorEvent::FRAME)->subscribe(this, &EditorWindow::handleFrameEvent);
 }
 
 void EditorWindow::uninitEvent()
 {
-	EditorEventMgr::GetInstance()->getNotifybyEvent(EditorEvent::FRAME)->unsubscribe(this, &EditorWindow::handleFrameEvent);
+	EditorEventMgr::getInstance()->getNotifybyEvent(EditorEvent::FRAME)->unsubscribe(this, &EditorWindow::handleFrameEvent);
 }
 
 bool  EditorWindow::initContext()

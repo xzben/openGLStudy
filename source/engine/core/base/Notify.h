@@ -29,8 +29,21 @@ public:
 	ListenerId m_listenerId;
 };
 
+template<typename T>
+class NotifyCalssItemBase
+{
+public:
+	NotifyCalssItemBase(T* owner)
+		:m_owner(owner)
+	{
+
+	}
+
+	T* m_owner;
+};
+
 template<typename T, typename ...Args>
-class NotifyClassItem : public ListenerItem<Args...>
+class NotifyClassItem : public NotifyCalssItemBase<T>, public ListenerItem<Args...>
 {
 public:
 	template<typename ...>
@@ -39,15 +52,16 @@ public:
 	using Super = ListenerItem<Args...>;
 
 	using ListenerFunc = void (T::*)(ParmType<Args>...);
-	NotifyClassItem(ListenerId id, T* owner, ListenerFunc func) : Super(id, ItemType::ClassFunc), m_owner(owner), m_func(func) {}
+	NotifyClassItem(ListenerId id, T* owner, ListenerFunc func) 
+		: Super(id, ItemType::ClassFunc), NotifyCalssItemBase(owner), m_func(func)
+	{
+	}
 
 	virtual void Call(ParmType<Args>... args) override
 	{
 		(m_owner->*m_func)(args...);
 	}
 
-protected:
-	T* m_owner;
 	ListenerFunc m_func;
 };
 
@@ -105,9 +119,10 @@ public:
 	template<typename T>
 	void unsubscribeOwner(T* obj)
 	{
+		using NotifyItem = NotifyCalssItemBase<T>;
 		for (auto it = m_items.begin(); it != m_items.end();)
 		{
-			NotifyClassItem<T, Args...>* item = dynamic_cast<NotifyClassItem<T, Args...>>(it);
+			NotifyItem* item = dynamic_cast<NotifyItem*>((*it).get());
 			if (item != nullptr && item->m_owner == obj)
 			{
 				it = m_items.erase(it);

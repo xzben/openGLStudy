@@ -1,6 +1,5 @@
 #include "InspectorUIRenderRegister.h"
 #include "InspectorUIMgr.h"
-#include "math/math.h"
 #include "view/UIContainor.h"
 #include "view/widgets.h"
 #include "core/math/math.h"

@@ -40,7 +40,7 @@ void GameProject::setOpenAsset(OGS::Asset* asset)
 {
 	if (m_openAsset = asset) return;
 	m_openAsset = asset;
-	EventActiveAssetChange.emit(m_openAsset.get());
+	EventOpenAssetChange.emit(m_openAsset.get());
 }
 
 void GameProject::setActiveNode(OGS::Node* node)
@@ -66,9 +66,19 @@ bool GameProject::loadFromFile()
 
 void GameProject::handleLoadFileDone()
 {
-	AutoRef<AssetScene> asset = new AssetScene();
-	asset->setScene(Scene::createDefaultScene());
-	m_openAsset = asset;
+
+}
+
+AutoRef<OGS::Asset> GameProject::getOpenAsset()
+{
+	if (m_openAsset == nullptr)
+	{
+		AutoRef<AssetScene> asset = new AssetScene();
+		asset->setScene(Scene::createDefaultScene());
+		m_openAsset = asset;
+	}
+
+	return m_openAsset;
 }
 
 void GameProject::saveToFile()

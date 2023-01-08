@@ -4,15 +4,20 @@
 #include <vector>
 #include <string>
 #include <unordered_map>
+#include "core/base/System.h"
+#include "core/systems/InputSystem.h"
 
 BEGIN_OGS_NAMESPACE
 
 class Data;
 
-class FileSystem : public Singleton<FileSystem>
+class FileSystem : public System, public Singleton<FileSystem>
 {
-public:
+	DECLARE_RUNTIME_CLASS(FileSystem)
+protected:
+	friend class Singleton<FileSystem>;
 	FileSystem();
+public:
 	~FileSystem();
 
 	void addSearchPath(const std::string& path, bool front = false);

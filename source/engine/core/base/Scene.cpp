@@ -1,28 +1,23 @@
 #include "Scene.h"
 #include "Node.h"
-#include "core/components/Camera.h"
+#include "Camera.h"
 #include "core/components/Transform.h"
+#include "core/components/CameraComponent.h"
+
 
 BEGIN_OGS_NAMESPACE
 
 IMPLEMENT_CLASS(Scene)
 
 BEGIN_REFLEX_CLASS_FIELD(Scene)
-REFLEX_FIELD(std::string, Scene::m_name)
 END_REFLEX_CLASS_FIELD()
 
-END_OGS_NAMESPACE
-
-BEGIN_OGS_NAMESPACE
 
 Scene* Scene::createDefaultScene()
 {
 	Scene* scene = Scene::create();
 
-	Node* camera = Node::create();
-	camera->setName("Camera");
-	camera->createComponent<Transform>();
-	camera->createComponent<Camera>();
+	Node* camera = Camera::createDefault3DCamera();
 	scene->addChild(camera);
 
 	return scene;

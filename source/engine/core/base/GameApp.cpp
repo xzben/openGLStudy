@@ -4,7 +4,7 @@
 #include <chrono>
 #include <thread>
 #include "core/view/GameView.h"
-#include "rendersystem/GfxDevice.h"
+#include "gfx/Device.h"
 
 BEGIN_OGS_NAMESPACE
 
@@ -16,7 +16,7 @@ GameApp::GameApp()
 {
 	m_gameView = new GameView;
 	m_engine = new Engine();
-	m_device = createCurDevice();
+	m_device = OGS::Gfx::createCurDevice();
 	m_device->setGameView(m_gameView.get());
 
 	GameApp::s_instance = this;
@@ -69,17 +69,17 @@ void GameApp::onUpdate(float dt)
 
 void GameApp::onPreRender()
 {
-
+	m_engine->preRender();
 }
  
 void GameApp::onRender()
 {
-
+	m_engine->render();
 }
  
 void GameApp::onPostRender()
 {
-
+	m_engine->postRender();
 }
 
 void GameApp::render()
@@ -91,7 +91,7 @@ void GameApp::render()
 
 void GameApp::onDraw()
 {
-
+	m_engine->draw();
 }
 
 void GameApp::draw()

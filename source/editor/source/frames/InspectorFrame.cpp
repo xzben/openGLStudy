@@ -11,7 +11,7 @@ IMPLEMENT_RUNTIME_CLASS(InspectorFrame)
 
 void InspectorFrame::handleInit()
 {
-	auto project = EditorApp::GetInstance()->GetProject();
+	auto project = EditorApp::getInstance()->GetProject();
 	project->EventActiveAssetChange += [this](OGS::Asset* asset) {
 		this->updateView(asset);
 	};
@@ -32,11 +32,11 @@ void InspectorFrame::updateView(OGS::Object* obj)
 	{
 		if (obj->ToCast<OGS::Asset>())
 		{
-			ui = InspectorUIMgr::GetInstance()->getUIObject(obj->ToCast<OGS::Asset>());
+			ui = InspectorUIMgr::getInstance()->getUIObject(obj->ToCast<OGS::Asset>());
 		}
 		else if (obj->ToCast<OGS::Node>())
 		{
-			ui = InspectorUIMgr::GetInstance()->getUIObject<OGS::Node>(obj->ToCast<OGS::Node>());
+			ui = InspectorUIMgr::getInstance()->getUIObject<OGS::Node>(obj->ToCast<OGS::Node>());
 		}
 	}
 

@@ -21,7 +21,7 @@ set_target_properties(${TARGET_NAME} PROPERTIES DEBUG_POSTFIX "_d")     # debug 
 
 target_compile_options(${TARGET_NAME} PUBLIC "$<$<COMPILE_LANG_AND_ID:CXX,MSVC>:/WX->")
 
-target_link_libraries(${TARGET_NAME} PUBLIC engineRuntime imgui glfw)
+target_link_libraries(${TARGET_NAME} PUBLIC engineRuntime imgui glfw assimp)
 
 
 #设置编译的运行程序输出路径

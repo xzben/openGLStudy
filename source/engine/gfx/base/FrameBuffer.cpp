@@ -1,0 +1,7 @@
+#include "FrameBuffer.h"
+
+BEGIN_OGS_GFX_NAMESPACE
+
+IMPLEMENT_RUNTIME_CLASS(FrameBuffer)
+
+END_OGS_GFX_NAMESPACE

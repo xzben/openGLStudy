@@ -1,7 +1,6 @@
 #pragma once
 
 #include "ReflexItem.h"
-#include "math/math.h"
 BEGIN_OGS_NAMESPACE
 
 namespace FieldSerialize

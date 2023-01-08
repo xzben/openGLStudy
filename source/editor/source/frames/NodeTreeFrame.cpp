@@ -7,6 +7,7 @@
 #include "core/assets/items/Asset.h"
 #include "core/assets/items/AssetPrefab.h"
 #include "core/assets/items/AssetScene.h"
+#include "core/systems/RenderSystem.h"
 
 USING_OGS_NAMESPACE;
 
@@ -33,10 +34,11 @@ static void updateTreeNode(EditorTreeNodeRoot* rootnode, EditorTreeNode* treenod
 
 void NodeTreeFrame::updateShowAsset()
 {
-	auto project = EditorApp::GetInstance()->GetProject();
+	auto project = EditorApp::getInstance()->GetProject();
 	WeakRef<Asset> asset = project->getOpenAsset();
 	if (!asset) return;
 	Node* showNode = nullptr;
+	Scene* showScene = nullptr;
 
 	if (asset->IsKindOf<AssetPrefab>())
 	{
@@ -44,17 +46,22 @@ void NodeTreeFrame::updateShowAsset()
 	}
 	else if (asset->IsKindOf<AssetScene>())
 	{
-		showNode = asset->ToCast<AssetScene>()->getScene();
+		showScene = asset->ToCast<AssetScene>()->getScene();
+		showNode = showScene;
 	}
 	if (showNode)
 	{
+		if (showScene)
+		{
+			OGS::RenderSystem::getInstance()->setRenderScene(showScene);
+		}
 		updateTreeNode(m_treenode.get(), m_treenode.get(), showNode);
 	}
 }
 
 void NodeTreeFrame::handleInit()
 {
-	auto project = EditorApp::GetInstance()->GetProject();
+	auto project = EditorApp::getInstance()->GetProject();
 	project->EventOpenAssetChange += [this](OGS::Asset* asset) {
 		this->updateShowAsset();
 	};
@@ -64,7 +71,7 @@ void NodeTreeFrame::handleInit()
 		if (treenode->getCustomData())
 		{
 			auto node = treenode->getCustomData()->ToCast<OGS::Node>();
-			EditorApp::GetInstance()->GetProject()->setActiveNode(node);
+			EditorApp::getInstance()->GetProject()->setActiveNode(node);
 		}
 	};
 	updateShowAsset();

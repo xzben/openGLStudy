@@ -12,5 +12,5 @@ set(APP_COMMON_INCLUDE 	${THIRD_SOURCE_DIR}/glm/
 
 add_subdirectory(editor)
 add_subdirectory(engine)
-add_subdirectory(game)
+#add_subdirectory(game)
 add_subdirectory(test)

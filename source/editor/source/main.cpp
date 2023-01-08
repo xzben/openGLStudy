@@ -8,6 +8,7 @@ USING_EDITOR_NAMESPACE;
 
 int main() 
 {
+	EditorApp::getInstance();
 	bool ready = true;
 	AutoRef<GameProject> project = new GameProject("project");
 	project->setPath(MACRO_XSTR(ENGINE_PROJECT_PATH));
@@ -18,9 +19,9 @@ int main()
 
 	if (ready && project)
 	{
-		EditorApp::GetInstance()->init(project);
-		EditorApp::GetInstance()->run();
-		EditorApp::GetInstance()->destroy();
+		EditorApp::getInstance()->init(project);
+		EditorApp::getInstance()->run();
+		EditorApp::getInstance()->destroy();
 	}
 
 	return 0;

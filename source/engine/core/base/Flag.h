@@ -16,6 +16,16 @@ public:
 
 	Flag()
 	{
+		clear();
+	}
+
+	void setAll()
+	{
+		memset(m_value, 0xff, BYTE_COUNT);
+	}
+
+	void clear()
+	{
 		memset(m_value, 0, BYTE_COUNT);
 	}
 

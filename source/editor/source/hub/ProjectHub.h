@@ -19,7 +19,7 @@ protected:
 	void draw();
 private:
 	AutoRef<OGS::GameView> m_gameview;
-	AutoRef<OGS::GfxDevice> m_device;
+	AutoRef<OGS::Gfx::Device> m_device;
 	AutoRef<HubWindow> m_hubwindow;
 	AutoRef<GameProject> m_openProject;
 	bool		m_ready;

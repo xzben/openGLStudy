@@ -1,0 +1,7 @@
+#include "CommandBuffer.h"
+
+BEGIN_OGS_GFX_NAMESPACE
+
+IMPLEMENT_RUNTIME_CLASS(CommandBuffer)
+
+END_OGS_GFX_NAMESPACE

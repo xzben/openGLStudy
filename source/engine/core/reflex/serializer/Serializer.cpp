@@ -9,7 +9,7 @@ void* Serializer::Deserialize(const JSON& json)
 		return nullptr;
 
 	const char* objname = json[CLASS_OBJ_KEY].asCString();
-	ReflexClassBase* cls = ReflexManager::GetInstance()->GetReflexClass(objname);
+	ReflexClassBase* cls = ReflexManager::getInstance()->GetReflexClass(objname);
 	if (cls == nullptr)
 		return nullptr;
 

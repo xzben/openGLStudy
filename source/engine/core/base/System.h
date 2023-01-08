@@ -1,22 +1,24 @@
 #pragma once
 
-#include "common.h"
+#include "define.h"
 #include "Object.h"
 #include <string>
 
 BEGIN_OGS_NAMESPACE
 
-class System : public Object, public NoCopy
+class System : public Object
 {
+	DECLARE_RUNTIME_CLASS(System)
 public:
-	explicit System(std::string& name);
+	System(std::string& name);
+	System(){}
 	virtual ~System() {};
 public:
 	virtual void update(float dt) {};
 	virtual void destroy() {};
-private:
-	std::string m_name = std::string("");
-	int  m_prority = 0;  //优先级
+protected:
+	std::string m_name{ "" };
+	int  m_prority{ 0 };  //优先级
 };
 
 END_OGS_NAMESPACE

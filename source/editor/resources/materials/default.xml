@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<material>
+	<define>
+		<item>DEFINE1</item>
+		<item>DEFINE3</item>
+	</define>
+	<uniform>
+		<int>customname1</int>
+		<float>customname2</float>
+		<vector3>customname3</vector3>
+		<color>customname4</color>
+		<texture>customname5</texture>
+		<matrix4>customname5</matrix4>
+	</uniform>
+	<vs>
+		<![CDATA[
+			
+		]]>
+	</vs>
+	<fs>
+		<![CDATA[
+
+		]]>
+	</fs>
+</material>

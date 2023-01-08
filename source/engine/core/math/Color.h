@@ -8,6 +8,14 @@ class Color
 {
 	DECLARE_CLASS_BASE(Color)
 	DECLARE_REFLEX_CLASS_FIELD(Color)
+
+public:
+	static const Color  WHITE;
+	static const Color  BLACK;
+	static const Color  RED;
+	static const Color  GREEN;
+	static const Color  BLUE;
+	static const Color  GRAY;
 public:
 	union
 	{
@@ -28,5 +36,11 @@ public:
 	{
 
 	}
+
+	Color(const Color& r)
+	{
+		memcpy(value, r.value, sizeof(float) * 4);
+	}
 };
+
 END_OGS_NAMESPACE

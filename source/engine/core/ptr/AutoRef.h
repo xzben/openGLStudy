@@ -9,7 +9,7 @@ template<typename T>
 class WeakRef;
 
 template<typename T>
-class AutoRef
+class  AutoRef
 {
 public:
 	template<typename TT>

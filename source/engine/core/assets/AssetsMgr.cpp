@@ -1,14 +1,6 @@
 #include "AssetsMgr.h"
-#include "core/assets/items/Asset.h"
-#include "core/assets/items/AssetImage.h"
-#include "core/assets/items/AssetJson.h"
-#include "core/assets/items/AssetLua.h"
-#include "core/assets/items/AssetMaterial.h"
-#include "core/assets/items/AssetModel.h"
-#include "core/assets/items/AssetPrefab.h"
-#include "core/assets/items/AssetScene.h"
-#include "core/assets/items/AssetShader.h"
-#include "core/assets/items/AssetText.h"
+#include "core/assets/AssetItems.h"
+#include "gfx/base/Texture.h"
 
 BEGIN_OGS_NAMESPACE
 
@@ -34,7 +26,7 @@ static std::unordered_map<std::string, AssetType> Suffix2AssetType{
 
 AssetType AssetsMgr::GetAssetType(const std::string& filename)
 {
-	std::string ext = FileSystem::GetInstance()->getFileExt(filename);
+	std::string ext = FileSystem::getInstance()->getFileExt(filename);
 	auto it = Suffix2AssetType.find(ext);
 	if (it == Suffix2AssetType.end())
 	{
@@ -136,4 +128,22 @@ void  AssetsMgr::releaseAsset(Asset* asset)
 		m_assets.erase(it);
 	}
 }
+
+OGS::Gfx::Texture* AssetsMgr::getTexure(const std::string& path)
+{
+	auto it = m_loadedTextures.find(path);
+	if (it != m_loadedTextures.end())
+	{
+		return it->second.get();
+	}
+
+	/*Texture* tex = Texture::create();
+	tex->initWithFile(path);
+	m_loadedTextures.insert(std::make_pair(path, tex));
+
+	return tex;*/
+
+	return nullptr;
+}
+
 END_OGS_NAMESPACE

@@ -32,15 +32,18 @@ public:
 
 	WeakRef(const AutoRef<T>& other)
 	{
-		if(other.m_obj)
-			setObject(other.m_obj->getLinker());
+		if (other.m_obj)
+		{
+			setObject(((Object*)other.m_obj)->getLinker());
+		}
+			
 	}
 
 	WeakRef(T* obj)
 	{
 		if (obj)
 		{
-			setObject(obj->getLinker());
+			setObject(((Object*)obj)->getLinker());
 		}
 	}
 

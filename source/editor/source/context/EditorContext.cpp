@@ -8,7 +8,7 @@ IMPLEMENT_RUNTIME_CLASS(EditorContext)
 void EditorContext::handleInit()
 {
 	applyStyle(EStyle::DARK_STYLE);
-	std::string fontpath = OGS::FileSystem::GetInstance()->getFullPath("Fonts/Ruda-Bold.ttf");
+	std::string fontpath = OGS::FileSystem::getInstance()->getFullPath("Fonts/Ruda-Bold.ttf");
 	loadFont("Ruda_Big", fontpath, 16);
 	loadFont("Ruda_Small", fontpath, 12);
 	loadFont("Ruda_Medium", fontpath, 14);

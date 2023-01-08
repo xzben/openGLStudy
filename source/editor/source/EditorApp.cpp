@@ -28,16 +28,15 @@ void EditorApp::init(AutoRef<GameProject> project)
 	m_project = project;
 	WindowCreateInfo info;
 	Super::init(info);
-
-	FileSystem::GetInstance()->addSearchPath(m_project->getAssetRoot());
-	FileSystem::GetInstance()->addSearchPath(MACRO_XSTR(EDITOR_ASSETS_DIR));
+	FileSystem::getInstance()->addSearchPath(m_project->getAssetRoot());
+	FileSystem::getInstance()->addSearchPath(MACRO_XSTR(EDITOR_ASSETS_DIR));
 	m_context = EditorContext::create();
 	m_context->setLayoutSaveFilename(project->getPath() + "/layout.ini");
 }
 
 void EditorApp::initEvent()
 {
-	EditorEventMgr::GetInstance()->getNotifybyEvent(EditorEvent::MENU)->subscribe(this, &EditorApp::handleMenuEvent);
+	EditorEventMgr::getInstance()->getNotifybyEvent(EditorEvent::MENU)->subscribe(this, &EditorApp::handleMenuEvent);
 }
 
 void EditorApp::handleMenuEvent(EventData* event)
@@ -50,7 +49,7 @@ void EditorApp::handleMenuEvent(EventData* event)
 
 void EditorApp::unInitEvent()
 {
-	EditorEventMgr::GetInstance()->getNotifybyEvent(EditorEvent::MENU)->unsubscribe(this, &EditorApp::handleMenuEvent);
+	EditorEventMgr::getInstance()->getNotifybyEvent(EditorEvent::MENU)->unsubscribe(this, &EditorApp::handleMenuEvent);
 }
 
 void EditorApp::onInit()
@@ -77,26 +76,22 @@ void EditorApp::onAppExit()
 
 void EditorApp::onPreRender()
 {
-	Super::onPreRender();
 	m_editor_window->preRender();
 }
 
 void EditorApp::onRender()
 {
 	m_editor_window->render();
-	Super::onRender();
 }
 
 void EditorApp::onPostRender()
 {
 	m_editor_window->postRender();
-	Super::onPostRender();
 }
 
 void EditorApp::onDraw()
 {
 	m_editor_window->draw();
-	Super::onDraw();
 }
 
 void EditorApp::onUpdate(float dt)

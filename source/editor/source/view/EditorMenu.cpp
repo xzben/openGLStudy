@@ -52,7 +52,7 @@ void EditorMenu::onClick(bool ischeck)
 		}
 
 		EventData* pevent = new EventDataMenu(this->m_menuId, event);
-		EditorEventMgr::GetInstance()->emitEvent(EditorEvent::MENU, pevent);
+		EditorEventMgr::getInstance()->emitEvent(EditorEvent::MENU, pevent);
 		SAFE_DELTE(pevent);
 	}
 	if (m_clickcall)

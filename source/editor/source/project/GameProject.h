@@ -28,7 +28,7 @@ public:
 	const std::string& getPath() { return m_path; }
 	void setName(const std::string& name) { m_name = name; }
 	
-	AutoRef<OGS::Asset> getOpenAsset() { return m_openAsset; }
+	AutoRef<OGS::Asset> getOpenAsset();
 	AutoRef<OGS::Asset> getActiveAsset() { return m_activeAsset; }
 	AutoRef<OGS::Node>  getActiveNode() { return m_activeNode; }
 	void setActiveAsset(OGS::Asset* asset);
