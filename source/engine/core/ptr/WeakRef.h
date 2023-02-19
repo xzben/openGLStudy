@@ -134,6 +134,18 @@ public:
 			m_linker = nullptr;
 		}
 	}
+
+	template<typename NewT>
+	WeakRef<NewT> ToCast() const
+	{
+		WeakRef<NewT> ret;
+		if (!expired())
+		{
+			ret.setObject(m_linker);
+		}
+
+		return std::move(ret);
+	}
 private:
 	
 	void setObject(WeakLinker* linker)

@@ -4,7 +4,9 @@
 #include "gfx/opengl3/GL3Buffer.h"
 #include "gfx/opengl3/states/GL3Sampler.h"
 #include "gfx/opengl3/GL3Texture.h"
-
+#include "gfx/opengl3/GL3FrameBuffer.h"
+#include "gfx/opengl3/GL3Shader.h"
+#include "gfx/opengl3/GL3InputAssembler.h"
 
 BEGIN_OGS_GFX_NAMESPACE
 
@@ -63,7 +65,7 @@ Buffer* OGL3Device::createBuffer(BufferInfo* info)
 Texture* OGL3Device::createTexture(TextureInfo* info)
 {
 	auto tex = GL3Texture::create();
-	
+	tex->initialize(info);
 	return tex;
 }
 DescriptorSet* OGL3Device::createDescriptSet(DescriptorSetLayout* layout)
@@ -72,20 +74,36 @@ DescriptorSet* OGL3Device::createDescriptSet(DescriptorSetLayout* layout)
 }
 Shader* OGL3Device::createShader(ShaderInfo* info)
 {
-	return nullptr;
+	Shader* shader = new GL3Shader();
+	shader->initilize(info);
+	return shader;
 }
 InputAssembler* OGL3Device::createInputAssembler(InputAssemblerInfo* info)
 {
-	return nullptr;
+	InputAssembler* input = new GL3InputAssembler();
+	input->initialize(*info);
+	return input;
 }
+
 RenderPass* OGL3Device::createRenderPass(RenderPassInfo* info)
 {
 	return nullptr;
 }
+
 FrameBuffer* OGL3Device::createFrameBuffer(FrameBufferInfo* info)
 {
-	return nullptr;
+	FrameBuffer* buffer = new GL3FrameBuffer();
+	buffer->initilize(*info);
+	return buffer;
 }
+
+FrameBuffer* OGL3Device::createFrameBuffer(Texture* color, Texture* depthStencil)
+{
+	FrameBuffer* buffer = new GL3FrameBuffer();
+	buffer->initilize(color, depthStencil);
+	return buffer;
+}
+
 DescriptSetLayout* OGL3Device::createDescriptSetLayout(DescriptorSetLayoutInfo* info)
 {
 	return nullptr;
@@ -102,6 +120,7 @@ Queue* OGL3Device::createQueue(QueueType type)
 {
 	return nullptr;
 }
+
 AutoRef<Sampler> OGL3Device::getSampler(SamplerInfo* info) 
 {
 	HASH_CODE hash = Sampler::computeHash(info);

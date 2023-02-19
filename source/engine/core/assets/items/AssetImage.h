@@ -15,7 +15,7 @@ public:
 	const byte* getImageData() { return m_data; }
 	int getWidth() { return m_width; }
 	int getHeight() { return m_height; }
-
+	PixelFormat getFormat() { return m_format; }
 protected:
 	int m_width;
 	int m_height;

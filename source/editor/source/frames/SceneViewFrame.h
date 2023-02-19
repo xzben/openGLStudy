@@ -5,13 +5,14 @@
 
 namespace OGS {
 	class Camera;
-	class RenderWindow;
+	namespace Gfx
+	{
+		class FrameBuffer;
+		class Texture;
+	}
 }
 
-
 BEGIN_EDITOR_NAMESPACE
-
-
 
 class SceneViewFrame : public EditorFrame
 {
@@ -24,7 +25,7 @@ protected:
 	void handleFrameSizeChange() override;
 private:
 	AutoRef<OGS::Camera> m_editorCamera;
-	AutoRef<OGS::RenderWindow> m_renderWindow;
-
+	AutoRef<OGS::Gfx::FrameBuffer> m_framebuffer;
+	AutoRef<OGS::Gfx::Texture> m_colorTex;
 };
 END_EDITOR_NAMESPACE

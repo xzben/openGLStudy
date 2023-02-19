@@ -12,8 +12,10 @@ class GL3Texture : public Texture
 public:
 	GL3Texture();
 	virtual ~GL3Texture();
-
+	uint32 getHandle() override { return m_handle; }
 	void initialize(TextureInfo* info);
+	void initialize(const std::string& filename);
+	void resize(uint32 width, uint32 height) override;
 protected:
 	OGL_HANDLE m_handle;
 };

@@ -35,16 +35,14 @@ public:
 	Shader() :GfxObject(ObjectType::SHADER) {}
 	virtual ~Shader() {}
 
-	const std::vector<AutoRef<Attribute>>& getAttributes() { return m_attribtes; }
-	const std::vector<AutoRef<UniformBlock>>& getBlocks() { return m_blocks; }
-	const std::vector<AutoRef<UniformSampler>>& getSamplers() { return m_samplers; }
-	const std::string getName() { return m_name; }
+	const std::vector<AutoRef<Attribute>>& getAttributes() { return m_info->attributes; }
+	const std::vector<AutoRef<UniformBlock>>& getBlocks() { return m_info->blocks; }
+	const std::vector<AutoRef<UniformSampler>>& getSamplers() { return m_info->samplers; }
+	const std::string getName() { return m_info->name; }
+
+	virtual bool initilize(ShaderInfo* info) { m_info = info; return true; }
 protected:
-	std::string m_name;
-	std::vector<AutoRef<ShaderStage>> m_stages;
-	std::vector<AutoRef<Attribute>> m_attribtes;
-	std::vector<AutoRef<UniformBlock>> m_blocks;
-	std::vector<AutoRef<UniformSampler>> m_samplers;
+	AutoRef<ShaderInfo> m_info;
 };
 
 END_OGS_GFX_NAMESPACE

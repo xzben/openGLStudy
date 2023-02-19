@@ -21,6 +21,8 @@ class FrameBuffer : public GfxObject
 public:
 	FrameBuffer() :GfxObject(ObjectType::FRAMEBUFFER) {}
 	virtual ~FrameBuffer() {};
+	bool initilize(FrameBufferInfo& info);
+	bool initilize(Texture* color, Texture* depthStencil);
 
 protected:
 	AutoRef<RenderPass> m_renderpass;

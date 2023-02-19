@@ -12,6 +12,12 @@ public:
 	GL3FrameBuffer();
 	virtual ~GL3FrameBuffer();
 
+	bool initilize(FrameBufferInfo& info);
+	bool initilize(Texture* color, Texture* depthStencil);
+	bool active();
+	void deactive();
+protected:
+	bool doInit();
 protected:
 	OGL_HANDLE m_handle;
 };

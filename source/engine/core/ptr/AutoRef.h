@@ -61,6 +61,19 @@ public:
 			setObject(other.m_obj->ToCast<T>());
 	}
 
+	template<typename NewT>
+	AutoRef<NewT> ToCast() const
+	{
+		AutoRef<NewT> ret;
+		NewT* obj = dynamic_cast<NewT*>(m_obj);
+		if (obj)
+		{
+			ret.setObject(obj);
+		}
+
+		return std::move(ret);
+	}
+
 	T* get() const
 	{
 		return m_obj;

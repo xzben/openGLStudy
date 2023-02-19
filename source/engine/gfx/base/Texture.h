@@ -2,12 +2,19 @@
 
 #include "GfxObject.h"
 
+namespace OGS
+{
+	class AssetImage;
+}
+
 BEGIN_OGS_GFX_NAMESPACE
 
 class TextureInfo : public Object
 {
 	DECLARE_RUNTIME_CLASS(TextureInfo)
 public:
+	void setFormat(PixelFormat format);
+	Format getFormat();
 	TextureType type{ TextureType::TEX2D };
 	TextureUsageBit usage{ TextureUsageBit::NONE };
 	Format  format{ Format::UNKNOWN };
@@ -43,10 +50,14 @@ public:
 	Texture() :GfxObject(ObjectType::TEXTURE){};
 	virtual ~Texture() {}
 
-	void resize(uint32 width, uint32 height);
+	virtual uint32 getHandle() { return 0; }
+	virtual void resize(uint32 width, uint32 height);
 	uint32 getLevelCount(uint32 width, uint32 height);
+	AutoRef<TextureInfo> getTextureInfo() { return m_info; }
 protected:
+	AutoRef<AssetImage> m_image;
 	AutoRef<TextureInfo> m_info;
+	AutoRef<Texture> m_color;
 	AutoRef<TextureViewInfo> m_viewInfo;
 	bool	m_isPowerOf2{ false };
 	uint32  m_size{ 0 };

@@ -11,6 +11,8 @@ class GL3Shader : public Shader
 public:
 	GL3Shader();
 	virtual ~GL3Shader();
+	virtual bool initilize(ShaderInfo* info) override;
+
 protected:
 	OGL_HANDLE m_handle;
 };

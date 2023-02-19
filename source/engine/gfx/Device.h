@@ -57,6 +57,7 @@ public:
 	virtual InputAssembler* createInputAssembler(InputAssemblerInfo* info) { return nullptr; }
 	virtual RenderPass* createRenderPass(RenderPassInfo* info) { return nullptr; }
 	virtual FrameBuffer* createFrameBuffer(FrameBufferInfo* info) { return nullptr; }
+	virtual FrameBuffer* createFrameBuffer(Texture* color, Texture* depthStencil) { return nullptr; }
 	virtual DescriptSetLayout* createDescriptSetLayout(DescriptorSetLayoutInfo* info) { return nullptr; }
 	virtual PipelineLayout* createPipelineLayout(PipelineLayoutInfo* info) { return nullptr; }
 	virtual PipelineState* createPipelineState(PipelineStateInfo* info) { return nullptr; }

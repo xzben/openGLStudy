@@ -21,6 +21,7 @@ public:
 	virtual InputAssembler* createInputAssembler(InputAssemblerInfo* info)override;
 	virtual RenderPass* createRenderPass(RenderPassInfo* info)override;
 	virtual FrameBuffer* createFrameBuffer(FrameBufferInfo* info)override;
+	virtual FrameBuffer* createFrameBuffer(Texture* color, Texture* depthStencil)override;
 	virtual DescriptSetLayout* createDescriptSetLayout(DescriptorSetLayoutInfo* info)override;
 	virtual PipelineLayout* createPipelineLayout(PipelineLayoutInfo* info)override;
 	virtual PipelineState* createPipelineState(PipelineStateInfo* info)override;
